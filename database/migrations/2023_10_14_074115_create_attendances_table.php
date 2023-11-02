@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('attendance_type_id')->references('id')->on('attendance_types')->onDelete('cascade');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->dateTime('entry_at');
+            $table->dateTime('exit_at');
             $table->longText('description');
             $table->integer('status')->default(1);
             $table->foreignId('created_by')->references('id')->on('users')->onDelete('cascade');

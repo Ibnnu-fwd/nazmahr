@@ -15,6 +15,7 @@ class Attendance extends Model
         'attendance_type_id',
         'user_id',
         'entry_at',
+        'exit_at',
         'description',
         'status',
         'created_by',

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('status')->default(0);
+            $table->string('priority')->nullable();  // high, medium, low
             $table->foreignId('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('update_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
