@@ -24,9 +24,9 @@ return new class extends Migration
             $table->longText('ktp')->nullable();
             $table->date('join_date');
             $table->integer('is_active')->default(0);
-            $table->unsignedBigInteger('position_id');
-            $table->foreignId('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('updated_by')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('position_id')->nullable();
+            $table->foreignId('created_by')->nullable()->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('updated_by')->nullable()->references('id')->on('users')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });
