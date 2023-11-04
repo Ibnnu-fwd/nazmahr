@@ -9,7 +9,7 @@
             @method('PUT')
             <x-input id="name" name="name" label="{{ __('Jabatan') }}" value="{{ $position->name }}"
                 type="text" />
-            <x-button id="edit" label="{{ __('Ubah') }}" type="submit" />
+            <x-button id="edit" label="{{ __('Simpan Perubahan') }}" type="submit" />
         </form>
     </x-card-container>
 

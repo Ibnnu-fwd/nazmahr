@@ -12,7 +12,7 @@
                 required />
             <x-input id="end_time" name="end_time" label="{{ __('Jam Keluar') }}" type="time" :value="$attendanceTimeConfig->end_time"
                 required />
-            <x-button id="store" label="{{ __('Ubah') }}" type="submit" />
+            <x-button id="store" label="{{ __('Simpan Perubahan') }}" type="submit" />
         </form>
     </x-card-container>
 

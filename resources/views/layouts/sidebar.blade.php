@@ -41,7 +41,7 @@
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Jabatan</a>
                     </li>
                     <li>
-                        <a href="#"
+                        <a href="{{ route('admin.permit-leave.index') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Izin/Cuti</a>
                     </li>
                     <li>

@@ -12,15 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('permit_leaves', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->enum('submission_type', ['permit', 'leave']);
             $table->date('start_date');
             $table->date('end_date');
             $table->longText('attachment')->nullable();
+            $table->longText('description')->nullable();
             $table->string('status')->default('pending');
-            $table->foreignId('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('updated_by')->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('created_by')->nullable()->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('updated_by')->nullable()->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
+use Illuminate\Support\Str;
 
 // Dashboard
 Breadcrumbs::for('admin.dashboard', function (BreadcrumbTrail $trail) {
@@ -101,4 +102,23 @@ Breadcrumbs::for('admin.overtime.edit', function (BreadcrumbTrail $trail, $overt
     $trail->parent('admin.overtime');
     $trail->push($overtime->user->name);
     $trail->push('Ubah', route('admin.overtime.edit', $overtime));
+});
+
+// Permit Leave
+Breadcrumbs::for('admin.permit-leave', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Izin / Cuti', route('admin.permit-leave.index'));
+});
+
+// Permit Leave > Create
+Breadcrumbs::for('admin.permit-leave.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.permit-leave');
+    $trail->push('Tambah', route('admin.permit-leave.create'));
+});
+
+// Permit Leave > Edit
+Breadcrumbs::for('admin.permit-leave.edit', function (BreadcrumbTrail $trail, $permitLeave) {
+    $trail->parent('admin.permit-leave');
+    $trail->push(Str::limit($permitLeave->id, 10));
+    $trail->push('Ubah', route('admin.permit-leave.edit', $permitLeave));
 });

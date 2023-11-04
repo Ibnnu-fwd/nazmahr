@@ -30,7 +30,7 @@
                 @endforeach
             </x-select>
 
-            <x-button id="store" label="{{ __('Ubah') }}" type="submit" />
+            <x-button id="store" label="{{ __('Simpan Perubahan') }}" type="submit" />
         </form>
     </x-card-container>
 
