@@ -13,8 +13,8 @@
         {{ $label }} {!! $required ? '<span class="text-sm text-danger">*</span>' : '' !!}
     </label>
 
-    <input type="{{ $type }}" name="{{ $name }}" id="{{ $id }}" {{ $disabled ? 'disabled' : '' }}
-        {!! $attributes->merge([
+    <input type="{{ $type }}" value="{{ $value }}" name="{{ $name }}" id="{{ $id }}"
+        {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge([
             'class' =>
                 'text-sm block mt-1 w-full border-gray-300 focus:border-yellow-500 focus:ring-yellow-500 rounded-md shadow-sm',
         ]) !!} />

@@ -27,6 +27,11 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
     // Position
     Route::group(['prefix' => 'position'], function () {
         Route::get('/', [PositionController::class, 'index'])->name('admin.position.index');
+        Route::get('create', [PositionController::class, 'create'])->name('admin.position.create');
+        Route::post('store', [PositionController::class, 'store'])->name('admin.position.store');
+        Route::get('{id}/edit', [PositionController::class, 'edit'])->name('admin.position.edit');
+        Route::put('{id}/update', [PositionController::class, 'update'])->name('admin.position.update');
+        Route::delete('{id}/destroy', [PositionController::class, 'destroy'])->name('admin.position.destroy');
     });
 });
 
