@@ -76,11 +76,7 @@ class PositionController extends Controller
 
     public function destroy($id)
     {
-        try {
-            $this->position->destroy($id);
-            return redirect()->route('admin.position.index')->with('success', 'Data berhasil dihapus');
-        } catch (\Throwable $th) {
-            return redirect()->route('admin.position.index')->with('error', 'Data gagal dihapus');
-        }
+        $this->position->destroy($id);
+        return response()->json(true);
     }
 }

@@ -32,7 +32,7 @@
                 </button>
                 <ul id="master-data" class="hidden py-2 space-y-2">
                     <li>
-                        <a href="#"
+                        <a href="{{ route('admin.attendance-time-config.index') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Jam
                             Kerja</a>
                     </li>
