@@ -7,6 +7,7 @@ use App\Models\Casbon;
 use App\Models\Overtime;
 use App\Models\PermitLeave;
 use App\Models\Positition;
+use App\Models\TaskType;
 use App\Models\User;
 use App\Observers\PermitLeaveObserver;
 use Illuminate\Support\ServiceProvider;
@@ -24,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Interfaces\CasbonInterface::class, \App\Repositories\CasbonRepository::class);
         $this->app->bind(\App\Interfaces\OvertimeInterface::class, \App\Repositories\OvertimeRepository::class);
         $this->app->bind(\App\Interfaces\PermitLeaveInterface::class, \App\Repositories\PermitLeaveRepository::class);
+        $this->app->bind(\App\Interfaces\TaskTypeInterface::class, \App\Repositories\TaskTypeRepository::class);
     }
 
     /**
@@ -37,5 +39,6 @@ class AppServiceProvider extends ServiceProvider
         Casbon::observe(\App\Observers\CasbonObserver::class);
         Overtime::observe(\App\Observers\OvertimeObserver::class);
         PermitLeave::observe(PermitLeaveObserver::class);
+        TaskType::observe(\App\Observers\TaskTypeObserver::class);
     }
 }

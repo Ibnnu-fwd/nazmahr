@@ -12,11 +12,9 @@ class TaskType extends Model
     public $table = 'task_types';
 
     protected $fillable = [
-        'task_type_id',
-        'user_id',
-        'due_date',
-        'description',
+        'name',
         'status',
+        'priority',
         'created_by',
         'updated_by'
     ];

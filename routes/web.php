@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\OvertimeController;
 use App\Http\Controllers\Admin\PermitLeaveController;
 use App\Http\Controllers\Admin\PositionController;
+use App\Http\Controllers\Admin\TaskTypeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -87,6 +88,16 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('{id}/edit', [PermitLeaveController::class, 'edit'])->name('admin.permit-leave.edit');
         Route::put('{id}/update', [PermitLeaveController::class, 'update'])->name('admin.permit-leave.update');
         Route::delete('{id}/destroy', [PermitLeaveController::class, 'destroy'])->name('admin.permit-leave.destroy');
+    });
+
+    // Task Type
+    Route::group(['prefix' => 'task-type'], function () {
+        Route::get('/', [TaskTypeController::class, 'index'])->name('admin.task-type.index');
+        Route::get('create', [TaskTypeController::class, 'create'])->name('admin.task-type.create');
+        Route::post('store', [TaskTypeController::class, 'store'])->name('admin.task-type.store');
+        Route::get('{id}/edit', [TaskTypeController::class, 'edit'])->name('admin.task-type.edit');
+        Route::put('{id}/update', [TaskTypeController::class, 'update'])->name('admin.task-type.update');
+        Route::delete('{id}/destroy', [TaskTypeController::class, 'destroy'])->name('admin.task-type.destroy');
     });
 });
 

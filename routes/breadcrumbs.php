@@ -122,3 +122,22 @@ Breadcrumbs::for('admin.permit-leave.edit', function (BreadcrumbTrail $trail, $p
     $trail->push(Str::limit($permitLeave->id, 10));
     $trail->push('Ubah', route('admin.permit-leave.edit', $permitLeave));
 });
+
+// Task Type
+Breadcrumbs::for('admin.task-type', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Tipe Tugas', route('admin.task-type.index'));
+});
+
+// Task Type > Create
+Breadcrumbs::for('admin.task-type.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.task-type');
+    $trail->push('Tambah', route('admin.task-type.create'));
+});
+
+// Task Type > Edit
+Breadcrumbs::for('admin.task-type.edit', function (BreadcrumbTrail $trail, $taskType) {
+    $trail->parent('admin.task-type');
+    $trail->push($taskType->name);
+    $trail->push('Ubah', route('admin.task-type.edit', $taskType));
+});

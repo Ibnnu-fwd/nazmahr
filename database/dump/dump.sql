@@ -60,8 +60,10 @@ DELETE FROM `overtimes`;
 -- Dumping data for table nazmahr.password_reset_tokens: ~0 rows (approximately)
 DELETE FROM `password_reset_tokens`;
 
--- Dumping data for table nazmahr.permit_leaves: ~0 rows (approximately)
+-- Dumping data for table nazmahr.permit_leaves: ~1 rows (approximately)
 DELETE FROM `permit_leaves`;
+INSERT INTO `permit_leaves` (`id`, `user_id`, `submission_type`, `start_date`, `end_date`, `attachment`, `description`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+	('08628d60-33e1-492d-9254-57ed78a11c1d', 4, 'leave', '2023-11-04', '2023-11-15', '65462a9148c7f.pdf', 'contoh', 'pending', 1, 1, '2023-11-04 04:00:28', '2023-11-04 04:29:28');
 
 -- Dumping data for table nazmahr.permit_leaves_categories: ~0 rows (approximately)
 DELETE FROM `permit_leaves_categories`;
