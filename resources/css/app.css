@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+#positionTable_length>label>select {
+    @apply text-sm;
+    width: 53px;
+    margin: 0 5px;
+}
