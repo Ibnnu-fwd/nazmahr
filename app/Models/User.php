@@ -21,8 +21,10 @@ class User extends Authenticatable
         'phone',
         'address',
         'ktp',
+        'photo',
         'join_date',
         'is_active',
+        'position_id',
         'created_by',
         'updated_by'
     ];
@@ -65,5 +67,10 @@ class User extends Authenticatable
     public function attendance_time_configs()
     {
         return $this->hasMany(AttendanceTimeConfig::class);
+    }
+
+    public function position()
+    {
+        return $this->belongsTo(Positition::class);
     }
 }

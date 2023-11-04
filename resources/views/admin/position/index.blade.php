@@ -44,9 +44,7 @@
                                     'Data berhasil dihapus.',
                                     'success'
                                 ).then((result) => {
-                                    if (result.isConfirmed) {
-                                        location.reload();
-                                    }
+                                    $('.rowTable').DataTable().ajax.reload();
                                 });
                             }
                         });

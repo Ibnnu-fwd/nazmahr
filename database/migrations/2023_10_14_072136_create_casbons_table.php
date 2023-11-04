@@ -19,8 +19,9 @@ return new class extends Migration
             $table->string('status')->default('pending');
             $table->longText('refund_attachment')->nullable();
             $table->longText('application_attachment')->nullable();
-            $table->foreignId('created_by')->references('id')->on('users')->onDelete('cascade');
-            $table->foreignId('updated_by')->references('id')->on('users')->onDelete('cascade');
+            $table->longText('description')->nullable();
+            $table->foreignId('created_by')->nullable()->references('id')->on('users')->onDelete('cascade');
+            $table->foreignId('updated_by')->nullable()->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Admin\AttendanceTimeConfigController;
+use App\Http\Controllers\Admin\CasbonController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\PositionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +45,26 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('{id}/edit', [PositionController::class, 'edit'])->name('admin.position.edit');
         Route::put('{id}/update', [PositionController::class, 'update'])->name('admin.position.update');
         Route::delete('{id}/destroy', [PositionController::class, 'destroy'])->name('admin.position.destroy');
+    });
+
+    // Employee
+    Route::group(['prefix' => 'employee'], function () {
+        Route::get('/', [EmployeeController::class, 'index'])->name('admin.employee.index');
+        Route::get('create', [EmployeeController::class, 'create'])->name('admin.employee.create');
+        Route::post('store', [EmployeeController::class, 'store'])->name('admin.employee.store');
+        Route::get('{id}/edit', [EmployeeController::class, 'edit'])->name('admin.employee.edit');
+        Route::put('{id}/update', [EmployeeController::class, 'update'])->name('admin.employee.update');
+        Route::delete('{id}/destroy', [EmployeeController::class, 'destroy'])->name('admin.employee.destroy');
+    });
+
+    // Casbon
+    Route::group(['prefix' => 'casbon'], function () {
+        Route::get('/', [CasbonController::class, 'index'])->name('admin.casbon.index');
+        Route::get('create', [CasbonController::class, 'create'])->name('admin.casbon.create');
+        Route::post('store', [CasbonController::class, 'store'])->name('admin.casbon.store');
+        Route::get('{id}/edit', [CasbonController::class, 'edit'])->name('admin.casbon.edit');
+        Route::put('{id}/update', [CasbonController::class, 'update'])->name('admin.casbon.update');
+        Route::delete('{id}/destroy', [CasbonController::class, 'destroy'])->name('admin.casbon.destroy');
     });
 });
 

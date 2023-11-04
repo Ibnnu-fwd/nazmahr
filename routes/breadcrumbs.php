@@ -45,3 +45,41 @@ Breadcrumbs::for('admin.position.edit', function (BreadcrumbTrail $trail, $posit
     $trail->push($position->name);
     $trail->push('Ubah', route('admin.position.edit', $position));
 });
+
+// Employee
+Breadcrumbs::for('admin.employee', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Karyawan', route('admin.employee.index'));
+});
+
+// Employee > Create
+Breadcrumbs::for('admin.employee.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.employee');
+    $trail->push('Tambah', route('admin.employee.create'));
+});
+
+// Employee > Edit
+Breadcrumbs::for('admin.employee.edit', function (BreadcrumbTrail $trail, $employee) {
+    $trail->parent('admin.employee');
+    $trail->push($employee->name);
+    $trail->push('Ubah', route('admin.employee.edit', $employee));
+});
+
+// Casbon
+Breadcrumbs::for('admin.casbon', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Kasbon', route('admin.casbon.index'));
+});
+
+// Casbon > Create
+Breadcrumbs::for('admin.casbon.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.casbon');
+    $trail->push('Tambah', route('admin.casbon.create'));
+});
+
+// Casbon > Edit
+Breadcrumbs::for('admin.casbon.edit', function (BreadcrumbTrail $trail, $casbon) {
+    $trail->parent('admin.casbon');
+    $trail->push($casbon->user->name);
+    $trail->push('Ubah', route('admin.casbon.edit', $casbon));
+});

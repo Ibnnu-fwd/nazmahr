@@ -17,4 +17,9 @@ class Positition extends Model
         'created_by',
         'updated_by'
     ];
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

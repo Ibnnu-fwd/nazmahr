@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use App\Models\AttendanceTimeConfig;
+use App\Models\Casbon;
 use App\Models\Positition;
+use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,6 +17,8 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(\App\Interfaces\PositionInterface::class, \App\Repositories\PositionRepository::class);
         $this->app->bind(\App\Interfaces\AttendanceTimeConfigInterface::class, \App\Repositories\AttendanceTimeConfigRepository::class);
+        $this->app->bind(\App\Interfaces\EmployeeInterface::class, \App\Repositories\EmployeeRepository::class);
+        $this->app->bind(\App\Interfaces\CasbonInterface::class, \App\Repositories\CasbonRepository::class);
     }
 
     /**
@@ -24,5 +28,7 @@ class AppServiceProvider extends ServiceProvider
     {
         Positition::observe(\App\Observers\PositionObserver::class);
         AttendanceTimeConfig::observe(\App\Observers\AttendanceTimeConfigObserver::class);
+        User::observe(\App\Observers\UserObserver::class);
+        Casbon::observe(\App\Observers\CasbonObserver::class);
     }
 }
