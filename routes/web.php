@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AttendanceTimeConfigController;
 use App\Http\Controllers\Admin\CasbonController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Admin\OvertimeController;
 use App\Http\Controllers\Admin\PositionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -65,6 +66,16 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('{id}/edit', [CasbonController::class, 'edit'])->name('admin.casbon.edit');
         Route::put('{id}/update', [CasbonController::class, 'update'])->name('admin.casbon.update');
         Route::delete('{id}/destroy', [CasbonController::class, 'destroy'])->name('admin.casbon.destroy');
+    });
+
+    // Overtime
+    Route::group(['prefix' => 'overtime'], function () {
+        Route::get('/', [OvertimeController::class, 'index'])->name('admin.overtime.index');
+        Route::get('create', [OvertimeController::class, 'create'])->name('admin.overtime.create');
+        Route::post('store', [OvertimeController::class, 'store'])->name('admin.overtime.store');
+        Route::get('{id}/edit', [OvertimeController::class, 'edit'])->name('admin.overtime.edit');
+        Route::put('{id}/update', [OvertimeController::class, 'update'])->name('admin.overtime.update');
+        Route::delete('{id}/destroy', [OvertimeController::class, 'destroy'])->name('admin.overtime.destroy');
     });
 });
 

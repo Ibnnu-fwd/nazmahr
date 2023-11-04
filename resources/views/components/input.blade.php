@@ -4,7 +4,7 @@
     'label' => '',
     'type' => '',
     'id' => '',
-    'required' => true,
+    'required' => false,
     'name' => '',
 ])
 

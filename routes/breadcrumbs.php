@@ -83,3 +83,22 @@ Breadcrumbs::for('admin.casbon.edit', function (BreadcrumbTrail $trail, $casbon)
     $trail->push($casbon->user->name);
     $trail->push('Ubah', route('admin.casbon.edit', $casbon));
 });
+
+// Overtime
+Breadcrumbs::for('admin.overtime', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Lembur', route('admin.overtime.index'));
+});
+
+// Overtime > Create
+Breadcrumbs::for('admin.overtime.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.overtime');
+    $trail->push('Tambah', route('admin.overtime.create'));
+});
+
+// Overtime > Edit
+Breadcrumbs::for('admin.overtime.edit', function (BreadcrumbTrail $trail, $overtime) {
+    $trail->parent('admin.overtime');
+    $trail->push($overtime->user->name);
+    $trail->push('Ubah', route('admin.overtime.edit', $overtime));
+});
