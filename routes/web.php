@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AnnouncementController;
 use App\Http\Controllers\Admin\AttendanceTimeConfigController;
 use App\Http\Controllers\Admin\CasbonController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -7,6 +8,7 @@ use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\OvertimeController;
 use App\Http\Controllers\Admin\PermitLeaveController;
 use App\Http\Controllers\Admin\PositionController;
+use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\TaskTypeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -98,6 +100,26 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('{id}/edit', [TaskTypeController::class, 'edit'])->name('admin.task-type.edit');
         Route::put('{id}/update', [TaskTypeController::class, 'update'])->name('admin.task-type.update');
         Route::delete('{id}/destroy', [TaskTypeController::class, 'destroy'])->name('admin.task-type.destroy');
+    });
+
+    // Task
+    Route::group(['prefix' => 'task'], function () {
+        Route::get('/', [TaskController::class, 'index'])->name('admin.task.index');
+        Route::get('create', [TaskController::class, 'create'])->name('admin.task.create');
+        Route::post('store', [TaskController::class, 'store'])->name('admin.task.store');
+        Route::get('{id}/edit', [TaskController::class, 'edit'])->name('admin.task.edit');
+        Route::put('{id}/update', [TaskController::class, 'update'])->name('admin.task.update');
+        Route::delete('{id}/destroy', [TaskController::class, 'destroy'])->name('admin.task.destroy');
+    });
+
+    // Announcement
+    Route::group(['prefix' => 'announcement'], function () {
+        Route::get('/', [AnnouncementController::class, 'index'])->name('admin.announcement.index');
+        Route::get('create', [AnnouncementController::class, 'create'])->name('admin.announcement.create');
+        Route::post('store', [AnnouncementController::class, 'store'])->name('admin.announcement.store');
+        Route::get('{id}/edit', [AnnouncementController::class, 'edit'])->name('admin.announcement.edit');
+        Route::put('{id}/update', [AnnouncementController::class, 'update'])->name('admin.announcement.update');
+        Route::delete('{id}/destroy', [AnnouncementController::class, 'destroy'])->name('admin.announcement.destroy');
     });
 });
 

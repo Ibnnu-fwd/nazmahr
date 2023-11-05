@@ -141,3 +141,41 @@ Breadcrumbs::for('admin.task-type.edit', function (BreadcrumbTrail $trail, $task
     $trail->push($taskType->name);
     $trail->push('Ubah', route('admin.task-type.edit', $taskType));
 });
+
+// Task
+Breadcrumbs::for('admin.task', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Tugas', route('admin.task.index'));
+});
+
+// Task > Create
+Breadcrumbs::for('admin.task.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.task');
+    $trail->push('Tambah', route('admin.task.create'));
+});
+
+// Task > Edit
+Breadcrumbs::for('admin.task.edit', function (BreadcrumbTrail $trail, $task) {
+    $trail->parent('admin.task');
+    $trail->push(Str::limit($task->id, 10));
+    $trail->push('Ubah', route('admin.task.edit', $task));
+});
+
+// Announcement
+Breadcrumbs::for('admin.announcement', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Pengumuman', route('admin.announcement.index'));
+});
+
+// Announcement > Create
+Breadcrumbs::for('admin.announcement.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.announcement');
+    $trail->push('Tambah', route('admin.announcement.create'));
+});
+
+// Announcement > Edit
+Breadcrumbs::for('admin.announcement.edit', function (BreadcrumbTrail $trail, $announcement) {
+    $trail->parent('admin.announcement');
+    $trail->push($announcement->code);
+    $trail->push('Ubah', route('admin.announcement.edit', $announcement));
+});

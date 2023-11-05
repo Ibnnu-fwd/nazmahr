@@ -31,6 +31,8 @@ DELETE FROM `attendance_types`;
 
 -- Dumping data for table nazmahr.casbons: ~0 rows (approximately)
 DELETE FROM `casbons`;
+INSERT INTO `casbons` (`id`, `user_id`, `date`, `nominal`, `status`, `refund_attachment`, `application_attachment`, `description`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+	(1, 3, '2023-11-06', 900000, 'approved', NULL, NULL, 'Transportation', 1, NULL, '2023-11-05 12:19:44', '2023-11-05 12:19:44');
 
 -- Dumping data for table nazmahr.failed_jobs: ~0 rows (approximately)
 DELETE FROM `failed_jobs`;
@@ -60,7 +62,7 @@ DELETE FROM `overtimes`;
 -- Dumping data for table nazmahr.password_reset_tokens: ~0 rows (approximately)
 DELETE FROM `password_reset_tokens`;
 
--- Dumping data for table nazmahr.permit_leaves: ~1 rows (approximately)
+-- Dumping data for table nazmahr.permit_leaves: ~0 rows (approximately)
 DELETE FROM `permit_leaves`;
 INSERT INTO `permit_leaves` (`id`, `user_id`, `submission_type`, `start_date`, `end_date`, `attachment`, `description`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
 	('08628d60-33e1-492d-9254-57ed78a11c1d', 4, 'leave', '2023-11-04', '2023-11-15', '65462a9148c7f.pdf', 'contoh', 'pending', 1, 1, '2023-11-04 04:00:28', '2023-11-04 04:29:28');
@@ -78,11 +80,14 @@ INSERT INTO `positions` (`id`, `name`, `status`, `created_by`, `updated_by`, `cr
 	(2, 'Manager', 1, 1, 1, NULL, NULL),
 	(3, 'Karyawan', 1, 1, 1, NULL, NULL);
 
--- Dumping data for table nazmahr.tasks: ~0 rows (approximately)
+-- Dumping data for table nazmahr.tasks: ~1 rows (approximately)
 DELETE FROM `tasks`;
 
--- Dumping data for table nazmahr.task_types: ~0 rows (approximately)
+-- Dumping data for table nazmahr.task_types: ~2 rows (approximately)
 DELETE FROM `task_types`;
+INSERT INTO `task_types` (`id`, `name`, `status`, `priority`, `created_by`, `update_by`, `created_at`, `updated_at`) VALUES
+	(1, 'Umum', 0, 'medium', 1, NULL, '2023-11-04 05:35:23', '2023-11-04 05:35:23'),
+	(2, 'Desain', 0, 'low', 1, NULL, '2023-11-04 05:35:38', '2023-11-04 05:35:38');
 
 -- Dumping data for table nazmahr.users: ~3 rows (approximately)
 DELETE FROM `users`;
