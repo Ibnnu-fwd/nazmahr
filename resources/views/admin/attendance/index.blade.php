@@ -10,6 +10,7 @@
                     <th>#</th>
                     <th>Nama Lengkap</th>
                     <th>Tanggal</th>
+                    <th>Tipe Presensi</th>
                     <th>Jadwal Masuk</th>
                     <th>Jadwal Keluar</th>
                     <th>Check In</th>
@@ -44,6 +45,10 @@
                         {
                             data: 'date',
                             name: 'date'
+                        },
+                        {
+                            data: 'type',
+                            name: 'type'
                         },
                         {
                             data: 'schedule_in',

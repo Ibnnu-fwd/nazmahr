@@ -29,6 +29,9 @@ class AttendanceController extends Controller
                 ->addColumn('name', function ($data) {
                     return $data->user->name;
                 })
+                ->addColumn('type', function ($data) {
+                    return $data->attendanceType->name;
+                })
                 ->addColumn('date', function ($data) {
                     return date('d-m-Y', strtotime($data->created_at));
                 })
