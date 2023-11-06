@@ -13,6 +13,7 @@ class Attendance extends Model
 
     protected $fillable = [
         'attendance_type_id',
+        'attendance_time_config_id',
         'user_id',
         'entry_at',
         'exit_at',
@@ -25,6 +26,11 @@ class Attendance extends Model
     public function attendanceType()
     {
         return $this->belongsTo(AttendanceType::class);
+    }
+
+    public function attendanceTimeConfig()
+    {
+        return $this->belongsTo(AttendanceTimeConfig::class);
     }
 
     public function user()

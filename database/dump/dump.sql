@@ -14,6 +14,11 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+-- Dumping data for table nazmahr.announcements: ~0 rows (approximately)
+DELETE FROM `announcements`;
+INSERT INTO `announcements` (`id`, `code`, `subject`, `content`, `attachment`, `is_send_email`, `is_active`, `created_at`, `updated_at`) VALUES
+	(2, 'ANN-65480054ea276', 'contoh', '<p>update isi konten</p><p>&nbsp;</p><p><strong>Ibnu ganteng sekali</strong></p>', '65480054e7407.pdf', 1, 1, '2023-11-05 13:51:32', '2023-11-05 13:56:00');
+
 -- Dumping data for table nazmahr.attendances: ~0 rows (approximately)
 DELETE FROM `attendances`;
 
@@ -54,7 +59,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(12, '2023_10_14_074002_create_attendance_types_table', 1),
 	(13, '2023_10_14_074115_create_attendances_table', 1),
 	(14, '2023_11_04_031144_create_attendance_time_config_table', 1),
-	(15, '2023_11_04_071204_add_relation_position_users_position', 1);
+	(15, '2023_11_04_071204_add_relation_position_users_position', 1),
+	(16, '2023_11_05_195913_create_announcements_table', 2),
+	(17, '2023_11_06_015013_add_attendance_time_config_id_attendances', 3);
 
 -- Dumping data for table nazmahr.overtimes: ~0 rows (approximately)
 DELETE FROM `overtimes`;

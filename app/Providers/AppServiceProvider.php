@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Attendance;
 use App\Models\AttendanceTimeConfig;
 use App\Models\Casbon;
 use App\Models\Overtime;
@@ -29,6 +30,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Interfaces\TaskTypeInterface::class, \App\Repositories\TaskTypeRepository::class);
         $this->app->bind(\App\Interfaces\TaskInterface::class, \App\Repositories\TaskRepository::class);
         $this->app->bind(\App\Interfaces\AnnouncementInterface::class, \App\Repositories\AnnouncementRepository::class);
+        $this->app->bind(\App\Interfaces\AttendanceInterface::class, \App\Repositories\AttendanceRepository::class);
     }
 
     /**
@@ -44,5 +46,6 @@ class AppServiceProvider extends ServiceProvider
         PermitLeave::observe(PermitLeaveObserver::class);
         TaskType::observe(\App\Observers\TaskTypeObserver::class);
         Task::observe(\App\Observers\TaskObserver::class);
+        Attendance::observe(\App\Observers\AttendanceObserver::class);
     }
 }
