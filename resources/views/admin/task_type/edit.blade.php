@@ -1,7 +1,7 @@
 <x-app-layout>
     @section('title', 'Ubah Tipe Tugas')
 
-    <x-breadcrumb name="admin.task-type.update" :data="$taskType" />
+    <x-breadcrumb name="admin.task-type.edit" :data="$taskType" />
 
     <x-card-container>
         <form action="{{ route('admin.task-type.update', $taskType->id) }}" method="POST" enctype="multipart/form-data">

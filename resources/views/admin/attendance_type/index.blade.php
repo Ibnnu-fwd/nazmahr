@@ -69,10 +69,6 @@
                             name: 'name'
                         },
                         {
-                            data: 'priority',
-                            name: 'priority'
-                        },
-                        {
                             data: 'action',
                             name: 'action',
                             orderable: false,
