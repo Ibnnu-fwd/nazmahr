@@ -199,6 +199,25 @@ Breadcrumbs::for('admin.attendance-type.edit', function (BreadcrumbTrail $trail,
     $trail->push('Ubah', route('admin.attendance-type.edit', $attendanceType));
 });
 
+// Request Attendance
+Breadcrumbs::for('admin.request-attendance', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Request Kehadiran', route('admin.request-attendance.index'));
+});
+
+// Request Attendance > Create
+Breadcrumbs::for('admin.request-attendance.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.request-attendance');
+    $trail->push('Tambah', route('admin.request-attendance.create'));
+});
+
+// Request Attendance > Edit    
+Breadcrumbs::for('admin.request-attendance.edit', function (BreadcrumbTrail $trail, $requestAttendance) {
+    $trail->parent('admin.request-attendance');
+    $trail->push($requestAttendance->user->name);
+    $trail->push('Ubah', route('admin.request-attendance.edit', $requestAttendance));
+});
+
 // Reprimand
 Breadcrumbs::for('admin.reprimand', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');

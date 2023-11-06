@@ -12,6 +12,7 @@ use App\Models\Task;
 use App\Models\TaskType;
 use App\Models\User;
 use App\Models\AttendanceType;
+use App\Models\RequestAttendance;
 use App\Models\TimeTracker;
 use App\Observers\PermitLeaveObserver;
 use Illuminate\Support\ServiceProvider;
@@ -53,6 +54,5 @@ class AppServiceProvider extends ServiceProvider
         Task::observe(\App\Observers\TaskObserver::class);
         Attendance::observe(\App\Observers\AttendanceObserver::class);
         AttendanceType::observe(\App\Observers\AttendanceTypeObserver::class);
-        TimeTracker::observe(\App\Observers\TimeTrackerObserver::class);
     }
 }

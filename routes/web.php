@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\ReprimandController;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\TaskTypeController;
 use App\Http\Controllers\Admin\AttendanceTypeController;
+use App\Http\Controllers\Admin\RequestAttendanceController;
 use App\Http\Controllers\Admin\TimeTrackerController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -145,6 +146,20 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
             Route::delete('{id}/destroy', [ReprimandController::class, 'destroy'])->name('admin.reprimand.destroy');
         });
 
+        // Request Attendance
+        Route::group(['prefix' => 'request-attendance'], function () {
+            Route::get('/', [RequestAttendanceController::class, 'index'])->name('admin.request-attendance.index');
+            Route::get('create', [RequestAttendanceController::class, 'create'])->name('admin.request-attendance.create');
+            Route::post('store', [RequestAttendanceController::class, 'store'])->name('admin.request-attendance.store');
+            Route::get('{id}/edit', [RequestAttendanceController::class, 'edit'])->name('admin.request-attendance.edit');
+            Route::put('{id}/update', [RequestAttendanceController::class, 'update'])->name('admin.request-attendance.update');
+            Route::delete('{id}/destroy', [RequestAttendanceController::class, 'destroy'])->name('admin.request-attendance.destroy');
+        });
+    
+    // Attendace
+    Route::group(['prefix' => 'attendance'], function () {
+        Route::get('/', [AttendanceController::class,'index'])->name('admin.attendance.index');
+    });
         // Attendace
         Route::group(['prefix' => 'attendance'], function () {
             Route::get('/', [AttendanceController::class, 'index'])->name('admin.attendance.index');
@@ -164,6 +179,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
             Route::post('continue/{id}', [TimeTrackerController::class, 'continue'])->name('admin.time-tracker.continue');
         });
     });
+
 });
 
 require __DIR__ . '/auth.php';
