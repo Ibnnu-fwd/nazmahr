@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\ReprimandController;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\TaskTypeController;
 use App\Http\Controllers\Admin\AttendanceTypeController;
+use App\Http\Controllers\Admin\TimeTrackerController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -144,13 +145,25 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
             Route::delete('{id}/destroy', [ReprimandController::class, 'destroy'])->name('admin.reprimand.destroy');
         });
 
-    });
-    
-    // Attendace
-    Route::group(['prefix' => 'attendance'], function () {
-        Route::get('/', [AttendanceController::class,'index'])->name('admin.attendance.index');
-    });
+        // Attendace
+        Route::group(['prefix' => 'attendance'], function () {
+            Route::get('/', [AttendanceController::class, 'index'])->name('admin.attendance.index');
+        });
 
 
-    require __DIR__ . '/auth.php';
+        // Time Tracker
+        Route::group(['prefix' => 'time-tracker'], function () {
+            Route::get('/', [TimeTrackerController::class, 'index'])->name('admin.time-tracker.index');
+            Route::get('create', [TimeTrackerController::class, 'create'])->name('admin.time-tracker.create');
+            Route::post('store', [TimeTrackerController::class, 'store'])->name('admin.time-tracker.store');
+            Route::get('{id}/edit', [TimeTrackerController::class, 'edit'])->name('admin.time-tracker.edit');
+            Route::put('{id}/update', [TimeTrackerController::class, 'update'])->name('admin.time-tracker.update');
+            Route::delete('{id}/destroy', [TimeTrackerController::class, 'destroy'])->name('admin.time-tracker.destroy');
+            Route::post('start/{id}', [TimeTrackerController::class, 'start'])->name('admin.time-tracker.start');
+            Route::post('stop/{id}', [TimeTrackerController::class, 'stop'])->name('admin.time-tracker.stop');
+            Route::post('continue/{id}', [TimeTrackerController::class, 'continue'])->name('admin.time-tracker.continue');
+        });
+    });
 });
+
+require __DIR__ . '/auth.php';

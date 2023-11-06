@@ -87,6 +87,10 @@
                         <a href="{{ route('admin.overtime.index') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Lembur</a>
                     </li>
+                    <li>
+                        <a href="{{ route('admin.time-tracker.index') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Timesheet</a>
+                    </li>
                 </ul>
             </li>
             <li>

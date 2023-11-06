@@ -198,6 +198,7 @@ Breadcrumbs::for('admin.attendance-type.edit', function (BreadcrumbTrail $trail,
     $trail->push($attendanceType->name);
     $trail->push('Ubah', route('admin.attendance-type.edit', $attendanceType));
 });
+
 // Reprimand
 Breadcrumbs::for('admin.reprimand', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
@@ -223,4 +224,21 @@ Breadcrumbs::for('admin.attendance', function (BreadcrumbTrail $trail) {
     $trail->push('Presensi', route('admin.attendance.index'));
 });
 
+// Time Tracker
+Breadcrumbs::for('admin.time-tracker', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Time Tracker', route('admin.time-tracker.index'));
+});
 
+// Time Tracker > Create
+Breadcrumbs::for('admin.time-tracker.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.time-tracker');
+    $trail->push('Tambah', route('admin.time-tracker.create'));
+});
+
+// Time Tracker > Edit
+Breadcrumbs::for('admin.time-tracker.edit', function (BreadcrumbTrail $trail, $timeTracker) {
+    $trail->parent('admin.time-tracker');
+    $trail->push($timeTracker->user->name);
+    $trail->push('Ubah', route('admin.time-tracker.edit', $timeTracker));
+});

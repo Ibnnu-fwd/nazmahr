@@ -42,7 +42,7 @@ INSERT INTO `casbons` (`id`, `user_id`, `date`, `nominal`, `status`, `refund_att
 -- Dumping data for table nazmahr.failed_jobs: ~0 rows (approximately)
 DELETE FROM `failed_jobs`;
 
--- Dumping data for table nazmahr.migrations: ~15 rows (approximately)
+-- Dumping data for table nazmahr.migrations: ~0 rows (approximately)
 DELETE FROM `migrations`;
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(1, '2014_10_12_000000_create_users_table', 1),
@@ -61,7 +61,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(14, '2023_11_04_031144_create_attendance_time_config_table', 1),
 	(15, '2023_11_04_071204_add_relation_position_users_position', 1),
 	(16, '2023_11_05_195913_create_announcements_table', 2),
-	(17, '2023_11_06_015013_add_attendance_time_config_id_attendances', 3);
+	(17, '2023_11_06_015013_add_attendance_time_config_id_attendances', 3),
+	(21, '2023_11_06_030525_create_reprimands_table', 4),
+	(22, '2023_11_06_040659_create_time_trackers_table', 4);
 
 -- Dumping data for table nazmahr.overtimes: ~0 rows (approximately)
 DELETE FROM `overtimes`;
@@ -87,7 +89,10 @@ INSERT INTO `positions` (`id`, `name`, `status`, `created_by`, `updated_by`, `cr
 	(2, 'Manager', 1, 1, 1, NULL, NULL),
 	(3, 'Karyawan', 1, 1, 1, NULL, NULL);
 
--- Dumping data for table nazmahr.tasks: ~1 rows (approximately)
+-- Dumping data for table nazmahr.reprimands: ~0 rows (approximately)
+DELETE FROM `reprimands`;
+
+-- Dumping data for table nazmahr.tasks: ~0 rows (approximately)
 DELETE FROM `tasks`;
 
 -- Dumping data for table nazmahr.task_types: ~2 rows (approximately)
@@ -95,6 +100,9 @@ DELETE FROM `task_types`;
 INSERT INTO `task_types` (`id`, `name`, `status`, `priority`, `created_by`, `update_by`, `created_at`, `updated_at`) VALUES
 	(1, 'Umum', 0, 'medium', 1, NULL, '2023-11-04 05:35:23', '2023-11-04 05:35:23'),
 	(2, 'Desain', 0, 'low', 1, NULL, '2023-11-04 05:35:38', '2023-11-04 05:35:38');
+
+-- Dumping data for table nazmahr.time_trackers: ~0 rows (approximately)
+DELETE FROM `time_trackers`;
 
 -- Dumping data for table nazmahr.users: ~3 rows (approximately)
 DELETE FROM `users`;

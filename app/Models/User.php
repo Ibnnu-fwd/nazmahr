@@ -78,4 +78,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Reprimand::class);
     }
+
+    public function timeTrackers()
+    {
+        return $this->hasMany(TimeTracker::class);
+    }
 }

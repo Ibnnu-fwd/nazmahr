@@ -12,6 +12,7 @@ use App\Models\Task;
 use App\Models\TaskType;
 use App\Models\User;
 use App\Models\AttendanceType;
+use App\Models\TimeTracker;
 use App\Observers\PermitLeaveObserver;
 use Illuminate\Support\ServiceProvider;
 
@@ -33,8 +34,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Interfaces\AnnouncementInterface::class, \App\Repositories\AnnouncementRepository::class);
         $this->app->bind(\App\Interfaces\AttendanceInterface::class, \App\Repositories\AttendanceRepository::class);
         $this->app->bind(\App\Interfaces\AttendanceTypeInterface::class, \App\Repositories\AttendanceTypeRepository::class);
-
         $this->app->bind(\App\Interfaces\ReprimandInterface::class, \App\Repositories\ReprimandRepository::class);
+        $this->app->bind(\App\Interfaces\TimeTrackerInterface::class, \App\Repositories\TimeTrackerRepository::class);
     }
 
     /**
@@ -52,5 +53,6 @@ class AppServiceProvider extends ServiceProvider
         Task::observe(\App\Observers\TaskObserver::class);
         Attendance::observe(\App\Observers\AttendanceObserver::class);
         AttendanceType::observe(\App\Observers\AttendanceTypeObserver::class);
+        TimeTracker::observe(\App\Observers\TimeTrackerObserver::class);
     }
 }
