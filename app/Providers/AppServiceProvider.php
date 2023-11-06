@@ -33,7 +33,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Interfaces\AnnouncementInterface::class, \App\Repositories\AnnouncementRepository::class);
         $this->app->bind(\App\Interfaces\AttendanceInterface::class, \App\Repositories\AttendanceRepository::class);
         $this->app->bind(\App\Interfaces\AttendanceTypeInterface::class, \App\Repositories\AttendanceTypeRepository::class);
-        
+
+        $this->app->bind(\App\Interfaces\ReprimandInterface::class, \App\Repositories\ReprimandRepository::class);
     }
 
     /**
