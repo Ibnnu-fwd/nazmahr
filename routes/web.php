@@ -133,15 +133,16 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::put('{id}/update', [AttendanceTypeController::class, 'update'])->name('admin.attendance-type.update');
         Route::delete('{id}/destroy', [AttendanceTypeController::class, 'destroy'])->name('admin.attendance-type.destroy');
 
-    // Reprimand
-    Route::group(['prefix' => 'reprimand'], function () {
-        Route::get('/', [ReprimandController::class, 'index'])->name('admin.reprimand.index');
-        Route::get('create', [ReprimandController::class, 'create'])->name('admin.reprimand.create');
-        Route::post('store', [ReprimandController::class, 'store'])->name('admin.reprimand.store');
-        Route::get('{id}/edit', [ReprimandController::class, 'edit'])->name('admin.reprimand.edit');
-        Route::put('{id}/update', [ReprimandController::class, 'update'])->name('admin.reprimand.update');
-        Route::delete('{id}/destroy', [ReprimandController::class, 'destroy'])->name('admin.reprimand.destroy');
+        // Reprimand
+        Route::group(['prefix' => 'reprimand'], function () {
+            Route::get('/', [ReprimandController::class, 'index'])->name('admin.reprimand.index');
+            Route::get('create', [ReprimandController::class, 'create'])->name('admin.reprimand.create');
+            Route::post('store', [ReprimandController::class, 'store'])->name('admin.reprimand.store');
+            Route::get('{id}/edit', [ReprimandController::class, 'edit'])->name('admin.reprimand.edit');
+            Route::put('{id}/update', [ReprimandController::class, 'update'])->name('admin.reprimand.update');
+            Route::delete('{id}/destroy', [ReprimandController::class, 'destroy'])->name('admin.reprimand.destroy');
+        });
     });
-});
 
-require __DIR__ . '/auth.php';
+    require __DIR__ . '/auth.php';
+});
