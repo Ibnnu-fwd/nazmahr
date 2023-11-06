@@ -37,6 +37,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Interfaces\AttendanceTypeInterface::class, \App\Repositories\AttendanceTypeRepository::class);
         $this->app->bind(\App\Interfaces\ReprimandInterface::class, \App\Repositories\ReprimandRepository::class);
         $this->app->bind(\App\Interfaces\TimeTrackerInterface::class, \App\Repositories\TimeTrackerRepository::class);
+        $this->app->bind(\App\Interfaces\RequestAttendanceInterface::class, \App\Repositories\RequestAttendanceRepository::class);
     }
 
     /**
@@ -54,5 +55,6 @@ class AppServiceProvider extends ServiceProvider
         Task::observe(\App\Observers\TaskObserver::class);
         Attendance::observe(\App\Observers\AttendanceObserver::class);
         AttendanceType::observe(\App\Observers\AttendanceTypeObserver::class);
+        RequestAttendance::observe(\App\Observers\RequestAttendanceObserver::class);
     }
 }

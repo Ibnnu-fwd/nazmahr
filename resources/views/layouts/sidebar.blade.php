@@ -97,7 +97,7 @@
                 <button type="button"
                     class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
                     aria-controls="master-task" data-collapse-toggle="master-task">
-                    <img src="{{ asset('assets/sidebar/inbox-svgrepo-com.svg') }}"
+                    <img src="{{ asset('assets/sidebar/master.svg') }}"
                         class="w-5 h-5 text-gray-500 transition duration-75" alt="">
                     <span class="flex-1 ml-3 text-left whitespace-nowrap">Master Tugas</span>
                     <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
@@ -121,9 +121,9 @@
                 <button type="button"
                     class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
                     aria-controls="master-request" data-collapse-toggle="master-request">
-                    <img src="{{ asset('assets/sidebar/inbox-svgrepo-com.svg') }}"
+                    <img src="{{ asset('assets/sidebar/master.svg') }}"
                         class="w-5 h-5 text-gray-500 transition duration-75" alt="">
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap">Master Request</span>
+                    <span class="flex-1 ml-3 text-left whitespace-nowrap">Master Permintaan</span>
                     <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 10 6">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
@@ -133,7 +133,7 @@
                 <ul id="master-request" class="hidden py-2 space-y-2">
                     <li>
                         <a href="{{ route('admin.request-attendance.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Request Attendance</a>
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Absensi</a>
                     </li>
                 </ul>
             </li>

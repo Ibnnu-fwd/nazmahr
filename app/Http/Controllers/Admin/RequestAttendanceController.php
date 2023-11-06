@@ -20,8 +20,8 @@ class RequestAttendanceController extends Controller
     public function __construct(RequestAttendanceInterface $requestAttendance, AttendanceTypeInterface $attendanceType, EmployeeInterface $employee)
     {
         $this->requestAttendance = $requestAttendance;
-        $this->attendanceType = $attendanceType;
-        $this->employee = $employee;
+        $this->attendanceType    = $attendanceType;
+        $this->employee          = $employee;
     }
 
     //function index
@@ -49,7 +49,7 @@ class RequestAttendanceController extends Controller
                     return $data->description;
                 })
                 ->addColumn('status_verification', function ($data) {
-                    return $data->status_verification;
+                    return $data->getStatus($data->status_verification);
                 })
                 ->addColumn('action', function ($data) {
                     return view('admin.request_attendance.column.action', compact('data'));
@@ -62,10 +62,10 @@ class RequestAttendanceController extends Controller
 
     //function create
     public function create()
-    {   
+    {
         return view('admin.request_attendance.create', [
             'attendanceTypes' => $this->requestAttendance->getAttendanceTypes(),
-            'employees' => $this->employee->getAll(),
+            'employees'       => $this->employee->getAll()->where('position_id', '!=', 1)
         ]);
     }
 
@@ -73,12 +73,12 @@ class RequestAttendanceController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id'      => 'required',
+            'user_id'            => 'required',
             'attendance_type_id' => 'required',
-            'entry_at' => 'required',
-            'exit_at' => 'required',
-            'description' => 'required',
-        ]); 
+            'entry_at'           => 'required',
+            'exit_at'            => 'required',
+            'description'        => 'required',
+        ]);
         try {
             $this->requestAttendance->store($request->all());
             return redirect()->route('admin.request-attendance.index')->with('success', 'Permintaan Kehadiran berhasil ditambahkan');
@@ -94,8 +94,8 @@ class RequestAttendanceController extends Controller
     {
         return view('admin.request_attendance.edit', [
             'requestAttendance' => $this->requestAttendance->getById($id),
-            'attendanceTypes' => $this->requestAttendance->getAttendanceTypes(),
-            'employees' => $this->employee->getAll(),
+            'attendanceTypes'   => $this->requestAttendance->getAttendanceTypes(),
+            'employees'         => $this->employee->getAll()->where('position_id', '!=', 1)
         ]);
     }
 
@@ -103,11 +103,11 @@ class RequestAttendanceController extends Controller
     public function update($id, Request $request)
     {
         $request->validate([
-            'user_id'      => 'required',
+            'user_id'            => 'required',
             'attendance_type_id' => 'required',
-            'entry_at' => 'required',
-            'exit_at' => 'required',
-            'description' => 'required',
+            'entry_at'           => 'required',
+            'exit_at'            => 'required',
+            'description'        => 'required',
         ]);
 
         try {

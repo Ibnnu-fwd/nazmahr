@@ -97,12 +97,16 @@ DELETE FROM `tasks`;
 
 -- Dumping data for table nazmahr.task_types: ~2 rows (approximately)
 DELETE FROM `task_types`;
-INSERT INTO `task_types` (`id`, `name`, `status`, `priority`, `created_by`, `update_by`, `created_at`, `updated_at`) VALUES
+INSERT INTO `task_types` (`id`, `name`, `status`, `priority`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
 	(1, 'Umum', 0, 'medium', 1, NULL, '2023-11-04 05:35:23', '2023-11-04 05:35:23'),
 	(2, 'Desain', 0, 'low', 1, NULL, '2023-11-04 05:35:38', '2023-11-04 05:35:38');
 
--- Dumping data for table nazmahr.time_trackers: ~0 rows (approximately)
+-- Dumping data for table nazmahr.time_trackers: ~2 rows (approximately)
 DELETE FROM `time_trackers`;
+INSERT INTO `time_trackers` (`id`, `user_id`, `start_time`, `end_time`, `total_time`, `subject`, `task`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+	(1, 3, '2023-11-06 07:00:00', '2023-11-06 07:59:53', '360', 'Tugas 1', NULL, 1, 1, '2023-11-06 07:07:08', '2023-11-06 00:59:53'),
+	(2, 4, '2023-11-06 07:00:00', '2023-11-06 07:59:51', '360', 'Tugas 2', NULL, 1, 1, '2023-11-06 07:07:08', '2023-11-06 00:59:51'),
+	(5, 3, '2023-11-06 07:50:52', '2023-11-06 07:59:54', '410', 'Contoh', 'Tugas 1', 1, 1, '2023-11-06 00:50:47', '2023-11-06 00:59:54');
 
 -- Dumping data for table nazmahr.users: ~3 rows (approximately)
 DELETE FROM `users`;

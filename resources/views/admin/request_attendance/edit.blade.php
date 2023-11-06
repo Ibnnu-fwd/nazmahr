@@ -18,9 +18,12 @@
                     <option value="{{ $attendanceType->id }}">{{ $attendanceType->name }}</option>
                 @endforeach
             </x-select>
-            <x-input id="entry_at" name="entry_at" label="{{ __('Jam Masuk') }}" type="datetime-local" required :value="$requestAttendance->entry_at" />
-            <x-input id="exit_at" name="exit_at" label="{{ __('Jam Keluar') }}" type="datetime-local" required :value="$requestAttendance->exit_at"/>
-            <x-input id="description" name="description" label="{{ __('Keterangan') }}" type="text" required :value="$requestAttendance->description"/>
+            <x-input id="entry_at" name="entry_at" label="{{ __('Jam Masuk') }}" type="datetime-local" required
+                :value="$requestAttendance->entry_at" min="{{ now()->format('Y-m-d\TH:i') }}" />
+            <x-input id="exit_at" name="exit_at" label="{{ __('Jam Keluar') }}" type="datetime-local" required
+                :value="$requestAttendance->exit_at" min="{{ now()->format('Y-m-d\TH:i') }}" />
+            <x-input id="description" name="description" label="{{ __('Keterangan') }}" type="text" required
+                :value="$requestAttendance->description" />
             <x-button id="store" label="{{ __('Simpan Perubahan') }}" type="submit" />
         </form>
     </x-card-container>
