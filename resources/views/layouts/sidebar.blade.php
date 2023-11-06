@@ -33,22 +33,13 @@
                 </button>
                 <ul id="master-data" class="hidden py-2 space-y-2">
                     <li>
-                        <a href="{{ route('admin.attendance-time-config.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Jam
-                            Kerja</a>
-                    </li>
-                    <li>
                         <a href="{{ route('admin.position.index') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Jabatan</a>
                     </li>
                     <li>
                         <a href="{{ route('admin.permit-leave.index') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Izin/Cuti</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.overtime.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Lembur</a>
-                    </li>
+                    </li>        
                     <li>
                         <a href="{{ route('admin.casbon.index') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Kasbon</a>
@@ -59,6 +50,35 @@
                             items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group
                             hover:bg-gray-100">Karyawan</a>
                     </li>
+                </ul>
+            </li>
+            <li>
+                <button type="button"
+                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
+                    aria-controls="master-absensi" data-collapse-toggle="master-absensi">
+                    <img src="{{ asset('assets/sidebar/master.svg') }}"
+                        class="w-5 h-5 text-gray-500 transition duration-75" alt="">
+                    <span class="flex-1 ml-3 text-left whitespace-nowrap">Master Absensi</span>
+                    <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                            d="m1 1 4 4 4-4" />
+                    </svg>
+                </button>
+                <ul id="master-absensi" class="hidden py-2 space-y-2">
+                    <li>
+                        <a href="{{ route('admin.attendance-time-config.index') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Jam
+                            Kerja</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.attendance-type.index') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Tipe</a>
+                    </li> 
+                    <li>
+                        <a href="{{ route('admin.overtime.index') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Lembur</a>
+                    </li> 
                 </ul>
             </li>
             <li>

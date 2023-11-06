@@ -11,6 +11,7 @@ use App\Models\Positition;
 use App\Models\Task;
 use App\Models\TaskType;
 use App\Models\User;
+use App\Models\AttendanceType;
 use App\Observers\PermitLeaveObserver;
 use Illuminate\Support\ServiceProvider;
 
@@ -31,6 +32,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Interfaces\TaskInterface::class, \App\Repositories\TaskRepository::class);
         $this->app->bind(\App\Interfaces\AnnouncementInterface::class, \App\Repositories\AnnouncementRepository::class);
         $this->app->bind(\App\Interfaces\AttendanceInterface::class, \App\Repositories\AttendanceRepository::class);
+        $this->app->bind(\App\Interfaces\AttendanceTypeInterface::class, \App\Repositories\AttendanceTypeRepository::class);
+        
     }
 
     /**
@@ -47,5 +50,6 @@ class AppServiceProvider extends ServiceProvider
         TaskType::observe(\App\Observers\TaskTypeObserver::class);
         Task::observe(\App\Observers\TaskObserver::class);
         Attendance::observe(\App\Observers\AttendanceObserver::class);
+        AttendanceType::observe(\App\Observers\AttendanceTypeObserver::class);
     }
 }

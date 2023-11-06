@@ -179,3 +179,22 @@ Breadcrumbs::for('admin.announcement.edit', function (BreadcrumbTrail $trail, $a
     $trail->push($announcement->code);
     $trail->push('Ubah', route('admin.announcement.edit', $announcement));
 });
+
+// Attendance Type
+Breadcrumbs::for('admin.attendance-type', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Jenis Kehadiran', route('admin.attendance-type.index'));
+});
+
+// Attendance Type > Create
+Breadcrumbs::for('admin.attendance-type.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.attendance-type');
+    $trail->push('Tambah', route('admin.attendance-type.create'));
+});
+
+// Attendance Type > Edit
+Breadcrumbs::for('admin.attendance-type.edit', function (BreadcrumbTrail $trail, $attendanceType) {
+    $trail->parent('admin.attendance-type');
+    $trail->push($attendanceType->name);
+    $trail->push('Ubah', route('admin.attendance-type.edit', $attendanceType));
+});

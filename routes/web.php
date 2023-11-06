@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\PermitLeaveController;
 use App\Http\Controllers\Admin\PositionController;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\TaskTypeController;
+use App\Http\Controllers\Admin\AttendanceTypeController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -120,6 +121,17 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('{id}/edit', [AnnouncementController::class, 'edit'])->name('admin.announcement.edit');
         Route::put('{id}/update', [AnnouncementController::class, 'update'])->name('admin.announcement.update');
         Route::delete('{id}/destroy', [AnnouncementController::class, 'destroy'])->name('admin.announcement.destroy');
+    });
+
+
+    // Attendance Type
+    Route::group(['prefix' => 'attendance-type'], function () {
+        Route::get('/', [AttendanceTypeController::class, 'index'])->name('admin.attendance-type.index');
+        Route::get('create', [AttendanceTypeController::class, 'create'])->name('admin.attendance-type.create');
+        Route::post('store', [AttendanceTypeController::class, 'store'])->name('admin.attendance-type.store');
+        Route::get('{id}/edit', [AttendanceTypeController::class, 'edit'])->name('admin.attendance-type.edit');
+        Route::put('{id}/update', [AttendanceTypeController::class, 'update'])->name('admin.attendance-type.update');
+        Route::delete('{id}/destroy', [AttendanceTypeController::class, 'destroy'])->name('admin.attendance-type.destroy');
     });
 });
 
