@@ -73,4 +73,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Positition::class);
     }
+
+    public function reprimands()
+    {
+        return $this->hasMany(Reprimand::class);
+    }
 }

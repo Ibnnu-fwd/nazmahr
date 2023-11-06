@@ -19,6 +19,14 @@
                 </a>
             </li>
             <li>
+                <a href="{{ route('admin.reprimand.index') }}"
+                    class="flex items-center p-2 text-gray-900 rounded-lg  group">
+                    <img src="{{ asset('assets/sidebar/folder-check-svgrepo-com.svg') }}"
+                        class="w-5 h-5 text-gray-500 transition duration-75" alt="">
+                    <span class="flex-1 ml-3 whitespace-nowrap">Peringatan</span>
+                </a>
+            </li>
+            <li>
                 <button type="button"
                     class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
                     aria-controls="master-data" data-collapse-toggle="master-data">

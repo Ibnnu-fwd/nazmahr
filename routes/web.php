@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\OvertimeController;
 use App\Http\Controllers\Admin\PermitLeaveController;
 use App\Http\Controllers\Admin\PositionController;
+use App\Http\Controllers\Admin\ReprimandController;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\TaskTypeController;
 use App\Http\Controllers\Admin\AttendanceTypeController;
@@ -123,7 +124,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::delete('{id}/destroy', [AnnouncementController::class, 'destroy'])->name('admin.announcement.destroy');
     });
 
-
     // Attendance Type
     Route::group(['prefix' => 'attendance-type'], function () {
         Route::get('/', [AttendanceTypeController::class, 'index'])->name('admin.attendance-type.index');
@@ -132,7 +132,17 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('{id}/edit', [AttendanceTypeController::class, 'edit'])->name('admin.attendance-type.edit');
         Route::put('{id}/update', [AttendanceTypeController::class, 'update'])->name('admin.attendance-type.update');
         Route::delete('{id}/destroy', [AttendanceTypeController::class, 'destroy'])->name('admin.attendance-type.destroy');
-    });
-});
 
-require __DIR__ . '/auth.php';
+        // Reprimand
+        Route::group(['prefix' => 'reprimand'], function () {
+            Route::get('/', [ReprimandController::class, 'index'])->name('admin.reprimand.index');
+            Route::get('create', [ReprimandController::class, 'create'])->name('admin.reprimand.create');
+            Route::post('store', [ReprimandController::class, 'store'])->name('admin.reprimand.store');
+            Route::get('{id}/edit', [ReprimandController::class, 'edit'])->name('admin.reprimand.edit');
+            Route::put('{id}/update', [ReprimandController::class, 'update'])->name('admin.reprimand.update');
+            Route::delete('{id}/destroy', [ReprimandController::class, 'destroy'])->name('admin.reprimand.destroy');
+        });
+    });
+
+    require __DIR__ . '/auth.php';
+});
