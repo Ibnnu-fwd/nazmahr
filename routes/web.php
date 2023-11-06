@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AnnouncementController;
+use App\Http\Controllers\Admin\AttendanceController;
 use App\Http\Controllers\Admin\AttendanceTimeConfigController;
 use App\Http\Controllers\Admin\CasbonController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -142,7 +143,14 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
             Route::put('{id}/update', [ReprimandController::class, 'update'])->name('admin.reprimand.update');
             Route::delete('{id}/destroy', [ReprimandController::class, 'destroy'])->name('admin.reprimand.destroy');
         });
+
     });
+    
+    // Attendace
+    Route::group(['prefix' => 'attendance'], function () {
+        Route::get('/', [AttendanceController::class,'index'])->name('admin.attendance.index');
+    });
+
 
     require __DIR__ . '/auth.php';
 });

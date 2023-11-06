@@ -216,3 +216,11 @@ Breadcrumbs::for('admin.reprimand.edit', function (BreadcrumbTrail $trail, $repr
     $trail->push($reprimand->user->name);
     $trail->push('Ubah', route('admin.reprimand.edit', $reprimand));
 });
+
+// Attendance
+Breadcrumbs::for('admin.attendance', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Presensi', route('admin.attendance.index'));
+});
+
+
