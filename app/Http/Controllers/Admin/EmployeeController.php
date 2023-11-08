@@ -22,7 +22,7 @@ class EmployeeController extends Controller
     {
         if ($request->ajax()) {
             return datatables()
-                ->of($this->employee->getAll())
+                ->of($this->employee->getAll()->where('position_id', '!=', 1))
                 ->addColumn('name', function ($data) {
                     return $data->name;
                 })

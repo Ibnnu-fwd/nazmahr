@@ -85,7 +85,6 @@ class AttendanceController extends Controller
             'entry_at'    => 'required',
             'exit_at'     => 'required',
             'description' => 'nullable',
-            'status'      => 'required',
         ]);
 
         try {
@@ -114,7 +113,6 @@ class AttendanceController extends Controller
             'entry_at'    => 'required',
             'exit_at'     => 'required',
             'description' => 'nullable',
-            'status'      => 'required',
         ]);
 
         try {

@@ -36,6 +36,7 @@ class AttendanceRepository implements AttendanceInterface
         $attendanceTimeConfig              = $this->attendanceTimeConfig->where('day', $day)->first();
         $data['attendance_time_config_id'] = $attendanceTimeConfig['id'];
         $data['attendance_type_id']        = $attendanceTimeConfig['attendance_type_id'];
+        $data['status']                    = 1;
 
         return $this->attendance->create($data);
     }

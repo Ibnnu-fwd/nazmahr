@@ -18,11 +18,11 @@
             <x-input :value="$attendance->exit_at" required id="exit_at" label="{{ __('Jam Keluar') }}" type="datetime-local"
                 name="exit_at" />
             <x-textarea id="description" label="{{ __('Keterangan') }}" name="description" :value="$attendance->description" required />
-            <x-select id="status" name="status" label="{{ __('Status') }}" required>
+            {{-- <x-select id="status" name="status" label="{{ __('Status') }}" required>
                 <option value="0" @if ($attendance->status == 0) selected @endif>Menunggu</option>
                 <option value="1" @if ($attendance->status == 1) selected @endif>Disetujui</option>
                 <option value="2" @if ($attendance->status == 2) selected @endif>Ditolak</option>
-            </x-select>
+            </x-select> --}}
             <x-button id="store" label="{{ __('Simpan Perubahan') }}" type="submit" />
         </form>
     </x-card-container>
