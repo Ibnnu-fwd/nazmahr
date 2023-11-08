@@ -76,11 +76,21 @@
                         },
                         {
                             data: 'check_in',
-                            name: 'check_in'
+                            name: 'check_in',
+                            createdCell: function(td, cellData, rowData, row, col) {
+                                if (cellData) {
+                                    $(td).css('font-weight', 'bold');
+                                }
+                            }
                         },
                         {
                             data: 'check_out',
-                            name: 'check_out'
+                            name: 'check_out',
+                            createdCell: function(td, cellData, rowData, row, col) {
+                                if (cellData) {
+                                    $(td).css('font-weight', 'bold');
+                                }
+                            }
                         },
                         {
                             data: 'late_time',

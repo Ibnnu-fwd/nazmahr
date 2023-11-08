@@ -7,6 +7,7 @@ use App\Interfaces\AttendanceInterface;
 use App\Interfaces\AttendanceTimeConfigInterface;
 use App\Interfaces\AttendanceTypeInterface;
 use App\Interfaces\EmployeeInterface;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
@@ -45,30 +46,38 @@ class AttendanceController extends Controller
                     return date('H:i', strtotime($data->attendanceTimeConfig->end_time));
                 })
                 ->addColumn('check_in', function ($data) {
-                    return date('H:i', strtotime($data->entry_at)) . ' WIB';
+                    return date('H:i', strtotime($data->entry_at));
                 })
                 ->addColumn('check_out', function ($data) {
-                    return date('H:i', strtotime($data->exit_at)) . ' WIB';
+                    return date('H:i', strtotime($data->exit_at));
                 })
                 ->addColumn('late_time', function ($data) {
                     $schedule_in = $data->attendanceTimeConfig->start_time;
-                    $check_in    = $data->entry_at;
+                    $check_in    = date('H:i:s', strtotime($data->entry_at));
 
                     if (strtotime($check_in) > strtotime($schedule_in)) {
-                        $late_time = strtotime($check_in) - strtotime($schedule_in);
-                    } else return 'ONTIME';
+                        $late_time = Carbon::parse($check_in)->diffInSeconds(Carbon::parse($schedule_in));
+                    } else {
+                        return '-';
+                    }
 
-                    return date('H', $late_time) . ' jam ' . date('i', $late_time) . ' menit';
+                    $hours = floor($late_time / 3600);
+                    $minutes = floor(($late_time / 60) % 60);
+
+                    return $hours . ' jam ' . $minutes . ' menit';
                 })
                 ->addColumn('overtime', function ($data) {
                     $schedule_out = $data->attendanceTimeConfig->end_time;
-                    $check_out    = $data->exit_at;
+                    $check_out    = date('H:i:s', strtotime($data->exit_at));
 
                     if (strtotime($check_out) > strtotime($schedule_out)) {
-                        $overtime = strtotime($check_out) - strtotime($schedule_out);
-                    } else return 'ONTIME';
+                        $overtime = Carbon::parse($check_out)->diffInSeconds(Carbon::parse($schedule_out));
+                    } else return '-';
 
-                    return date('H', $overtime) . ' jam ' . date('i', $overtime) . ' menit';
+                    $hours = floor($overtime / 3600);
+                    $minutes = floor(($overtime / 60) % 60);
+
+                    return $hours . ' jam' . $minutes . ' menit';
                 })
                 ->addIndexColumn()
                 ->make(true);

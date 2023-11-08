@@ -11,6 +11,7 @@
             <thead>
                 <tr>
                     <th>#</th>
+                    <th>Jenis</th>
                     <th>Hari</th>
                     <th>Jam Masuk</th>
                     <th>Jam Keluar</th>
@@ -66,6 +67,10 @@
                     columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
+                        },
+                        {
+                            data: 'attendance_type',
+                            name: 'attendance_type'
                         },
                         {
                             data: 'day',
