@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Interfaces\AttendanceInterface;
 use App\Interfaces\AttendanceTimeConfigInterface;
+use App\Interfaces\AttendanceTypeInterface;
 use App\Interfaces\EmployeeInterface;
 use Illuminate\Http\Request;
 
@@ -13,12 +14,14 @@ class AttendanceController extends Controller
     private $attendance;
     private $employee;
     private $attendanceTimeConfig;
+    private $attendanceType;
 
-    public function __construct(AttendanceInterface $attendance, AttendanceTimeConfigInterface $attendanceTimeConfig, EmployeeInterface $employee)
+    public function __construct(AttendanceInterface $attendance, AttendanceTimeConfigInterface $attendanceTimeConfig, EmployeeInterface $employee, AttendanceTypeInterface $attendanceType)
     {
-        $this->attendance = $attendance;
+        $this->attendance           = $attendance;
         $this->attendanceTimeConfig = $attendanceTimeConfig;
-        $this->employee = $employee;
+        $this->employee             = $employee;
+        $this->attendanceType       = $attendanceType;
     }
 
     public function index(Request $request)
@@ -47,25 +50,23 @@ class AttendanceController extends Controller
                 ->addColumn('check_out', function ($data) {
                     return date('H:i', strtotime($data->exit_at)) . ' WIB';
                 })
-                ->addColumn('late_time', function($data) {
+                ->addColumn('late_time', function ($data) {
                     $schedule_in = $data->attendanceTimeConfig->start_time;
-                    $check_in = $data->entry_at;
+                    $check_in    = $data->entry_at;
 
-                    if( strtotime($check_in) > strtotime($schedule_in) ) {
+                    if (strtotime($check_in) > strtotime($schedule_in)) {
                         $late_time = strtotime($check_in) - strtotime($schedule_in);
-                    }
-                    else return null;
+                    } else return null;
 
                     return date('H', $late_time) . ' jam ' . date('i', $late_time) . ' menit';
                 })
-                ->addColumn('overtime', function($data) {
+                ->addColumn('overtime', function ($data) {
                     $schedule_out = $data->attendanceTimeConfig->end_time;
-                    $check_out = $data->exit_at;
+                    $check_out    = $data->exit_at;
 
-                    if(strtotime($check_out) > strtotime($schedule_out)) {
+                    if (strtotime($check_out) > strtotime($schedule_out)) {
                         $overtime = strtotime($check_out) - strtotime($schedule_out);
-                    }
-                    else return null;
+                    } else return null;
 
                     return date('H', $overtime) . ' jam ' . date('i', $overtime) . ' menit';
                 })
@@ -74,5 +75,68 @@ class AttendanceController extends Controller
         }
 
         return view('admin.attendance.index');
+    }
+
+    public function create()
+    {
+        return view('admin.attendance.create', [
+            'employees'             => $this->employee->getAll(),
+            'attendanceTimeConfigs' => $this->attendanceTimeConfig->getAll(),
+            'attendanceTypes'       => $this->attendanceType->getAll()
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'user_id'     => 'required',
+            'entry_at'    => 'required',
+            'exit_at'     => 'required',
+            'description' => 'nullable',
+            'status'      => 'required',
+        ]);
+
+        try {
+            $this->attendance->store($request->all());
+            return redirect()->route('admin.attendance.index')->with('success', 'Kehadiran berhasil ditambahkan');
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            return redirect()->route('admin.attendance.index')->with('error', 'Kehadiran gagal ditambahkan');
+        }
+    }
+
+    public function edit($id)
+    {
+        return view('admin.attendance.edit', [
+            'attendance'            => $this->attendance->getById($id),
+            'employees'             => $this->employee->getAll(),
+            'attendanceTimeConfigs' => $this->attendanceTimeConfig->getAll(),
+            'attendanceTypes'       => $this->attendanceType->getAll()
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'user_id'     => 'required',
+            'entry_at'    => 'required',
+            'exit_at'     => 'required',
+            'description' => 'nullable',
+            'status'      => 'required',
+        ]);
+
+        try {
+            $this->attendance->update($request->all(), $id);
+            return redirect()->route('admin.attendance.index')->with('success', 'Kehadiran berhasil diperbarui');
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            return redirect()->route('admin.attendance.index')->with('error', 'Kehadiran gagal diperbarui');
+        }
+    }
+
+    public function destroy($id)
+    {
+        $this->attendance->destroy($id);
+        return response()->json(true);
     }
 }

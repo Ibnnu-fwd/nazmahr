@@ -155,16 +155,20 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
             Route::put('{id}/update', [RequestAttendanceController::class, 'update'])->name('admin.request-attendance.update');
             Route::delete('{id}/destroy', [RequestAttendanceController::class, 'destroy'])->name('admin.request-attendance.destroy');
         });
-    
-    // Attendace
-    Route::group(['prefix' => 'attendance'], function () {
-        Route::get('/', [AttendanceController::class,'index'])->name('admin.attendance.index');
-    });
+
         // Attendace
         Route::group(['prefix' => 'attendance'], function () {
             Route::get('/', [AttendanceController::class, 'index'])->name('admin.attendance.index');
         });
-
+        // Attendace
+        Route::group(['prefix' => 'attendance'], function () {
+            Route::get('/', [AttendanceController::class, 'index'])->name('admin.attendance.index');
+            Route::get('create', [AttendanceController::class, 'create'])->name('admin.attendance.create');
+            Route::post('store', [AttendanceController::class, 'store'])->name('admin.attendance.store');
+            Route::get('{id}/edit', [AttendanceController::class, 'edit'])->name('admin.attendance.edit');
+            Route::put('{id}/update', [AttendanceController::class, 'update'])->name('admin.attendance.update');
+            Route::delete('{id}/destroy', [AttendanceController::class, 'destroy'])->name('admin.attendance.destroy');
+        });
 
         // Time Tracker
         Route::group(['prefix' => 'time-tracker'], function () {
@@ -179,7 +183,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
             Route::post('continue/{id}', [TimeTrackerController::class, 'continue'])->name('admin.time-tracker.continue');
         });
     });
-
 });
 
 require __DIR__ . '/auth.php';

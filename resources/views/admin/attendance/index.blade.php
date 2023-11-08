@@ -4,10 +4,15 @@
     <x-breadcrumb name="admin.attendance" />
 
     <x-card-container>
-        <div class="flex items-center mb-4">
-            <label for="date" class="mr-2 block text-sm font-medium text-gray-700 ">Tanggal:</label>
-            <input type="date" id="date" name="date" value="{{ date('Y-m-d') }}"
-                class="border-gray-300 focus:border-yellow-500 text-sm text-gray-500 focus:ring-yellow-500 rounded-md shadow-sm block w-fit">
+        <div class="flex justify-between">
+            <div class="flex items-center mb-4">
+                <label for="date" class="mr-2 block text-sm font-medium text-gray-700 ">Tanggal:</label>
+                <input type="date" id="date" name="date" value="{{ date('Y-m-d') }}"
+                    class="border-gray-300 focus:border-yellow-500 text-sm text-gray-500 focus:ring-yellow-500 rounded-md shadow-sm block w-fit">
+            </div>
+            <div>
+                <x-add label="Tambah Manual" route="{{ route('admin.attendance-type.create') }}" />
+            </div>
         </div>
 
         <table class="rowTable">
