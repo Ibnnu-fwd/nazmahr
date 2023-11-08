@@ -4,11 +4,25 @@
     <x-breadcrumb name="admin.attendance" />
 
     <x-card-container>
-        <div class="flex justify-between">
-            <div class="flex items-center mb-4">
-                <label for="date" class="mr-2 block text-sm font-medium text-gray-700 ">Tanggal:</label>
-                <input type="date" id="date" name="date" value="{{ date('Y-m-d') }}"
-                    class="border-gray-300 focus:border-yellow-500 text-sm text-gray-500 focus:ring-yellow-500 rounded-md shadow-sm block w-fit">
+        <div class="flex justify-between mb-4">
+            <div class="flex gap-4">
+                <div class="flex items-center">
+                    <label for="date" class="mr-2 block text-sm font-medium text-gray-700 ">Tanggal:</label>
+                    <input type="date" id="date" name="date" value="{{ date('Y-m-d') }}"
+                        class="border-gray-300 focus:border-yellow-500 text-sm text-gray-500 focus:ring-yellow-500 rounded-md shadow-sm block w-fit">
+                </div>
+                <div class="flex items-center">
+                    <label for="employee" class="block mr-2 text-sm font-medium text-gray-900">
+                        Karyawan:
+                    </label>
+                    <select id="employee" name="user_id"
+                        class="text-sm block mt-1 w-full border-gray-300 focus:border-yellow-500 focus:ring-yellow-500 rounded-md shadow-sm">
+                        <option value="all">Semua</option>
+                        @foreach ($employees as $employee)
+                            <option value="{{ $employee->name }}">{{ $employee->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
             <div>
                 <x-add label="Tambah Manual" route="{{ route('admin.attendance.create') }}" />
@@ -143,6 +157,15 @@
                     var date = $(this).val();
                     $('#date').val(date)
                     table.column(2).search(date.split('-').reverse().join('-')).draw();
+                });
+
+                $('#employee').on('change', function(e) {
+                    var employee = $(this).val();
+                    if (employee == 'all') {
+                        table.column(1).search('').draw();
+                    } else {
+                        table.column(1).search(employee).draw();
+                    }
                 });
             });
 

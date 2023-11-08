@@ -37,7 +37,7 @@ class AttendanceController extends Controller
                     return $data->attendanceType->name;
                 })
                 ->addColumn('date', function ($data) {
-                    return date('d-m-Y', strtotime($data->created_at));
+                    return date('d-m-Y', strtotime($data->entry_at));
                 })
                 ->addColumn('schedule_in', function ($data) {
                     return date('H:i', strtotime($data->attendanceTimeConfig->start_time));
@@ -52,32 +52,10 @@ class AttendanceController extends Controller
                     return date('H:i', strtotime($data->exit_at));
                 })
                 ->addColumn('late_time', function ($data) {
-                    $schedule_in = $data->attendanceTimeConfig->start_time;
-                    $check_in    = date('H:i:s', strtotime($data->entry_at));
-
-                    if (strtotime($check_in) > strtotime($schedule_in)) {
-                        $late_time = Carbon::parse($check_in)->diffInSeconds(Carbon::parse($schedule_in));
-                    } else {
-                        return '-';
-                    }
-
-                    $hours = floor($late_time / 3600);
-                    $minutes = floor(($late_time / 60) % 60);
-
-                    return $hours . ' jam ' . $minutes . ' menit';
+                    return $this->calculateTimeDifference($data->attendanceTimeConfig->start_time, $data->entry_at);
                 })
                 ->addColumn('overtime', function ($data) {
-                    $schedule_out = $data->attendanceTimeConfig->end_time;
-                    $check_out    = date('H:i:s', strtotime($data->exit_at));
-
-                    if (strtotime($check_out) > strtotime($schedule_out)) {
-                        $overtime = Carbon::parse($check_out)->diffInSeconds(Carbon::parse($schedule_out));
-                    } else return '-';
-
-                    $hours = floor($overtime / 3600);
-                    $minutes = floor(($overtime / 60) % 60);
-
-                    return $hours . ' jam' . $minutes . ' menit';
+                    return $this->calculateTimeDifference($data->attendanceTimeConfig->end_time, $data->exit_at);
                 })
                 ->addColumn('action', function ($data) {
                     return view('admin.attendance.action', ['data' => $data]);
@@ -86,7 +64,9 @@ class AttendanceController extends Controller
                 ->make(true);
         }
 
-        return view('admin.attendance.index');
+        return view('admin.attendance.index', [
+            'employees' => $this->employee->getAll()->where('position_id', '!=', 1)
+        ]);
     }
 
     public function create()
@@ -150,5 +130,24 @@ class AttendanceController extends Controller
     {
         $this->attendance->destroy($id);
         return response()->json(true);
+    }
+
+    // CUSTOM FUNCTION
+
+    function calculateTimeDifference($startTime, $endTime)
+    {
+        $startTime = date('H:i:s', strtotime($startTime));
+        $endTime = date('H:i:s', strtotime($endTime));
+
+        if (strtotime($endTime) > strtotime($startTime)) {
+            $timeDifference = Carbon::parse($endTime)->diffInSeconds(Carbon::parse($startTime));
+        } else {
+            return '-';
+        }
+
+        $hours = floor($timeDifference / 3600);
+        $minutes = floor(($timeDifference / 60) % 60);
+
+        return $hours . ' jam ' . $minutes . ' menit';
     }
 }
