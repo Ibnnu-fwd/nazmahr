@@ -1,5 +1,5 @@
 <x-app-layout>
-    @section('title', 'Ubah Konfigurasi Jam Kerja')
+    @section('title', 'Ubah Presensi Karyawan')
 
     <x-breadcrumb name="admin.attendance.edit" :data="$attendance" />
 
@@ -9,8 +9,8 @@
             @method('PUT')
             <x-select required id="user_id" name="user_id" label="{{ __('Nama Karyawan') }}">
                 @foreach ($employees as $employee)
-                    <option value="{{ $employee->id }}"
-                        @if ($employee->id == $attendance->user_id) selected>{{ $employee->name }} @endif</option>
+                    <option value="{{ $employee->id }}" @if ($employee->id == $attendance->user_id) selected @endif>
+                        {{ $employee->name }} </option>
                 @endforeach
             </x-select>
             <x-input :value="$attendance->entry_at" required id="entry_at" label="{{ __('Jam Masuk') }}" type="datetime-local"
