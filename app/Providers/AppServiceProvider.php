@@ -13,6 +13,7 @@ use App\Models\TaskType;
 use App\Models\User;
 use App\Models\AttendanceType;
 use App\Models\RequestAttendance;
+use App\Models\RequestReimbursement;
 use App\Models\TimeTracker;
 use App\Observers\PermitLeaveObserver;
 use Illuminate\Support\ServiceProvider;
@@ -38,6 +39,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Interfaces\ReprimandInterface::class, \App\Repositories\ReprimandRepository::class);
         $this->app->bind(\App\Interfaces\TimeTrackerInterface::class, \App\Repositories\TimeTrackerRepository::class);
         $this->app->bind(\App\Interfaces\RequestAttendanceInterface::class, \App\Repositories\RequestAttendanceRepository::class);
+        $this->app->bind(\App\Interfaces\RequestReimbursementInterface::class, \App\Repositories\RequestReimbursementRepository::class);
     }
 
     /**

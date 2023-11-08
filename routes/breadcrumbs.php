@@ -218,6 +218,25 @@ Breadcrumbs::for('admin.request-attendance.edit', function (BreadcrumbTrail $tra
     $trail->push('Ubah', route('admin.request-attendance.edit', $requestAttendance));
 });
 
+// Request Reimbursement
+Breadcrumbs::for('admin.request-reimbursement', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Request Reimbursement', route('admin.request-reimbursement.index'));
+});
+
+// Request Reimbursement > Create
+Breadcrumbs::for('admin.request-reimbursement.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.request-reimbursement');
+    $trail->push('Tambah', route('admin.request-reimbursement.create'));
+});
+
+// Request Reimbursement > Edit    
+Breadcrumbs::for('admin.request-reimbursement.edit', function (BreadcrumbTrail $trail, $requestreimbursement) {
+    $trail->parent('admin.request-reimbursement');
+    $trail->push($requestreimbursement->title);    
+    $trail->push('Ubah', route('admin.request-reimbursement.edit', $requestreimbursement));
+});
+
 // Reprimand
 Breadcrumbs::for('admin.reprimand', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');

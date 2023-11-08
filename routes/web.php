@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\TaskTypeController;
 use App\Http\Controllers\Admin\AttendanceTypeController;
 use App\Http\Controllers\Admin\RequestAttendanceController;
+use App\Http\Controllers\Admin\RequestReimbursementController;
 use App\Http\Controllers\Admin\TimeTrackerController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -135,6 +136,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('{id}/edit', [AttendanceTypeController::class, 'edit'])->name('admin.attendance-type.edit');
         Route::put('{id}/update', [AttendanceTypeController::class, 'update'])->name('admin.attendance-type.update');
         Route::delete('{id}/destroy', [AttendanceTypeController::class, 'destroy'])->name('admin.attendance-type.destroy');
+    });
 
         // Reprimand
         Route::group(['prefix' => 'reprimand'], function () {
@@ -178,7 +180,16 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
             Route::post('stop/{id}', [TimeTrackerController::class, 'stop'])->name('admin.time-tracker.stop');
             Route::post('continue/{id}', [TimeTrackerController::class, 'continue'])->name('admin.time-tracker.continue');
         });
+
+        // Request Reimbursement
+        Route::group(['prefix' => 'request-reimbursement'], function () {
+            Route::get('/', [RequestReimbursementController::class, 'index'])->name('admin.request-reimbursement.index');
+            Route::get('create', [RequestReimbursementController::class, 'create'])->name('admin.request-reimbursement.create');
+            Route::post('store', [RequestReimbursementController::class, 'store'])->name('admin.request-reimbursement.store');
+            Route::get('{id}/edit', [RequestReimbursementController::class, 'edit'])->name('admin.request-reimbursement.edit');
+            Route::put('{id}/update', [RequestReimbursementController::class, 'update'])->name('admin.request-reimbursement.update');
+            Route::delete('{id}/destroy', [RequestReimbursementController::class, 'destroy'])->name('admin.request-reimbursement.destroy');
+        });
     });
-});
 
 require __DIR__ . '/auth.php';
