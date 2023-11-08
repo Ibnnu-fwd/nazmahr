@@ -160,7 +160,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::group(['prefix' => 'attendance'], function () {
             Route::get('/', [AttendanceController::class, 'index'])->name('admin.attendance.index');
         });
-        // Attendace
+        // Attendance
         Route::group(['prefix' => 'attendance'], function () {
             Route::get('/', [AttendanceController::class, 'index'])->name('admin.attendance.index');
             Route::get('create', [AttendanceController::class, 'create'])->name('admin.attendance.create');

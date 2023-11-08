@@ -12,6 +12,7 @@ class AttendanceTimeConfig extends Model
     public $table = 'attendance_time_configs';
 
     protected $fillable = [
+        'attendance_type_id',
         'day',
         'start_time',
         'end_time',
@@ -27,5 +28,10 @@ class AttendanceTimeConfig extends Model
     public function updatedBy()
     {
         return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    public function attendanceType()
+    {
+        return $this->belongsTo(AttendanceType::class, 'attendance_type_id');
     }
 }

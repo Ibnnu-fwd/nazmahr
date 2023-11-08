@@ -22,4 +22,9 @@ class AttendanceType extends Model
     {
         return $this->hasMany(Attendance::class);
     }
+
+    public function attendanceTimeConfig()
+    {
+        return $this->hasMany(AttendanceTimeConfig::class);
+    }
 }

@@ -11,7 +11,7 @@
                     class="border-gray-300 focus:border-yellow-500 text-sm text-gray-500 focus:ring-yellow-500 rounded-md shadow-sm block w-fit">
             </div>
             <div>
-                <x-add label="Tambah Manual" route="{{ route('admin.attendance-type.create') }}" />
+                <x-add label="Tambah Manual" route="{{ route('admin.attendance.create') }}" />
             </div>
         </div>
 

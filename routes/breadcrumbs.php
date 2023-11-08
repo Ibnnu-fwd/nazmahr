@@ -243,6 +243,12 @@ Breadcrumbs::for('admin.attendance', function (BreadcrumbTrail $trail) {
     $trail->push('Presensi', route('admin.attendance.index'));
 });
 
+// Attendance > Create
+Breadcrumbs::for('admin.attendance.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.attendance');
+    $trail->push('Tambah Manual', route('admin.attendance.create'));
+});
+
 // Time Tracker
 Breadcrumbs::for('admin.time-tracker', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');

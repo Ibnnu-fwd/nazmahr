@@ -56,7 +56,7 @@ class AttendanceController extends Controller
 
                     if (strtotime($check_in) > strtotime($schedule_in)) {
                         $late_time = strtotime($check_in) - strtotime($schedule_in);
-                    } else return null;
+                    } else return 'ONTIME';
 
                     return date('H', $late_time) . ' jam ' . date('i', $late_time) . ' menit';
                 })
@@ -66,7 +66,7 @@ class AttendanceController extends Controller
 
                     if (strtotime($check_out) > strtotime($schedule_out)) {
                         $overtime = strtotime($check_out) - strtotime($schedule_out);
-                    } else return null;
+                    } else return 'ONTIME';
 
                     return date('H', $overtime) . ' jam ' . date('i', $overtime) . ' menit';
                 })
@@ -80,7 +80,7 @@ class AttendanceController extends Controller
     public function create()
     {
         return view('admin.attendance.create', [
-            'employees'             => $this->employee->getAll(),
+            'employees'             => $this->employee->getAll()->where('position_id', '!=', 1),
             'attendanceTimeConfigs' => $this->attendanceTimeConfig->getAll(),
             'attendanceTypes'       => $this->attendanceType->getAll()
         ]);
