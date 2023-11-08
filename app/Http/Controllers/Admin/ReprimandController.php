@@ -30,10 +30,10 @@ class ReprimandController extends Controller
                     return $data->reprimand_type;
                 })
                 ->addColumn('start_date', function ($data) {
-                    return date('d-m-Y', strtotime($data->start_date)) ?? '-';
+                    return $data->start_date ? date('d-m-Y', strtotime($data->start_date)) : '-';
                 })
                 ->addColumn('end_date', function ($data) {
-                    return date('d-m-Y', strtotime($data->end_date)) ?? '-';
+                    return $data->end_date ? date('d-m-Y', strtotime($data->end_date)) : '-';
                 })
                 ->addColumn('attachment', function ($data) {
                     return view('admin.reprimand.column.attachment', compact('data'));

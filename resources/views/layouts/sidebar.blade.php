@@ -45,10 +45,6 @@
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Jabatan</a>
                     </li>
                     <li>
-                        <a href="{{ route('admin.permit-leave.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Izin/Cuti</a>
-                    </li>
-                    <li>
                         <a href="{{ route('admin.casbon.index') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Kasbon</a>
                     </li>
@@ -90,6 +86,14 @@
                     <li>
                         <a href="{{ route('admin.time-tracker.index') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Timesheet</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('admin.attendance.index') }}"
+                            class="flex items-center p-2 text-gray-900 rounded-lg  group">
+                            <img src="{{ asset('assets/sidebar/alarm-svgrepo-com.svg') }}"
+                                class="w-5 h-5 text-gray-500 transition duration-75" alt="">
+                            <span class="flex-1 ml-3 whitespace-nowrap">Presensi</span>
+                        </a>
                     </li>
                 </ul>
             </li>
@@ -138,16 +142,10 @@
                     <li>
                         <a href="{{ route('admin.request-reimbursement.index') }}"
                             class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Reimbursement</a>
+                        <a href="{{ route('admin.permit-leave.index') }}"
+                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Izin/Cuti</a>
                     </li>
                 </ul>
-            </li>
-            <li>
-                <a href="{{ route('admin.attendance.index') }}"
-                    class="flex items-center p-2 text-gray-900 rounded-lg  group">
-                    <img src="{{ asset('assets/sidebar/alarm-svgrepo-com.svg') }}"
-                        class="w-5 h-5 text-gray-500 transition duration-75" alt="">
-                    <span class="flex-1 ml-3 whitespace-nowrap">Presensi</span>
-                </a>
             </li>
             <li>
                 <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg  group">

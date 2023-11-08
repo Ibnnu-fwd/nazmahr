@@ -130,12 +130,61 @@ class AttendanceController extends Controller
         return response()->json(true);
     }
 
+    public function liveAttendance()
+    {
+        $attendanceTimeConfig = $this->attendanceTimeConfig->getByDay(Carbon::now()->locale('id')->dayName);
+        $attendance           = $this->attendance->getByUserIdAndDate(auth()->user()->id, Carbon::now()->format('Y-m-d'));
+
+        return view('admin.attendance.live', [
+            'attendanceTimeConfig' => $attendanceTimeConfig,
+            'attendance'          => $attendance
+        ]);
+    }
+
+    public function clockIn()
+    {
+        $attendanceTimeConfig = $this->attendanceTimeConfig->getByDay(Carbon::now()->locale('id')->dayName);
+        try {
+            $this->attendance->clockIn($attendanceTimeConfig);
+            return response()->json([
+                'status'  => true,
+                'message' => 'Anda berhasil melakukan absensi masuk'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status'  => false,
+                'message' => $th->getMessage()
+            ]);
+        }
+    }
+
+    public function clockOut(Request $request)
+    {
+        $request->validate([
+            'description' => 'required'
+        ]);
+
+        $attendanceTimeConfig = $this->attendanceTimeConfig->getByDay(Carbon::now()->locale('id')->dayName);
+        try {
+            $this->attendance->clockOut($attendanceTimeConfig, $request->description);
+            return response()->json([
+                'status'  => true,
+                'message' => 'Anda berhasil melakukan absensi keluar'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status'  => false,
+                'message' => $th->getMessage()
+            ]);
+        }
+    }
+
     // CUSTOM FUNCTION
 
     function calculateTimeDifference($startTime, $endTime)
     {
         $startTime = date('H:i:s', strtotime($startTime));
-        $endTime = date('H:i:s', strtotime($endTime));
+        $endTime   = date('H:i:s', strtotime($endTime));
 
         if (strtotime($endTime) > strtotime($startTime)) {
             $timeDifference = Carbon::parse($endTime)->diffInSeconds(Carbon::parse($startTime));
@@ -143,7 +192,7 @@ class AttendanceController extends Controller
             return '-';
         }
 
-        $hours = floor($timeDifference / 3600);
+        $hours   = floor($timeDifference / 3600);
         $minutes = floor(($timeDifference / 60) % 60);
 
         return $hours . ' jam ' . $minutes . ' menit';

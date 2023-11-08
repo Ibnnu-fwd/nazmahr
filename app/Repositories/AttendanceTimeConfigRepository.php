@@ -24,6 +24,11 @@ class AttendanceTimeConfigRepository implements AttendanceTimeConfigInterface
         return $this->attendanceTimeConfig->find($id);
     }
 
+    public function getByDay($day)
+    {
+        return $this->attendanceTimeConfig->with('attendanceType')->where('day', $day)->first();
+    }
+
     public function store($data)
     {
         return $this->attendanceTimeConfig->create($data);
