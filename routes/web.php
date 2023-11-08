@@ -156,10 +156,6 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
             Route::delete('{id}/destroy', [RequestAttendanceController::class, 'destroy'])->name('admin.request-attendance.destroy');
         });
 
-        // Attendace
-        Route::group(['prefix' => 'attendance'], function () {
-            Route::get('/', [AttendanceController::class, 'index'])->name('admin.attendance.index');
-        });
         // Attendance
         Route::group(['prefix' => 'attendance'], function () {
             Route::get('/', [AttendanceController::class, 'index'])->name('admin.attendance.index');

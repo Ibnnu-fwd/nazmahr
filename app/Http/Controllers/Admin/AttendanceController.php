@@ -79,6 +79,9 @@ class AttendanceController extends Controller
 
                     return $hours . ' jam' . $minutes . ' menit';
                 })
+                ->addColumn('action', function ($data) {
+                    return view('admin.attendance.action', ['data' => $data]);
+                })
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -135,7 +138,7 @@ class AttendanceController extends Controller
         ]);
 
         try {
-            $this->attendance->update($request->all(), $id);
+            $this->attendance->update($id, $request->all());
             return redirect()->route('admin.attendance.index')->with('success', 'Kehadiran berhasil diperbarui');
         } catch (\Throwable $th) {
             dd($th->getMessage());

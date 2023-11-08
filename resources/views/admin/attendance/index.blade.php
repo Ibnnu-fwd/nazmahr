@@ -28,6 +28,7 @@
                     <th>Check Out</th>
                     <th>Terlambat</th>
                     <th>Overtime</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -37,6 +38,37 @@
 
     @push('js-internal')
         <script>
+            function btnDelete(id) {
+                Swal.fire({
+                    title: 'Apakah anda yakin?',
+                    text: "Anda tidak dapat mengembalikan data yang telah dihapus!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya, hapus!',
+                    cancelButtonText: 'Batal'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "{{ route('admin.attendance.destroy', ':id') }}".replace(':id',
+                                id),
+                            type: 'DELETE',
+                            data: {
+                                "_token": "{{ csrf_token() }}",
+                            },
+                            success: function(response) {
+                                Swal.fire(
+                                    'Terhapus!',
+                                    'Data berhasil dihapus.',
+                                    'success'
+                                ).then((result) => {
+                                    $('.rowTable').DataTable().ajax.reload();
+                                });
+                            }
+                        });
+                    }
+                })
+            }
+
             $(document).ready(function() {
 
                 table = $('.rowTable').DataTable({
@@ -100,6 +132,10 @@
                             data: 'overtime',
                             name: 'overtime'
                         },
+                        {
+                            data: 'action',
+                            name: 'action',
+                        }
                     ]
                 });
 
