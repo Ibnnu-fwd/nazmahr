@@ -18,7 +18,7 @@ return new class extends Migration
             $table->dateTime('entry_at')->nullable();
             $table->dateTime('exit_at')->nullable();
             $table->longText('description')->nullable();
-            $table->enum('status_verification', ['Pending','Confirmed', 'Rejected'])->default('Pending');
+            $table->enum('status_verification', ['Pending', 'Confirmed', 'Rejected'])->default('Pending');
             $table->integer('status')->default(1);
             $table->foreignId('created_by')->nullable()->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('updated_by')->nullable()->references('id')->on('users')->onDelete('cascade');

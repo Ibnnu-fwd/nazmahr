@@ -13,6 +13,7 @@
                     <th>#</th>
                     <th>Nama</th>
                     <th>Prioritas</th>
+                    <th>Harga</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -72,6 +73,10 @@
                         {
                             data: 'priority',
                             name: 'priority'
+                        },
+                        {
+                            data: 'price',
+                            name: 'price'
                         },
                         {
                             data: 'action',

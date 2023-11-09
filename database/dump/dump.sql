@@ -14,22 +14,28 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Dumping data for table nazmahr.announcements: ~1 rows (approximately)
+-- Dumping data for table nazmahr.announcements: ~0 rows (approximately)
 DELETE FROM `announcements`;
 INSERT INTO `announcements` (`id`, `code`, `subject`, `content`, `attachment`, `is_send_email`, `is_active`, `created_at`, `updated_at`) VALUES
 	(2, 'ANN-65480054ea276', 'contoh', '<p>update isi konten</p><p>&nbsp;</p><p><strong>Ibnu ganteng sekali</strong></p>', '65480054e7407.pdf', 1, 1, '2023-11-05 13:51:32', '2023-11-05 13:56:00');
 
 -- Dumping data for table nazmahr.attendances: ~0 rows (approximately)
 DELETE FROM `attendances`;
+INSERT INTO `attendances` (`id`, `attendance_type_id`, `user_id`, `entry_at`, `exit_at`, `description`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `attendance_time_config_id`) VALUES
+	(1, 1, 3, '2023-01-07 08:00:00', '2023-01-07 17:00:00', 'Wifi kosan tidak ada internet', 1, 1, NULL, '2023-11-07 19:29:41', '2023-11-07 19:29:41', 2),
+	(2, 1, 4, '2023-11-07 08:15:00', '2023-11-07 17:20:00', 'Browser error', 1, 1, 1, '2023-11-07 19:47:26', '2023-11-07 20:52:57', 2),
+	(10, 1, 1, '2023-11-08 14:40:48', '2023-11-08 14:57:37', 'saya telah mengerjakan fitur absensi ini', 1, 1, 1, '2023-11-08 00:40:48', '2023-11-08 00:57:37', 3);
 
 -- Dumping data for table nazmahr.attendance_time_configs: ~5 rows (approximately)
 DELETE FROM `attendance_time_configs`;
-INSERT INTO `attendance_time_configs` (`id`, `day`, `start_time`, `end_time`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-	(1, 'Senin', '08:00:00', '17:00:00', 1, NULL, NULL, NULL),
-	(2, 'Selasa', '08:00:00', '17:00:00', 1, NULL, '2023-11-04 01:16:07', '2023-11-04 01:16:07'),
-	(3, 'Rabu', '08:00:00', '17:00:00', 1, NULL, '2023-11-04 01:16:21', '2023-11-04 01:16:21'),
-	(4, 'Kamis', '08:00:00', '17:00:00', 1, NULL, '2023-11-04 01:16:32', '2023-11-04 01:16:32'),
-	(5, 'Jumat', '08:00:00', '17:00:00', 1, NULL, '2023-11-04 01:16:41', '2023-11-04 01:16:41');
+INSERT INTO `attendance_time_configs` (`id`, `attendance_type_id`, `day`, `start_time`, `end_time`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+	(1, 1, 'Senin', '08:00:00', '17:00:00', 1, 1, NULL, '2023-11-07 19:46:37'),
+	(2, 1, 'Selasa', '08:00:00', '17:00:00', 1, NULL, '2023-11-04 01:16:07', '2023-11-04 01:16:07'),
+	(3, 1, 'Rabu', '08:00:00', '17:00:00', 1, NULL, '2023-11-04 01:16:21', '2023-11-04 01:16:21'),
+	(4, 1, 'Kamis', '08:00:00', '17:00:00', 1, NULL, '2023-11-04 01:16:32', '2023-11-04 01:16:32'),
+	(5, 1, 'Jumat', '08:00:00', '17:00:00', 1, NULL, '2023-11-04 01:16:41', '2023-11-04 01:16:41'),
+	(6, 2, 'Sabtu', '08:00:00', '17:00:00', 1, NULL, '2023-11-04 01:16:41', '2023-11-04 01:16:41'),
+	(7, 2, 'Minggu', '08:00:00', '17:00:00', 1, NULL, '2023-11-04 01:16:41', '2023-11-04 01:16:41');
 
 -- Dumping data for table nazmahr.attendance_types: ~2 rows (approximately)
 DELETE FROM `attendance_types`;
@@ -37,7 +43,7 @@ INSERT INTO `attendance_types` (`id`, `name`, `status`, `created_by`, `updated_b
 	(1, 'Weekday', 1, 1, NULL, '2023-11-06 02:33:14', '2023-11-06 02:33:14'),
 	(2, 'Day Off', 1, 1, 1, '2023-11-06 02:33:23', '2023-11-06 02:33:34');
 
--- Dumping data for table nazmahr.casbons: ~1 rows (approximately)
+-- Dumping data for table nazmahr.casbons: ~0 rows (approximately)
 DELETE FROM `casbons`;
 INSERT INTO `casbons` (`id`, `user_id`, `date`, `nominal`, `status`, `refund_attachment`, `application_attachment`, `description`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
 	(1, 3, '2023-11-06', 900000, 'approved', NULL, NULL, 'Transportation', 1, NULL, '2023-11-05 12:19:44', '2023-11-05 12:19:44');
@@ -45,7 +51,7 @@ INSERT INTO `casbons` (`id`, `user_id`, `date`, `nominal`, `status`, `refund_att
 -- Dumping data for table nazmahr.failed_jobs: ~0 rows (approximately)
 DELETE FROM `failed_jobs`;
 
--- Dumping data for table nazmahr.migrations: ~19 rows (approximately)
+-- Dumping data for table nazmahr.migrations: ~0 rows (approximately)
 DELETE FROM `migrations`;
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 	(1, '2014_10_12_000000_create_users_table', 1),
@@ -74,10 +80,10 @@ DELETE FROM `overtimes`;
 -- Dumping data for table nazmahr.password_reset_tokens: ~0 rows (approximately)
 DELETE FROM `password_reset_tokens`;
 
--- Dumping data for table nazmahr.permit_leaves: ~1 rows (approximately)
+-- Dumping data for table nazmahr.permit_leaves: ~0 rows (approximately)
 DELETE FROM `permit_leaves`;
 INSERT INTO `permit_leaves` (`id`, `user_id`, `submission_type`, `start_date`, `end_date`, `attachment`, `description`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-	('08628d60-33e1-492d-9254-57ed78a11c1d', 4, 'leave', '2023-11-04', '2023-11-15', '65462a9148c7f.pdf', 'contoh', 'pending', 1, 1, '2023-11-04 04:00:28', '2023-11-04 04:29:28');
+	('08628d60-33e1-492d-9254-57ed78a11c1d', 4, 'leave', '2023-11-04', '2023-11-15', '65462a9148c7f.pdf', 'contoh', 'approved', 1, 1, '2023-11-04 04:00:28', '2023-11-07 21:23:43');
 
 -- Dumping data for table nazmahr.permit_leaves_categories: ~0 rows (approximately)
 DELETE FROM `permit_leaves_categories`;
@@ -94,6 +100,8 @@ INSERT INTO `positions` (`id`, `name`, `status`, `created_by`, `updated_by`, `cr
 
 -- Dumping data for table nazmahr.reprimands: ~0 rows (approximately)
 DELETE FROM `reprimands`;
+INSERT INTO `reprimands` (`id`, `user_id`, `reprimand_type`, `start_date`, `end_date`, `content`, `attachment`, `is_send_email`, `created_at`, `updated_at`) VALUES
+	(1, 3, 'SP1', NULL, NULL, 'contoh', NULL, 1, '2023-11-07 21:22:13', '2023-11-07 21:22:13');
 
 -- Dumping data for table nazmahr.request_attendances: ~0 rows (approximately)
 DELETE FROM `request_attendances`;
@@ -114,7 +122,7 @@ DELETE FROM `time_trackers`;
 INSERT INTO `time_trackers` (`id`, `user_id`, `start_time`, `end_time`, `total_time`, `subject`, `task`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
 	(1, 3, '2023-11-06 07:00:00', '2023-11-06 07:59:53', '360', 'Tugas 1', NULL, 1, 1, '2023-11-06 07:07:08', '2023-11-06 00:59:53'),
 	(2, 4, '2023-11-06 07:00:00', '2023-11-06 07:59:51', '360', 'Tugas 2', NULL, 1, 1, '2023-11-06 07:07:08', '2023-11-06 00:59:51'),
-	(5, 3, '2023-11-06 07:50:52', '2023-11-06 07:59:54', '410', 'Contoh', 'Tugas 1', 1, 1, '2023-11-06 00:50:47', '2023-11-06 00:59:54');
+	(5, 3, '2023-11-06 07:50:52', '2023-11-08 07:41:52', '2451', 'Contoh', 'Tugas 1', 1, 1, '2023-11-06 00:50:47', '2023-11-08 00:41:52');
 
 -- Dumping data for table nazmahr.users: ~3 rows (approximately)
 DELETE FROM `users`;
