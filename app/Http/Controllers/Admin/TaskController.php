@@ -62,6 +62,9 @@ class TaskController extends Controller
                 ->addColumn('price', function ($data) {
                     return $data->price;
                 })
+                ->addColumn('total_price', function ($data) {
+                    return $data->total_price;
+                })
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -87,6 +90,7 @@ class TaskController extends Controller
             'description'  => 'nullable',
             'status'       => 'required',
             'price'        => 'required',
+            'total_price'  => 'nullable',
         ]);
 
         try {
@@ -117,6 +121,7 @@ class TaskController extends Controller
             'description'  => 'nullable',
             'status'       => 'required',
             'price'        => 'required',
+            'total_price'  => 'nullable',
         ]);
 
         try {

@@ -20,6 +20,7 @@ class Task extends Model
         'description',
         'status',
         'price',
+        'total_price',
         'created_by',
         'updated_by',
     ];

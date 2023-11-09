@@ -26,6 +26,7 @@
                 <option value="3">Ditolak</option>
             </x-select>
             <x-input id="price" label="Harga" type="number" name="price" required />
+            <x-input id="total_price" label="Total Harga" type="number" name="total_price" required />
 
             <x-button id="store" label="{{ __('Tambah') }}" type="submit" />
         </form>
