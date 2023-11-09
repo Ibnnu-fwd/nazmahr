@@ -17,6 +17,7 @@
                     </label>
                     <select id="employee" name="user_id"
                         class="text-sm block mt-1 w-full border-gray-300 focus:border-yellow-500 focus:ring-yellow-500 rounded-md shadow-sm">
+                        <option disabled selected>Pilih Karyawan</option>
                         <option value="all">Semua</option>
                         @foreach ($employees as $employee)
                             <option value="{{ $employee->id }}">{{ $employee->name }}</option>
