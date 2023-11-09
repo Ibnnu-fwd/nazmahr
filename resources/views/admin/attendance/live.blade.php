@@ -9,6 +9,13 @@
             <p id="current-date" class="text-gray-400 font-medium"></p>
         </div>
         <hr class="my-4">
+        <div class="mt-4">
+            <p id="current-location" class="text-gray-400 font-medium"></p>
+            <p class="text-gray-400 font-medium mt-2">
+                Coordinate : <span id="current-latitude"></span> | <span id="current-longitude"></span>
+            </p>
+        </div>
+        <hr class="my-4">
         <div class="text-center">
             <p class="text-gray-400 font-medium">Terjadwal, {{ now()->locale('id')->isoFormat('LL') }}.</p>
             <p class="font-semibold text-lg uppercase">
@@ -70,12 +77,33 @@
 
     @push('js-internal')
         <script>
+            navigator.geolocation.getCurrentPosition((position) => {
+                const latitude = position.coords.latitude;
+                const longitude = position.coords.longitude;
+                $('#current-latitude').text(latitude);
+                $('#current-longitude').text(longitude);
+                const url =
+                    `https://api.opencagedata.com/geocode/v1/json?key=51453d712e9f429197b169309e4aae1e&q=${latitude}+${longitude}&pretty=1&no_annotations=1`;
+                fetch(url)
+                    .then((resp) => resp.json())
+                    .then(function(data) {
+                        const location = data.results[0].formatted;
+                        $('#current-location').text(location);
+                    })
+                    .catch(function() {
+                        // This is where you run code if the server returns any errors
+                    });
+            });
+
             function clockIn() {
                 $.ajax({
                     type: "POST",
                     url: "{{ route('admin.attendance.clock-in') }}",
                     data: {
                         _token: "{{ csrf_token() }}",
+                        location: $('#current-location').text(),
+                        latitude: $('#current-latitude').text(),
+                        longitude: $('#current-longitude').text(),
                     },
                     success: function(response) {
                         if (response.status == true) {
@@ -118,6 +146,9 @@
                     data: {
                         _token: "{{ csrf_token() }}",
                         description: description,
+                        location: $('#current-location').text(),
+                        latitude: $('#current-latitude').text(),
+                        longitude: $('#current-longitude').text(),
                     },
                     success: function(response) {
                         if (response.status == true) {
@@ -126,11 +157,8 @@
                                 title: 'Berhasil',
                                 text: response.message,
                                 showConfirmButton: false,
-                                delay: 2000,
-                                timer: 3000,
-                                onClose: () => {
-                                    window.location.reload();
-                                }
+                            }).then((result) => {
+                                window.location.reload();
                             })
                         } else {
                             Swal.fire({

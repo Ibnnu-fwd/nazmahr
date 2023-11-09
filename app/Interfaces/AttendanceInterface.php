@@ -9,7 +9,7 @@ interface AttendanceInterface
     public function store($data);
     public function update($id, $data);
     public function destroy($id);
-    public function clockIn($attendanceTimeConfig);
+    public function clockIn($attendanceTimeConfig, $data);
     public function clockOut($attendanceTimeConfig, $description);
     public function getByUserIdAndDate($userId, $date);
 }

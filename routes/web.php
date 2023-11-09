@@ -169,6 +169,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('live-attendance', [AttendanceController::class, 'liveAttendance'])->name('admin.attendance.live');
         Route::post('live-attendance/clock-in', [AttendanceController::class, 'clockIn'])->name('admin.attendance.clock-in');
         Route::post('live-attendance/clock-out', [AttendanceController::class, 'clockOut'])->name('admin.attendance.clock-out');
+        Route::get('{id}/show', [AttendanceController::class, 'show'])->name('admin.attendance.show');
     });
 
     // Time Tracker

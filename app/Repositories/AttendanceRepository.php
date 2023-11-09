@@ -8,6 +8,7 @@ use App\Models\AttendanceTimeConfig;
 use App\Models\AttendanceType;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class AttendanceRepository implements AttendanceInterface
 {
@@ -24,7 +25,25 @@ class AttendanceRepository implements AttendanceInterface
 
     public function getAll()
     {
-        return $this->attendance->with(['attendanceType', 'user', 'attendanceTimeConfig'])->get();
+        $result = $this->attendance
+            ->with(['attendanceType', 'user', 'attendanceTimeConfig'])
+            ->get();
+
+        if (isset(request()->date)) {
+            $result = $this->attendance
+                ->with(['attendanceType', 'user', 'attendanceTimeConfig'])
+                ->whereDate('entry_at', request()->date)
+                ->get();
+        }
+
+        if (isset(request()->employee_id)) {
+            $result = $this->attendance
+                ->with(['attendanceType', 'user', 'attendanceTimeConfig'])
+                ->where('user_id', request()->employee_id == 'all' ? '!=' : '=', request()->employee_id)
+                ->get();
+        }
+
+        return $result;
     }
 
     public function getById($id)
@@ -83,7 +102,7 @@ class AttendanceRepository implements AttendanceInterface
         }
     }
 
-    public function clockIn($attendanceTimeConfig)
+    public function clockIn($attendanceTimeConfig, $data)
     {
         $attendance = $this->attendance->where([
             ['user_id', auth()->user()->id],
@@ -102,7 +121,10 @@ class AttendanceRepository implements AttendanceInterface
                 'user_id'                   => auth()->user()->id,
                 'attendance_time_config_id' => $attendanceTimeConfig->id,
                 'attendance_type_id'        => $attendanceTimeConfig->attendance_type_id,
-                'entry_at'                  => Carbon::now()->timezone('Asia/Jakarta'),     // replace 'Asia/Jakarta' with your actual timezone
+                'entry_at'                  => Carbon::now()->timezone('Asia/Jakarta'),
+                'location'                  => $data['location']  ?? null,
+                'latitude'                  => $data['latitude']  ?? null,
+                'longitude'                 => $data['longitude'] ?? null,
                 'status'                    => 1
             ]);
             DB::commit();
@@ -113,7 +135,7 @@ class AttendanceRepository implements AttendanceInterface
         }
     }
 
-    public function clockOut($attendanceTimeConfig, $description)
+    public function clockOut($attendanceTimeConfig, $data)
     {
         $attendance = $this->attendance->where([
             ['user_id', auth()->user()->id],
@@ -129,7 +151,9 @@ class AttendanceRepository implements AttendanceInterface
         try {
             $attendance->update([
                 'exit_at'     => Carbon::now()->timezone('Asia/Jakarta'),
-                'description' => $description,
+                'description' => $data['description'] ?? null,
+                'latitude'    => $data['latitude']    ?? null,
+                'longitude'   => $data['longitude']   ?? null,
             ]);
             DB::commit();
         } catch (\Throwable $th) {

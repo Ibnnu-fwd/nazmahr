@@ -19,6 +19,9 @@ class Attendance extends Model
         'exit_at',
         'description',
         'status',
+        'location',
+        'latitude',
+        'longitude',
         'created_by',
         'updated_by'
     ];

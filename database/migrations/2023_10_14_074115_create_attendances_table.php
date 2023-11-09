@@ -19,6 +19,9 @@ return new class extends Migration
             $table->dateTime('exit_at')->nullable();
             $table->longText('description')->nullable();
             $table->integer('status')->default(1);
+            $table->longText('location')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
             $table->foreignId('created_by')->nullable()->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('updated_by')->nullable()->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
