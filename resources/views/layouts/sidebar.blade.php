@@ -161,7 +161,7 @@
                         class="flex items-center p-2 text-gray-900 rounded-lg  group {{ request()->routeIs('admin.profile.index') ? 'bg-gray-100' : '' }}">
                         <img src="{{ asset('assets/sidebar/profile.svg') }}"
                             class="w-5 h-5 text-gray-500 transition duration-75" alt="">
-                        <span class="flex-1 ml-3 whitespace-nowrap">Profile</span>
+                        <span class="flex-1 ml-3 whitespace-nowrap">Profil</span>
                     </a>
                 </li>
                 <li>
