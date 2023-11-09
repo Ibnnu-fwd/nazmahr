@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\AttendanceTypeController;
 use App\Http\Controllers\Admin\RequestAttendanceController;
 use App\Http\Controllers\Admin\RequestReimbursementController;
 use App\Http\Controllers\Admin\TimeTrackerController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\User\DashboardController as UserDashboardController;
 use App\Http\Controllers\User\PermitLeaveController as UserPermitLeaveController;
 use App\Http\Controllers\User\OvertimeController as UserOvertimeController;
@@ -24,7 +25,6 @@ use App\Http\Controllers\User\TaskController as UserTaskController;
 use App\Http\Controllers\User\AttendanceController as UserAttendanceController;
 use App\Http\Controllers\User\RequestAttendanceController as UserRequestAttendanceController;
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -200,6 +200,13 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
             Route::get('{id}/edit', [RequestReimbursementController::class, 'edit'])->name('admin.request-reimbursement.edit');
             Route::put('{id}/update', [RequestReimbursementController::class, 'updateAdmin'])->name('admin.request-reimbursement.update');
             Route::delete('{id}/destroy', [RequestReimbursementController::class, 'destroy'])->name('admin.request-reimbursement.destroy');
+        });
+
+        // Profile
+        Route::group(['prefix'=> 'profile'], function () {
+            Route::get('/', [ProfileController::class, 'index'])->name('admin.profile.index');
+            Route::get('{id}/edit', [ProfileController::class, 'edit'])->name('admin.profile.edit');
+            Route::put('{id}/update', [ProfileController::class, 'update'])->name('admin.profile.update');
         });
     });
 

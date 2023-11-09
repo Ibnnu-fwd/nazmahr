@@ -7,8 +7,7 @@
             <ul class="space-y-2 font-medium text-sm">
                 <li>
                     <a href="{{ route('admin.dashboard') }}"
-                       
-                    class="flex items-center p-2 text-gray-900 rounded-lg  group {{ request()->routeIs('admin.dashboard') ? 'bg-gray-100' : '' }}">
+                        class="flex items-center p-2 text-gray-900 rounded-lg  group {{ request()->routeIs('admin.dashboard') ? 'bg-gray-100' : '' }}">
                         <img src="{{ asset('assets/sidebar/dashboard.svg') }}"
                             class="w-5 h-5 text-gray-500 transition duration-75" alt="">
                         <span class="ml-3">Dashboard</span>
@@ -44,7 +43,7 @@
                         </svg>
                     </button>
                     <ul id="master-data"
-                    class="{{ request()->routeIs('admin.position.index') || request()->routeIs('admin.casbon.index') || request()->routeIs('admin.employee.index') ? '' : 'hidden' }} py-2 space-y-2">
+                        class="{{ request()->routeIs('admin.position.index') || request()->routeIs('admin.casbon.index') || request()->routeIs('admin.employee.index') ? '' : 'hidden' }} py-2 space-y-2">
                         <li>
                             <a href="{{ route('admin.position.index') }}"
                                 class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group {{ request()->routeIs('admin.position.index') ? 'bg-gray-100' : '' }} hover:bg-gray-100">Jabatan</a>
@@ -58,116 +57,125 @@
                                 class="flex
                             items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group {{ request()->routeIs('admin.employee.index') ? 'bg-gray-100' : '' }}
                             hover:bg-gray-100">Karyawan</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <button type="button"
-                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
-                    aria-controls="master-absensi" data-collapse-toggle="master-absensi">
-                    <img src="{{ asset('assets/sidebar/master.svg') }}"
-                        class="w-5 h-5 text-gray-500 transition duration-75" alt="">
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap">Master Absensi</span>
-                    <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                            d="m1 1 4 4 4-4" />
-                    </svg>
-                </button>
-                <ul id="master-absensi" class="hidden py-2 space-y-2">
-                    <li>
-                        <a href="{{ route('admin.attendance-time-config.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Jam
-                            Kerja</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.attendance-type.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Tipe</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.overtime.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Lembur</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.time-tracker.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Timesheet</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.attendance.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Presensi</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <button type="button"
-                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
-                    aria-controls="master-task" data-collapse-toggle="master-task">
-                    <img src="{{ asset('assets/sidebar/master.svg') }}"
-                        class="w-5 h-5 text-gray-500 transition duration-75" alt="">
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap">Master Tugas</span>
-                    <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                            d="m1 1 4 4 4-4" />
-                    </svg>
-                </button>
-                <ul id="master-task" class="hidden py-2 space-y-2">
-                    <li>
-                        <a href="{{ route('admin.task-type.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Jenis</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.task.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Daftar</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <button type="button"
-                    class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
-                    aria-controls="master-request" data-collapse-toggle="master-request">
-                    <img src="{{ asset('assets/sidebar/master.svg') }}"
-                        class="w-5 h-5 text-gray-500 transition duration-75" alt="">
-                    <span class="flex-1 ml-3 text-left whitespace-nowrap">Master Permintaan</span>
-                    <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 10 6">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
-                            d="m1 1 4 4 4-4" />
-                    </svg>
-                </button>
-                <ul id="master-request" class="hidden py-2 space-y-2">
-                    <li>
-                        <a href="{{ route('admin.request-attendance.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Absensi</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.request-reimbursement.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Reimbursement</a>
-                    </li>
-                    <li>
-                        <a href="{{ route('admin.permit-leave.index') }}"
-                            class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Izin/Cuti</a>
-                    </li>
-                </ul>
-            </li>
-            <li>
-                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg  group">
-                    <img src="{{ asset('assets/sidebar/license-svgrepo-com.svg') }}"
-                        class="w-5 h-5 text-gray-500 transition duration-75" alt="">
-                    <span class="flex-1 ml-3 whitespace-nowrap">Payroll</span>
-                </a>
-            </li>
-            <li>
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); this.closest('form').submit();"
-                        class="flex items-center p-2 text-gray-900 rounded-lg group">
-                        <img src="{{ asset('assets/sidebar/logout-svgrepo-com.svg') }}"
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <button type="button"
+                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
+                        aria-controls="master-absensi" data-collapse-toggle="master-absensi">
+                        <img src="{{ asset('assets/sidebar/master.svg') }}"
                             class="w-5 h-5 text-gray-500 transition duration-75" alt="">
-                        <span class="flex-1 ml-3 whitespace-nowrap">Keluar</span>
+                        <span class="flex-1 ml-3 text-left whitespace-nowrap">Master Absensi</span>
+                        <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                d="m1 1 4 4 4-4" />
+                        </svg>
+                    </button>
+                    <ul id="master-absensi" class="hidden py-2 space-y-2">
+                        <li>
+                            <a href="{{ route('admin.attendance-time-config.index') }}"
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Jam
+                                Kerja</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.attendance-type.index') }}"
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Tipe</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.overtime.index') }}"
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Lembur</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.time-tracker.index') }}"
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Timesheet</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.attendance.index') }}"
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Presensi</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <button type="button"
+                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
+                        aria-controls="master-task" data-collapse-toggle="master-task">
+                        <img src="{{ asset('assets/sidebar/master.svg') }}"
+                            class="w-5 h-5 text-gray-500 transition duration-75" alt="">
+                        <span class="flex-1 ml-3 text-left whitespace-nowrap">Master Tugas</span>
+                        <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"
+                                d="m1 1 4 4 4-4" />
+                        </svg>
+                    </button>
+                    <ul id="master-task" class="hidden py-2 space-y-2">
+                        <li>
+                            <a href="{{ route('admin.task-type.index') }}"
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Jenis</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.task.index') }}"
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Daftar</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <button type="button"
+                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
+                        aria-controls="master-request" data-collapse-toggle="master-request">
+                        <img src="{{ asset('assets/sidebar/master.svg') }}"
+                            class="w-5 h-5 text-gray-500 transition duration-75" alt="">
+                        <span class="flex-1 ml-3 text-left whitespace-nowrap">Master Permintaan</span>
+                        <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="1" d="m1 1 4 4 4-4" />
+                        </svg>
+                    </button>
+                    <ul id="master-request" class="hidden py-2 space-y-2">
+                        <li>
+                            <a href="{{ route('admin.request-attendance.index') }}"
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Absensi</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.request-reimbursement.index') }}"
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Reimbursement</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('admin.permit-leave.index') }}"
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100">Izin/Cuti</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg  group">
+                        <img src="{{ asset('assets/sidebar/license-svgrepo-com.svg') }}"
+                            class="w-5 h-5 text-gray-500 transition duration-75" alt="">
+                        <span class="flex-1 ml-3 whitespace-nowrap">Payroll</span>
                     </a>
-                </form>
-            </li>
+                </li>
+                <li>
+                    <a href="{{ route('admin.profile.index') }}"
+                        class="flex items-center p-2 text-gray-900 rounded-lg  group {{ request()->routeIs('admin.profile.index') ? 'bg-gray-100' : '' }}">
+                        <img src="{{ asset('assets/sidebar/profile.svg') }}"
+                            class="w-5 h-5 text-gray-500 transition duration-75" alt="">
+                        <span class="flex-1 ml-3 whitespace-nowrap">Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault(); this.closest('form').submit();"
+                            class="flex items-center p-2 text-gray-900 rounded-lg group">
+                            <img src="{{ asset('assets/sidebar/logout-svgrepo-com.svg') }}"
+                                class="w-5 h-5 text-gray-500 transition duration-75" alt="">
+                            <span class="flex-1 ml-3 whitespace-nowrap">Keluar</span>
+                        </a>
+                    </form>
+                </li>
 
             </ul>
         @endif
@@ -183,7 +191,7 @@
                         <span class="ml-3">Dashboard</span>
                     </a>
                 </li>
-            
+
                 <li>
                     <button type="button"
                         class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
