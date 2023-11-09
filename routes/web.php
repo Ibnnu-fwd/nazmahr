@@ -16,6 +16,14 @@ use App\Http\Controllers\Admin\AttendanceTypeController;
 use App\Http\Controllers\Admin\RequestAttendanceController;
 use App\Http\Controllers\Admin\RequestReimbursementController;
 use App\Http\Controllers\Admin\TimeTrackerController;
+use App\Http\Controllers\User\DashboardController as UserDashboardController;
+use App\Http\Controllers\User\PermitLeaveController as UserPermitLeaveController;
+use App\Http\Controllers\User\OvertimeController as UserOvertimeController;
+use App\Http\Controllers\User\RequestReimbursementController as UserRequestReimbursementController;
+use App\Http\Controllers\User\TaskController as UserTaskController;
+use App\Http\Controllers\User\AttendanceController as UserAttendanceController;
+use App\Http\Controllers\User\RequestAttendanceController as UserRequestAttendanceController;
+
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -154,7 +162,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
             Route::get('create', [RequestAttendanceController::class, 'create'])->name('admin.request-attendance.create');
             Route::post('store', [RequestAttendanceController::class, 'store'])->name('admin.request-attendance.store');
             Route::get('{id}/edit', [RequestAttendanceController::class, 'edit'])->name('admin.request-attendance.edit');
-            Route::put('{id}/update', [RequestAttendanceController::class, 'update'])->name('admin.request-attendance.update');
+            Route::put('{id}/update', [RequestAttendanceController::class, 'updateAdmin'])->name('admin.request-attendance.update');
             Route::delete('{id}/destroy', [RequestAttendanceController::class, 'destroy'])->name('admin.request-attendance.destroy');
         });
 
@@ -190,9 +198,80 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
             Route::get('create', [RequestReimbursementController::class, 'create'])->name('admin.request-reimbursement.create');
             Route::post('store', [RequestReimbursementController::class, 'store'])->name('admin.request-reimbursement.store');
             Route::get('{id}/edit', [RequestReimbursementController::class, 'edit'])->name('admin.request-reimbursement.edit');
-            Route::put('{id}/update', [RequestReimbursementController::class, 'update'])->name('admin.request-reimbursement.update');
+            Route::put('{id}/update', [RequestReimbursementController::class, 'updateAdmin'])->name('admin.request-reimbursement.update');
             Route::delete('{id}/destroy', [RequestReimbursementController::class, 'destroy'])->name('admin.request-reimbursement.destroy');
         });
     });
+
+
+    //user
+    Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
+        Route::get('/', [UserDashboardController::class, 'index'])->name('user.dashboard.index');
+
+        // Request Attendance
+        Route::group(['prefix' => 'request-attendance'], function () {
+            Route::get('/', [UserRequestAttendanceController::class, 'index'])->name('user.request-attendance.index');
+            Route::get('create', [UserRequestAttendanceController::class, 'create'])->name('user.request-attendance.create');
+            Route::post('store', [UserRequestAttendanceController::class, 'store'])->name('user.request-attendance.store');
+            Route::get('{id}/edit', [UserRequestAttendanceController::class, 'edit'])->name('user.request-attendance.edit');
+            Route::put('{id}/update', [UserRequestAttendanceController::class, 'update'])->name('user.request-attendance.update');
+            Route::delete('{id}/destroy', [UserRequestAttendanceController::class, 'destroy'])->name('user.request-attendance.destroy');
+        });
+
+        // Request Reimbursement
+        Route::group(['prefix' => 'request-reimbursement'], function () {
+            Route::get('/', [UserRequestReimbursementController::class, 'index'])->name('user.request-reimbursement.index');
+            Route::get('create', [UserRequestReimbursementController::class, 'create'])->name('user.request-reimbursement.create');
+            Route::post('store', [UserRequestReimbursementController::class, 'store'])->name('user.request-reimbursement.store');
+            Route::get('{id}/edit', [UserRequestReimbursementController::class, 'edit'])->name('user.request-reimbursement.edit');
+            Route::put('{id}/update', [UserRequestReimbursementController::class, 'update'])->name('user.request-reimbursement.update');
+            Route::delete('{id}/destroy', [UserRequestReimbursementController::class, 'destroy'])->name('user.request-reimbursement.destroy');
+        });
+
+        // Attendance
+        Route::group(['prefix' => 'attendance'], function () {
+            Route::get('/', [UserAttendanceController::class, 'index'])->name('user.attendance.index');
+            Route::get('create', [UserAttendanceController::class, 'create'])->name('user.attendance.create');
+            Route::post('store', [UserAttendanceController::class, 'store'])->name('user.attendance.store');
+            Route::get('{id}/edit', [UserAttendanceController::class, 'edit'])->name('user.attendance.edit');
+            Route::put('{id}/update', [UserAttendanceController::class, 'update'])->name('user.attendance.update');
+            Route::delete('{id}/destroy', [UserAttendanceController::class, 'destroy'])->name('user.attendance.destroy');
+            Route::get('live-attendance', [UserAttendanceController::class, 'liveAttendance'])->name('user.attendance.live');
+            Route::post('live-attendance/clock-in', [UserAttendanceController::class, 'clockIn'])->name('user.attendance.clock-in');
+            Route::post('live-attendance/clock-out', [UserAttendanceController::class, 'clockOut'])->name('user.attendance.clock-out');
+        });
+
+        // Overtime
+        Route::group(['prefix' => 'overtime'], function () {
+            Route::get('/', [UserOvertimeController::class, 'index'])->name('user.overtime.index');
+            Route::get('create', [UserOvertimeController::class, 'create'])->name('user.overtime.create');
+            Route::post('store', [UserOvertimeController::class, 'store'])->name('user.overtime.store');
+            Route::get('{id}/edit', [UserOvertimeController::class, 'edit'])->name('user.overtime.edit');
+            Route::put('{id}/update', [UserOvertimeController::class, 'update'])->name('user.overtime.update');
+            Route::delete('{id}/destroy', [UserOvertimeController::class, 'destroy'])->name('user.overtime.destroy');
+        });         
+
+        // Permit Leave
+        Route::group(['prefix' => 'permit-leave'], function () {
+            Route::get('/', [UserPermitLeaveController::class, 'index'])->name('user.permit-leave.index');
+            Route::get('create', [UserPermitLeaveController::class, 'create'])->name('user.permit-leave.create');
+            Route::post('store', [UserPermitLeaveController::class, 'store'])->name('user.permit-leave.store');
+            Route::get('{id}/edit', [UserPermitLeaveController::class, 'edit'])->name('user.permit-leave.edit');
+            Route::put('{id}/update', [UserPermitLeaveController::class, 'update'])->name('user.permit-leave.update');
+            Route::delete('{id}/destroy', [UserPermitLeaveController::class, 'destroy'])->name('user.permit-leave.destroy');
+        });
+
+        // Task
+        Route::group(['prefix' => 'task'], function () {
+            Route::get('/', [UserTaskController::class, 'index'])->name('user.task.index');
+            Route::get('create', [UserTaskController::class, 'create'])->name('user.task.create');
+            Route::post('store', [UserTaskController::class, 'store'])->name('user.task.store');
+            Route::get('{id}/edit', [UserTaskController::class, 'edit'])->name('user.task.edit');
+            Route::put('{id}/update', [UserTaskController::class, 'update'])->name('user.task.update');
+            Route::delete('{id}/destroy', [UserTaskController::class, 'destroy'])->name('user.task.destroy');
+        });
+
+    });
+    
 
 require __DIR__ . '/auth.php';

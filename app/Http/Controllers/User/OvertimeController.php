@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Interfaces\EmployeeInterface;
@@ -23,12 +23,17 @@ class OvertimeController extends Controller
     {
         if ($request->ajax()) {
             return datatables()
-                ->of($this->overtime->getAll())
+                ->of($this->overtime->getAll()->where('user_id', auth()->user()->id))
                 ->addColumn('name', function ($data) {
                     return $data->user->name ?? '-';
                 })
                 ->addColumn('duration', function ($data) {
-                    return Carbon::parse($data->start_at)->diffInHours($data->end_at) . ' Jam';
+                   $durationInMinutes = $data->duration;
+
+                   $durationInHours = floor($durationInMinutes / 60);
+                   $remainingMinutes = $durationInMinutes % 60;
+                   
+                   return $durationInHours . ' Jam ' . $remainingMinutes . ' Menit';                    
                 })
                 ->addColumn('start_at', function ($data) {
                     return $data->start_at ?? '-';
@@ -37,26 +42,26 @@ class OvertimeController extends Controller
                     return $data->end_at ?? '-';
                 })
                 ->addColumn('attachment', function ($data) {
-                    return view('admin.overtime.column.attachment', compact('data'));
+                    return view('user.overtime.column.attachment', compact('data'));
                 })
                 ->addColumn('status', function ($data) {
-                    return strtoupper($data->getStatus($data->status));
+                    return $data->getStatus($data->status);
                 })
                 ->addColumn('action', function ($data) {
-                    return view('admin.overtime.column.action', compact('data'));
+                    return view('user.overtime.column.action', compact('data'));
                 })
                 ->addIndexColumn()
                 ->make(true);
         }
 
-        return view('admin.overtime.index', [
+        return view('user.overtime.index', [
             'employees' => $this->employee->getAll()->where('position_id', '!=', 1)
         ]);
     }
 
     public function create()
     {
-        return view('admin.overtime.create', [
+        return view('user.overtime.create', [
             'employees' => $this->employee->getAll()->where('position_id', '!=', 1)
         ]);
     }
@@ -64,25 +69,25 @@ class OvertimeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'user_id'    => 'required',
             // 'duration'   => 'nullable',
             'attachment' => 'nullable|mimes:pdf,jpg,jpeg,png|max:2048',
             'start_at'   => 'nullable',
             'end_at'     => 'nullable',
             'status'     => 'nullable'
         ]);
+
         try {
             $this->overtime->store($request->all());
-            return redirect()->route('admin.overtime.index')->with('success', 'Lembur berhasil ditambahkan');
+            return redirect()->route('user.overtime.index')->with('success', 'Lembur berhasil ditambahkan');
         } catch (\Throwable $th) {
             dd($th->getMessage());
-            return redirect()->route('admin.overtime.index')->with('error', 'Lembur gagal ditambahkan');
+            return redirect()->route('user.overtime.index')->with('error', 'Lembur gagal ditambahkan');
         }
     }
 
     public function edit($id)
     {
-        return view('admin.overtime.edit', [
+        return view('user.overtime.edit', [
             'overtime'  => $this->overtime->getById($id),
             'employees' => $this->employee->getAll()->where('position_id', '!=', 1)
         ]);
@@ -101,10 +106,10 @@ class OvertimeController extends Controller
 
         try {
             $this->overtime->update($id, $request->all());
-            return redirect()->route('admin.overtime.index')->with('success', 'Lembur berhasil diubah');
+            return redirect()->route('user.overtime.index')->with('success', 'Lembur berhasil diubah');
         } catch (\Throwable $th) {
             dd($th->getMessage());
-            return redirect()->route('admin.overtime.index')->with('error', 'Lembur gagal diubah');
+            return redirect()->route('user.overtime.index')->with('error', 'Lembur gagal diubah');
         }
     }
 
@@ -113,4 +118,5 @@ class OvertimeController extends Controller
         $this->overtime->destroy($id);
         return response()->json(true);
     }
+
 }

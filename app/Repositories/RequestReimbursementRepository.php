@@ -45,7 +45,7 @@ class RequestReimbursementRepository implements RequestReimbursementInterface
         }
     }
 
-    public function update($id, $data)
+    public function updateAdmin($id, $data)
     {
         $requestReimbursement = $this->requestReimbursement->find($id);
 
@@ -59,13 +59,18 @@ class RequestReimbursementRepository implements RequestReimbursementInterface
         DB::beginTransaction();
 
         try {
-            $requestReimbursement->update($data);
+            $requestReimbursement->updateAdmin($data);
             DB::commit();
         } catch (\Throwable $th) {
             Storage::delete('public/reimbursement/bill/' . $filenameBillAttachment);
             DB::rollback();
             throw $th;
         }
+    }
+
+    public function update($id, $data)
+    {
+        return $this->requestReimbursement->find($id)->update($data);
     }
 
     public function destroy($id)

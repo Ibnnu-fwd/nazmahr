@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -22,7 +22,7 @@ class RequestAttendanceController extends Controller
 
 
 
-    public function __construct(RequestAttendanceInterface $requestAttendance,AttendanceTimeConfigInterface $attendanceTimeConfig , AttendanceTypeInterface $attendanceType, EmployeeInterface $employee)
+    public function __construct(RequestAttendanceInterface $requestAttendance, AttendanceTimeConfigInterface $attendanceTimeConfig, AttendanceTypeInterface $attendanceType, EmployeeInterface $employee)
     {
         $this->requestAttendance    = $requestAttendance;
         $this->attendanceTimeConfig = $attendanceTimeConfig;
@@ -30,12 +30,11 @@ class RequestAttendanceController extends Controller
         $this->employee             = $employee;
     }
 
-      //function index
     public function index(Request $request)
     {
         if ($request->ajax()) {
             return datatables()
-                ->of($this->requestAttendance->getAll())
+                ->of($this->requestAttendance->getAll()->where('user_id', auth()->user()->id))
                 ->addColumn('name', function ($data) {
                     return $data->user->name;
                 })
@@ -64,18 +63,18 @@ class RequestAttendanceController extends Controller
                     return $data->getStatus($data->status_verification);
                 })
                 ->addColumn('action', function ($data) {
-                    return view('admin.request_attendance.column.action', compact('data'));
+                    return view('user.request_attendance.column.action', compact('data'));
                 })
                 ->addIndexColumn()
                 ->make(true);
         }
-        return view('admin.request_attendance.index');
+        return view('user.request_attendance.index');
     }
 
       //function create
     public function create()
     {
-        return view('admin.request_attendance.create', [
+        return view('user.request_attendance.create', [
             'attendanceTypes'       => $this->requestAttendance->getAttendanceTypes(),
             'employees'             => $this->employee->getAll()->where('position_id', '!=', 1),
             'attendanceTimeConfigs' => $this->attendanceTimeConfig->getAll(),
@@ -94,11 +93,14 @@ class RequestAttendanceController extends Controller
             'description'               => 'required',
         ]);
         try {
-            $this->requestAttendance->store($request->all());
-            return redirect()->route('admin.request-attendance.index')->with('success', 'Permintaan Kehadiran berhasil ditambahkan');
+            $requestData = $request->all();
+        $requestData['user_id'] = auth()->user()->id; // Set the 'user_id' field
+
+        $this->requestAttendance->store($requestData);
+            return redirect()->route('user.request-attendance.index')->with('success', 'Permintaan Kehadiran berhasil ditambahkan');
         } catch (\Exception $e) {
             dd($e->getMessage());
-            return redirect()->route('admin.request-attendance.index')->with('error', 'Permintaan Kehadiran gagal ditambahkan');
+            return redirect()->route('user.request-attendance.index')->with('error', 'Permintaan Kehadiran gagal ditambahkan');
         }
     }
 
@@ -106,7 +108,7 @@ class RequestAttendanceController extends Controller
       //function edit
     public function edit($id, Request $request)
     {
-        return view('admin.request_attendance.edit', [
+        return view('user.request_attendance.edit', [
             'requestAttendance'     => $this->requestAttendance->getById($id),
             'attendanceTypes'       => $this->requestAttendance->getAttendanceTypes(),
             'attendanceTimeConfigs' => $this->attendanceTimeConfig->getAll(),
@@ -114,26 +116,25 @@ class RequestAttendanceController extends Controller
         ]);
     }
 
-       //function update
-    public function updateAdmin($id, Request $request)
+    public function update ($id, Request $request)
     {
-        $request->validate([
-            'user_id'                   => 'required',
-            'attendance_type_id'        => 'required',
-            'attendance_time_config_id' => 'required',
-            'entry_at'                  => 'required',
-            'exit_at'                   => 'required',
-            'description'               => 'required',
-        ]);
+    $request->validate([
+        'user_id'                   => 'required',
+        'attendance_type_id'        => 'required',
+        'attendance_time_config_id' => 'required',
+        'entry_at'                  => 'required',
+        'exit_at'                   => 'required',
+        'description'               => 'required',
+    ]);
 
-        try {
-            $this->requestAttendance->updateAdmin($id, $request->all());
-            return redirect()->route('user.request-attendance.index')->with('success', 'Permintaan Kehadiran berhasil diubah');
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-            return redirect()->route('user.request-attendance.index')->with('error', 'Permintaan Kehadiran gagal diubah');
-        }
+    try {
+        $this->requestAttendance->update($id, $request->all());
+        return redirect()->route('user.request-attendance.index')->with('success', 'Permintaan Kehadiran berhasil diubah');
+    } catch (\Exception $e) {
+        dd($e->getMessage());
+        return redirect()->route('user.request-attendance.index')->with('error', 'Permintaan Kehadiran gagal diubah');
     }
+}
 
       //function destroy
     public function destroy($id)
@@ -141,4 +142,5 @@ class RequestAttendanceController extends Controller
         $this->requestAttendance->destroy($id);
         return response()->json(true);
     }
+
 }

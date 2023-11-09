@@ -1,0 +1,32 @@
+<x-app-layout>
+    @section('title', 'Ubah Request Absensi')
+
+    <x-breadcrumb name="user.request-attendance.edit" :data="$requestAttendance" />
+
+    <x-card-container>
+        <form action="{{ route('user.request-attendance.update', $requestAttendance->id) }}" method="POST"
+            enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+            <x-select id="attendance_type_id" name="attendance_type_id" label="{{ __('Tipe Absensi') }}" required>
+                @foreach ($attendanceTypes as $attendanceType)
+                    <option value="{{ $attendanceType->id }}">{{ $attendanceType->name }}</option>
+                @endforeach
+            </x-select>
+            <x-select id="attendance_time_config_id" name="attendance_time_config_id" label="{{ __('Jadwal') }}"
+                required :value="$requestAttendance->attendanceTimeConfig">
+                @foreach ($attendanceTimeConfigs as $attendanceTimeConfig)
+                    <option value="{{ $attendanceTimeConfig->id }}">{{ $attendanceTimeConfig->day }}</option>
+                @endforeach
+            </x-select>
+            <x-input id="entry_at" name="entry_at" label="{{ __('Jam Masuk') }}" type="datetime-local" required
+                :value="$requestAttendance->entry_at" min="{{ now()->format('Y-m-d\TH:i') }}" />
+            <x-input id="exit_at" name="exit_at" label="{{ __('Jam Keluar') }}" type="datetime-local" required
+                :value="$requestAttendance->exit_at" min="{{ now()->format('Y-m-d\TH:i') }}" />
+            <x-input id="description" name="description" label="{{ __('Keterangan') }}" type="text" required
+                :value="$requestAttendance->description" />
+            <x-button id="store" label="{{ __('Simpan Perubahan') }}" type="submit" />
+        </form>
+    </x-card-container>
+</x-app-layout>

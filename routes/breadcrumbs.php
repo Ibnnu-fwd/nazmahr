@@ -298,3 +298,123 @@ Breadcrumbs::for('admin.time-tracker.edit', function (BreadcrumbTrail $trail, $t
     $trail->push($timeTracker->user->name);
     $trail->push('Ubah', route('admin.time-tracker.edit', $timeTracker));
 });
+
+
+// User Dashboard 
+Breadcrumbs::for('user.dashboard', function (BreadcrumbTrail $trail) {
+    $trail->push('Dashboard', route('user.dashboard.index'));
+});
+
+// User Attendance
+Breadcrumbs::for('user.attendance', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.dashboard');
+    $trail->push('Presensi', route('user.attendance.index'));
+});
+
+// User Attendance > Create
+Breadcrumbs::for('user.attendance.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.attendance');
+    $trail->push('Tambah', route('user.attendance.create'));
+});
+
+// User Attendance > Edit
+Breadcrumbs::for('user.attendance.edit', function (BreadcrumbTrail $trail, $attendance) {
+    $trail->parent('user.attendance');
+    $trail->push('Ubah', route('user.attendance.edit', $attendance));
+});
+
+// User Attendance > Live
+Breadcrumbs::for('user.attendance.live', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.attendance');
+    $trail->push('Absensi Langsung', route('user.attendance.live'));
+});
+
+// User overtime
+Breadcrumbs::for('user.overtime', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.dashboard');
+    $trail->push('Lembur', route('user.overtime.index'));
+});
+
+// User overtime > Create
+Breadcrumbs::for('user.overtime.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.overtime');
+    $trail->push('Tambah', route('user.overtime.create'));
+});
+
+// User overtime > Edit
+Breadcrumbs::for('user.overtime.edit', function (BreadcrumbTrail $trail, $overtime) {
+    $trail->parent('user.overtime');
+    $trail->push('Ubah', route('user.overtime.edit', $overtime));
+});
+
+// User permit leave
+Breadcrumbs::for('user.permit-leave', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.dashboard');
+    $trail->push('Izin / Cuti', route('user.permit-leave.index'));
+});
+
+// User permit leave > Create
+Breadcrumbs::for('user.permit-leave.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.permit-leave');
+    $trail->push('Tambah', route('user.permit-leave.create'));
+});
+
+// User permit leave > Edit
+Breadcrumbs::for('user.permit-leave.edit', function (BreadcrumbTrail $trail, $permitLeave) {
+    $trail->parent('user.permit-leave');
+    $trail->push('Ubah', route('user.permit-leave.edit', $permitLeave));
+});
+
+// User request attendance
+Breadcrumbs::for('user.request-attendance', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.dashboard');
+    $trail->push('Request Kehadiran', route('user.request-attendance.index'));
+});
+
+// User request attendance > Create
+Breadcrumbs::for('user.request-attendance.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.request-attendance');
+    $trail->push('Tambah', route('user.request-attendance.create'));
+});
+
+// User request attendance > Edit
+Breadcrumbs::for('user.request-attendance.edit', function (BreadcrumbTrail $trail, $requestAttendance) {
+    $trail->parent('user.request-attendance');
+    $trail->push('Ubah', route('user.request-attendance.edit', $requestAttendance));
+});
+
+// User request reimbursement
+Breadcrumbs::for('user.request-reimbursement', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.dashboard');
+    $trail->push('Request Reimbursement', route('user.request-reimbursement.index'));
+});
+
+// User request reimbursement > Create
+Breadcrumbs::for('user.request-reimbursement.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.request-reimbursement');
+    $trail->push('Tambah', route('user.request-reimbursement.create'));
+});
+
+// User request reimbursement > Edit
+Breadcrumbs::for('user.request-reimbursement.edit', function (BreadcrumbTrail $trail, $requestReimbursement) {
+    $trail->parent('user.request-reimbursement');
+    $trail->push('Ubah', route('user.request-reimbursement.edit', $requestReimbursement));
+});
+
+// User task
+Breadcrumbs::for('user.task', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.dashboard');
+    $trail->push('Tugas', route('user.task.index'));
+});
+
+// User task > Create
+Breadcrumbs::for('user.task.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.task');
+    $trail->push('Tambah', route('user.task.create'));
+});
+
+// User task > Edit
+Breadcrumbs::for('user.task.edit', function (BreadcrumbTrail $trail, $task) {
+    $trail->parent('user.task');
+    $trail->push('Ubah', route('user.task.edit', $task));
+});
