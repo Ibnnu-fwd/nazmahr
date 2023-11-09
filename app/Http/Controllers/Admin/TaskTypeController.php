@@ -25,6 +25,7 @@ class TaskTypeController extends Controller
                 })
                 ->addColumn('priority', function ($data) {
                     $priorityTranslations = [
+                        'normal' => 'normal',
                         'low'    => 'rendah',
                         'medium' => 'sedang',
                         'high'   => 'tinggi',
@@ -34,6 +35,9 @@ class TaskTypeController extends Controller
                     $priority = $priorityTranslations[$priority] ?? $priority;
 
                     return strtoupper($priority);
+                })
+                ->addColumn('price', function ($data) {
+                    return $data->price ? 'Rp.' . number_format($data->price, 0, ',', '.') : '-';
                 })
                 ->addColumn('action', function ($data) {
                     return view('admin.task_type.column.action', compact('data'));
@@ -55,6 +59,7 @@ class TaskTypeController extends Controller
         $request->validate([
             'name'     => 'required|unique:task_types,name',
             'priority' => 'required',
+            'price'    => 'nullable'
         ]);
 
         try {
@@ -78,6 +83,7 @@ class TaskTypeController extends Controller
         $request->validate([
             'name'     => 'required|unique:task_types,name,' . $id,
             'priority' => 'required',
+            'price'    => 'nullable'
         ]);
 
         try {

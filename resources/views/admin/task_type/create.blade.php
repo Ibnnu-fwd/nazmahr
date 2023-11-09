@@ -8,10 +8,12 @@
             @csrf
             <x-input id="name" name="name" label="{{ __('Nama') }}" type="text" required />
             <x-select id="priority" name="priority" label="{{ __('Prioritas') }}" required>
+                <option value="normal">Normal</option>
                 <option value="low">Rendah</option>
                 <option value="medium">Sedang</option>
                 <option value="high">Tinggi</option>
             </x-select>
+            <x-input id="price" name="price" label="{{ __('Harga') }}" type="number" />
 
             <x-button id="store" label="{{ __('Tambah') }}" type="submit" />
         </form>

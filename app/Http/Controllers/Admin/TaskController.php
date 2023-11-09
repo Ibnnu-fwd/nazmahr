@@ -59,6 +59,12 @@ class TaskController extends Controller
                 ->addColumn('action', function ($data) {
                     return view('admin.task.column.action', compact('data'));
                 })
+                ->addColumn('price', function ($data) {
+                    return $data->price;
+                })
+                ->addColumn('total_price', function ($data) {
+                    return $data->total_price;
+                })
                 ->addIndexColumn()
                 ->make(true);
         }
@@ -83,6 +89,8 @@ class TaskController extends Controller
             'due_date'     => 'nullable',
             'description'  => 'nullable',
             'status'       => 'required',
+            'price'        => 'required',
+            'total_price'  => 'nullable',
         ]);
 
         try {
@@ -112,6 +120,8 @@ class TaskController extends Controller
             'due_date'     => 'nullable',
             'description'  => 'nullable',
             'status'       => 'required',
+            'price'        => 'required',
+            'total_price'  => 'nullable',
         ]);
 
         try {

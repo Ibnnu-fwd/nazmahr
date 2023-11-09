@@ -19,6 +19,8 @@ class Task extends Model
         'due_date',
         'description',
         'status',
+        'price',
+        'total_price',
         'created_by',
         'updated_by',
     ];

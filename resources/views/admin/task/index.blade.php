@@ -16,6 +16,8 @@
                     <th>Tenggat</th>
                     <th>Deskripsi</th>
                     <th>Status</th>
+                    <th>Harga</th>
+                    <th>Total Harga</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -87,6 +89,14 @@
                         {
                             data: 'status',
                             name: 'status'
+                        },
+                        {
+                            data: 'price',
+                            name: 'price'
+                        },
+                        {
+                            data: 'total_price',
+                            name: 'total_price'
                         },
                         {
                             data: 'action',

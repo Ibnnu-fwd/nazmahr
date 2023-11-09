@@ -28,6 +28,9 @@
                 <option value="2" {{ $task->status == 2 ? 'selected' : '' }}>Selesai</option>
                 <option value="3" {{ $task->status == 3 ? 'selected' : '' }}>Ditolak</option>
             </x-select>
+            <x-input id="price" label="Harga" type="number" name="price" required :value="$task->price" />
+            <x-input id="total_price" label="Total Harga" type="number" name="total_price" required
+                :value="$task->total_price" />
 
             <x-button id="store" label="{{ __('Simpan Perubahan') }}" type="submit" />
         </form>

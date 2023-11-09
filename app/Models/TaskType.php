@@ -15,6 +15,7 @@ class TaskType extends Model
         'name',
         'status',
         'priority',
+        'price',
         'created_by',
         'updated_by'
     ];
