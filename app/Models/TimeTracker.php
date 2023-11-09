@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class TimeTracker extends Model
 {
+
+    const STATUS = [
+        0 => 'Belum Selesai',
+        1 => 'Selesai'
+    ];
+
     use HasFactory;
 
     public    $table    = 'time_trackers';
@@ -15,6 +21,7 @@ class TimeTracker extends Model
         'start_time',
         'end_time',
         'total_time',
+        'status',
         'subject',
         'task',
         'created_by',
@@ -24,5 +31,10 @@ class TimeTracker extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function getStatus($value)
+    {
+        return self::STATUS[$value];
     }
 }
