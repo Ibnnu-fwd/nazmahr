@@ -6,25 +6,31 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Interfaces\RequestAttendanceInterface;
 use App\Interfaces\AttendanceTypeInterface;
+use App\Interfaces\AttendanceTimeConfigInterface;
 use App\Interfaces\EmployeeInterface;
+use App\Model\RequestAttendance;
+
 
 
 class RequestAttendanceController extends Controller
 {
     private $requestAttendance;
+    private $attendanceTimeConfig;
     private $attendanceType;
     private $employee;
 
 
 
-    public function __construct(RequestAttendanceInterface $requestAttendance, AttendanceTypeInterface $attendanceType, EmployeeInterface $employee)
+
+    public function __construct(RequestAttendanceInterface $requestAttendance,AttendanceTimeConfigInterface $attendanceTimeConfig , AttendanceTypeInterface $attendanceType, EmployeeInterface $employee)
     {
-        $this->requestAttendance = $requestAttendance;
-        $this->attendanceType    = $attendanceType;
-        $this->employee          = $employee;
+        $this->requestAttendance    = $requestAttendance;
+        $this->attendanceTimeConfig = $attendanceTimeConfig;
+        $this->attendanceType       = $attendanceType;
+        $this->employee             = $employee;
     }
 
-    //function index
+      //function index
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -45,6 +51,12 @@ class RequestAttendanceController extends Controller
                 ->addColumn('exit_at', function ($data) {
                     return date('H:i', strtotime($data->exit_at)) . ' WIB';
                 })
+                ->addColumn('schedule_in', function ($data) {
+                    return date('H:i', strtotime($data->attendanceTimeConfig->start_time));
+                })
+                ->addColumn('schedule_out', function ($data) {
+                    return date('H:i', strtotime($data->attendanceTimeConfig->end_time));
+                })
                 ->addColumn('description', function ($data) {
                     return $data->description;
                 })
@@ -60,24 +72,26 @@ class RequestAttendanceController extends Controller
         return view('admin.request_attendance.index');
     }
 
-    //function create
+      //function create
     public function create()
     {
         return view('admin.request_attendance.create', [
-            'attendanceTypes' => $this->requestAttendance->getAttendanceTypes(),
-            'employees'       => $this->employee->getAll()->where('position_id', '!=', 1)
+            'attendanceTypes'       => $this->requestAttendance->getAttendanceTypes(),
+            'employees'             => $this->employee->getAll()->where('position_id', '!=', 1),
+            'attendanceTimeConfigs' => $this->attendanceTimeConfig->getAll(),
         ]);
     }
 
-    //function store
+      //function store
     public function store(Request $request)
     {
         $request->validate([
-            'user_id'            => 'required',
-            'attendance_type_id' => 'required',
-            'entry_at'           => 'required',
-            'exit_at'            => 'required',
-            'description'        => 'required',
+            'user_id'                   => 'required',
+            'attendance_time_config_id' => 'required',
+            'attendance_type_id'        => 'required',
+            'entry_at'                  => 'required',
+            'exit_at'                   => 'required',
+            'description'               => 'required',
         ]);
         try {
             $this->requestAttendance->store($request->all());
@@ -89,25 +103,28 @@ class RequestAttendanceController extends Controller
     }
 
 
-    //function edit
+      //function edit
     public function edit($id, Request $request)
     {
         return view('admin.request_attendance.edit', [
-            'requestAttendance' => $this->requestAttendance->getById($id),
-            'attendanceTypes'   => $this->requestAttendance->getAttendanceTypes(),
-            'employees'         => $this->employee->getAll()->where('position_id', '!=', 1)
+            'requestAttendance'     => $this->requestAttendance->getById($id),
+            'attendanceTypes'       => $this->requestAttendance->getAttendanceTypes(),
+            'attendanceTimeConfigs' => $this->attendanceTimeConfig->getAll(),
+            'employees'             => $this->employee->getAll()->where('position_id', '!=', 1)
         ]);
     }
 
-    //function update
+      //function update
     public function update($id, Request $request)
     {
         $request->validate([
-            'user_id'            => 'required',
-            'attendance_type_id' => 'required',
-            'entry_at'           => 'required',
-            'exit_at'            => 'required',
-            'description'        => 'required',
+            'user_id'                   => 'required',
+            'attendance_type_id'        => 'required',
+            'attendance_time_config_id' => 'required',
+            'entry_at'                  => 'required',
+            'exit_at'                   => 'required',
+            'description'               => 'required',
+            'status_verification'       => 'required',
         ]);
 
         try {
@@ -119,7 +136,7 @@ class RequestAttendanceController extends Controller
         }
     }
 
-    //function destroy
+      //function destroy
     public function destroy($id)
     {
         $this->requestAttendance->destroy($id);

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('request_attendances', function (Blueprint $table) {
             $table->id();
             $table->foreignId('attendance_type_id')->references('id')->on('attendance_types')->onDelete('cascade');
+            $table->foreignId('attendance_time_config_id')->nullable()->constrained('attendance_time_configs')->onDelete('cascade');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->dateTime('entry_at')->nullable();
             $table->dateTime('exit_at')->nullable();

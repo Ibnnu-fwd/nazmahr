@@ -14,6 +14,8 @@
                     <th>Nama Lengkap</th>
                     <th>Tanggal</th>
                     <th>Tipe Presensi</th>
+                    <th>Jadwal Masuk</th>
+                    <th>Jadwal Keluar</th>
                     <th>Check In</th>
                     <th>Check Out</th>
                     <th>Keterangan</th>
@@ -83,13 +85,32 @@
                             name: 'attendance_type'
                         },
                         {
+                            data: 'schedule_in',
+                            name: 'schedule_in'
+                        },
+                        {
+                            data: 'schedule_out',
+                            name: 'schedule_out'
+                        },
+                        {
                             data: 'entry_at',
-                            name: 'entry_at'
+                            name: 'entry_at',
+                            createdCell: function(td, cellData, rowData, row, col) {
+                                if (cellData) {
+                                    $(td).css('font-weight', 'bold');
+                                }
+                            }
                         },
                         {
                             data: 'exit_at',
-                            name: 'exit_at'
+                            name: 'exit_at',
+                            createdCell: function(td, cellData, rowData, row, col) {
+                                if (cellData) {
+                                    $(td).css('font-weight', 'bold');
+                                }
+                            }
                         },
+                        
                         {
                             data: 'description',
                             name: 'description'
