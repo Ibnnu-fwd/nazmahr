@@ -25,6 +25,7 @@
                 <option value="2">Selesai</option>
                 <option value="3">Ditolak</option>
             </x-select>
+            <x-input id="price" label="Harga" type="number" name="price" required />
 
             <x-button id="store" label="{{ __('Tambah') }}" type="submit" />
         </form>
