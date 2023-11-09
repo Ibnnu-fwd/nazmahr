@@ -18,6 +18,7 @@
                     <th>Waktu Berakhir</th>
                     <th>Durasi</th>
                     <th>Tanggal</th>
+                    <th>Status</th>
                     <th>Tombol</th>
                     <th>Aksi</th>
                 </tr>
@@ -101,6 +102,20 @@
                 });
             }
 
+            function btnFinish(id) {
+                let url = "{{ route('admin.time-tracker.finish', ':id') }}".replace(':id', id);
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                    },
+                    success: function(response) {
+                        $('.rowTable').DataTable().ajax.reload();
+                    }
+                });
+            }
+
             $(function() {
                 $('.rowTable').DataTable({
                     processing: true,
@@ -139,6 +154,10 @@
                         {
                             data: 'created_at',
                             name: 'created_at'
+                        },
+                        {
+                            data: 'status',
+                            name: 'status'
                         },
                         {
                             data: 'button',

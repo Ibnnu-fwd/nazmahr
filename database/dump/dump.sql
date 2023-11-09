@@ -19,14 +19,15 @@ DELETE FROM `announcements`;
 INSERT INTO `announcements` (`id`, `code`, `subject`, `content`, `attachment`, `is_send_email`, `is_active`, `created_at`, `updated_at`) VALUES
 	(2, 'ANN-65480054ea276', 'contoh', '<p>update isi konten</p><p>&nbsp;</p><p><strong>Ibnu ganteng sekali</strong></p>', '65480054e7407.pdf', 1, 1, '2023-11-05 13:51:32', '2023-11-05 13:56:00');
 
--- Dumping data for table nazmahr.attendances: ~0 rows (approximately)
+-- Dumping data for table nazmahr.attendances: ~3 rows (approximately)
 DELETE FROM `attendances`;
 INSERT INTO `attendances` (`id`, `attendance_type_id`, `user_id`, `entry_at`, `exit_at`, `description`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `attendance_time_config_id`) VALUES
 	(1, 1, 3, '2023-01-07 08:00:00', '2023-01-07 17:00:00', 'Wifi kosan tidak ada internet', 1, 1, NULL, '2023-11-07 19:29:41', '2023-11-07 19:29:41', 2),
 	(2, 1, 4, '2023-11-07 08:15:00', '2023-11-07 17:20:00', 'Browser error', 1, 1, 1, '2023-11-07 19:47:26', '2023-11-07 20:52:57', 2),
-	(10, 1, 1, '2023-11-08 14:40:48', '2023-11-08 14:57:37', 'saya telah mengerjakan fitur absensi ini', 1, 1, 1, '2023-11-08 00:40:48', '2023-11-08 00:57:37', 3);
+	(10, 1, 1, '2023-11-08 14:40:48', '2023-11-08 14:57:37', 'saya telah mengerjakan fitur absensi ini', 1, 1, 1, '2023-11-08 00:40:48', '2023-11-08 00:57:37', 3),
+	(11, 1, 1, '2023-11-09 12:59:35', NULL, NULL, 1, 1, NULL, '2023-11-08 22:59:35', '2023-11-08 22:59:35', 4);
 
--- Dumping data for table nazmahr.attendance_time_configs: ~5 rows (approximately)
+-- Dumping data for table nazmahr.attendance_time_configs: ~7 rows (approximately)
 DELETE FROM `attendance_time_configs`;
 INSERT INTO `attendance_time_configs` (`id`, `attendance_type_id`, `day`, `start_time`, `end_time`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
 	(1, 1, 'Senin', '08:00:00', '17:00:00', 1, 1, NULL, '2023-11-07 19:46:37'),
@@ -108,21 +109,31 @@ DELETE FROM `request_attendances`;
 INSERT INTO `request_attendances` (`id`, `attendance_type_id`, `user_id`, `entry_at`, `exit_at`, `description`, `status_verification`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
 	(1, 1, 3, '2023-11-06 16:38:00', '2023-11-06 16:38:00', 'Jaringan internet dirumah mati', 'Pending', 1, 1, NULL, '2023-11-06 02:38:53', '2023-11-06 02:38:53');
 
+-- Dumping data for table nazmahr.request_reimbursement: ~0 rows (approximately)
+DELETE FROM `request_reimbursement`;
+
 -- Dumping data for table nazmahr.tasks: ~0 rows (approximately)
 DELETE FROM `tasks`;
 
--- Dumping data for table nazmahr.task_types: ~2 rows (approximately)
+-- Dumping data for table nazmahr.task_types: ~11 rows (approximately)
 DELETE FROM `task_types`;
-INSERT INTO `task_types` (`id`, `name`, `status`, `priority`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-	(1, 'Umum', 0, 'medium', 1, NULL, '2023-11-04 05:35:23', '2023-11-04 05:35:23'),
-	(2, 'Desain', 0, 'low', 1, NULL, '2023-11-04 05:35:38', '2023-11-04 05:35:38');
+INSERT INTO `task_types` (`id`, `name`, `status`, `priority`, `created_by`, `updated_by`, `created_at`, `updated_at`, `price`) VALUES
+	(1, 'Umum', 0, 'medium', 1, NULL, '2023-11-04 05:35:23', '2023-11-04 05:35:23', NULL),
+	(2, 'Desain (Flyer/GFPP)', 0, 'normal', 1, 1, '2023-11-04 05:35:38', '2023-11-08 19:17:55', 25000),
+	(3, 'Re-DS (Re-Desain)', 0, 'normal', 1, NULL, '2023-11-08 19:19:06', '2023-11-08 19:19:06', 5000),
+	(4, 'Dinas Luar Kota / Event Preparation', 0, 'normal', 1, 1, '2023-11-08 19:19:36', '2023-11-08 19:20:06', 110000),
+	(5, 'Dinas Luar Kota', 0, 'normal', 1, NULL, '2023-11-08 19:20:24', '2023-11-08 19:20:24', 200000),
+	(6, 'Sharing Proyek', 0, 'normal', 1, NULL, '2023-11-08 19:20:39', '2023-11-08 19:20:39', NULL),
+	(7, 'Narasumber', 0, 'normal', 1, NULL, '2023-11-08 19:21:17', '2023-11-08 19:21:17', 300000),
+	(8, 'Upload Konten', 0, 'normal', 1, NULL, '2023-11-08 19:21:31', '2023-11-08 19:21:31', NULL),
+	(9, 'Admin', 0, 'normal', 1, NULL, '2023-11-08 19:22:43', '2023-11-08 19:22:43', 150000),
+	(10, 'PIC Proyek', 0, 'normal', 1, NULL, '2023-11-08 19:23:00', '2023-11-08 19:23:00', 300000),
+	(11, 'Lain - lain', 0, 'normal', 1, NULL, '2023-11-08 19:23:11', '2023-11-08 19:23:11', NULL);
 
--- Dumping data for table nazmahr.time_trackers: ~3 rows (approximately)
+-- Dumping data for table nazmahr.time_trackers: ~1 rows (approximately)
 DELETE FROM `time_trackers`;
-INSERT INTO `time_trackers` (`id`, `user_id`, `start_time`, `end_time`, `total_time`, `subject`, `task`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-	(1, 3, '2023-11-06 07:00:00', '2023-11-06 07:59:53', '360', 'Tugas 1', NULL, 1, 1, '2023-11-06 07:07:08', '2023-11-06 00:59:53'),
-	(2, 4, '2023-11-06 07:00:00', '2023-11-06 07:59:51', '360', 'Tugas 2', NULL, 1, 1, '2023-11-06 07:07:08', '2023-11-06 00:59:51'),
-	(5, 3, '2023-11-06 07:50:52', '2023-11-08 07:41:52', '2451', 'Contoh', 'Tugas 1', 1, 1, '2023-11-06 00:50:47', '2023-11-08 00:41:52');
+INSERT INTO `time_trackers` (`id`, `user_id`, `start_time`, `end_time`, `total_time`, `status`, `subject`, `task`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+	(6, 3, '2023-11-09 03:11:28', '2023-11-09 03:12:34', '418', 1, 'Membuat desain canvas', NULL, NULL, NULL, '2023-11-08 20:11:19', '2023-11-08 20:12:38');
 
 -- Dumping data for table nazmahr.users: ~3 rows (approximately)
 DELETE FROM `users`;

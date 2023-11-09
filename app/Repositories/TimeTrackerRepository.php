@@ -46,17 +46,19 @@ class TimeTrackerRepository implements TimeTrackerInterface
         $timeTracker = $this->timeTracker->find($id);
         return $timeTracker->update([
             'start_time' => Carbon::now('Asia/Jakarta'),
+            'status'     => 0, // 0 = Belum Selesai
         ]);
     }
 
     public function stop($id)
     {
         $timeTracker = $this->timeTracker->find($id);
-        $start_time  = $timeTracker->start_time;
+        $start_time  = Carbon::parse($timeTracker->start_time)->timezone('Asia/Jakarta');
         $end_time    = Carbon::now('Asia/Jakarta');
         return $timeTracker->update([
             'end_time'   => $end_time,
-            'total_time' => Carbon::parse($start_time)->diffInMinutes($end_time),
+            'total_time' => Carbon::parse($start_time)->timezone('Asia/Jakarta')->diffInMinutes(Carbon::parse($end_time)->timezone('Asia/Jakarta')),
+            'status'     => 0, // 0 = Belum Selesai
         ]);
     }
 
@@ -65,6 +67,19 @@ class TimeTrackerRepository implements TimeTrackerInterface
         return $this->timeTracker->find($id)->update([
             'end_time'   => null,
             'total_time' => null,
+            'status'     => 0, // 0 = Belum Selesai
+        ]);
+    }
+
+    public function finish($id)
+    {
+        $timeTracker = $this->timeTracker->find($id);
+        // $start_time  = $timeTracker->start_time;
+        // $end_time    = Carbon::now('Asia/Jakarta');
+        return $timeTracker->update([
+            // 'end_time'   => $end_time,
+            // 'total_time' => Carbon::parse($start_time)->diffInMinutes($end_time),
+            'status'     => 1, // 1 = Selesai
         ]);
     }
 }

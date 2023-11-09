@@ -17,9 +17,10 @@
                     </label>
                     <select id="employee" name="user_id"
                         class="text-sm block mt-1 w-full border-gray-300 focus:border-yellow-500 focus:ring-yellow-500 rounded-md shadow-sm">
+                        <option disabled selected>Pilih Karyawan</option>
                         <option value="all">Semua</option>
                         @foreach ($employees as $employee)
-                            <option value="{{ $employee->name }}">{{ $employee->name }}</option>
+                            <option value="{{ $employee->id }}">{{ $employee->name }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -155,17 +156,22 @@
 
                 $('#date').on('change', function(e) {
                     var date = $(this).val();
-                    $('#date').val(date)
-                    table.column(2).search(date.split('-').reverse().join('-')).draw();
+                    let url = "{{ route('admin.attendance.index') }}";
+                    url += '?date=' + encodeURIComponent(date);
+                    // clear filter
+                    $('#employee').val('all');
+                    table.clear().draw();
+                    table.ajax.url(url).load();
                 });
 
                 $('#employee').on('change', function(e) {
                     var employee = $(this).val();
-                    if (employee == 'all') {
-                        table.column(1).search('').draw();
-                    } else {
-                        table.column(1).search(employee).draw();
-                    }
+                    let url = "{{ route('admin.attendance.index') }}";
+                    url += '?employee_id=' + encodeURIComponent(employee);
+                    // clear filter
+                    $('#date').val('{{ date('Y-m-d') }}');
+                    table.clear().draw();
+                    table.ajax.url(url).load();
                 });
             });
 

@@ -12,4 +12,5 @@ interface TimeTrackerInterface
     public function start($id);
     public function stop($id);
     public function continue($id);
+    public function finish($id);
 }

@@ -31,7 +31,7 @@ class TimeTrackerController extends Controller
                     return $data->subject;
                 })
                 ->addColumn('start_time', function ($data) {
-                    return date('H:i', strtotime($data->start_time));
+                    return $data->start_time ? date('H:i', strtotime($data->start_time)) : '-';
                 })
                 ->addColumn('end_time', function ($data) {
                     return $data->end_time ? date('H:i', strtotime($data->end_time)) : '-';
@@ -41,6 +41,9 @@ class TimeTrackerController extends Controller
                 })
                 ->addColumn('task', function ($data) {
                     return $data->task ?? '-';
+                })
+                ->addColumn('status', function ($data) {
+                    return $data->getStatus($data->status);
                 })
                 ->addColumn('created_at', function ($data) {
                     return date('d-m-Y', strtotime($data->created_at));
@@ -130,6 +133,12 @@ class TimeTrackerController extends Controller
     public function continue($id)
     {
         $this->timeTracker->continue($id);
+        return response()->json(true);
+    }
+
+    public function finish($id)
+    {
+        $this->timeTracker->finish($id);
         return response()->json(true);
     }
 }

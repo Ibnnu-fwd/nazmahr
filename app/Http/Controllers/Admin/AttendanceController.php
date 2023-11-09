@@ -27,9 +27,11 @@ class AttendanceController extends Controller
 
     public function index(Request $request)
     {
+        $results = $this->attendance->getAll();
+
         if ($request->ajax()) {
             return datatables()
-                ->of($this->attendance->getAll())
+                ->of($results)
                 ->addColumn('name', function ($data) {
                     return $data->user->name;
                 })
@@ -141,11 +143,11 @@ class AttendanceController extends Controller
         ]);
     }
 
-    public function clockIn()
+    public function clockIn(Request $request)
     {
         $attendanceTimeConfig = $this->attendanceTimeConfig->getByDay(Carbon::now()->locale('id')->dayName);
         try {
-            $this->attendance->clockIn($attendanceTimeConfig);
+            $this->attendance->clockIn($attendanceTimeConfig, $request->all());
             return response()->json([
                 'status'  => true,
                 'message' => 'Anda berhasil melakukan absensi masuk'
@@ -166,7 +168,7 @@ class AttendanceController extends Controller
 
         $attendanceTimeConfig = $this->attendanceTimeConfig->getByDay(Carbon::now()->locale('id')->dayName);
         try {
-            $this->attendance->clockOut($attendanceTimeConfig, $request->description);
+            $this->attendance->clockOut($attendanceTimeConfig, $request->all());
             return response()->json([
                 'status'  => true,
                 'message' => 'Anda berhasil melakukan absensi keluar'
@@ -177,6 +179,13 @@ class AttendanceController extends Controller
                 'message' => $th->getMessage()
             ]);
         }
+    }
+
+    public function show($id)
+    {
+        return view('admin.attendance.show', [
+            'attendance' => $this->attendance->getById($id)
+        ]);
     }
 
     // CUSTOM FUNCTION
@@ -195,6 +204,6 @@ class AttendanceController extends Controller
         $hours   = floor($timeDifference / 3600);
         $minutes = floor(($timeDifference / 60) % 60);
 
-        return $hours . ' jam ' . $minutes . ' menit';
+        return $hours . ' J ' . $minutes . ' M';
     }
 }

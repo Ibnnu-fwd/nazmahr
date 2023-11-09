@@ -22,7 +22,7 @@ class RequestAttendanceController extends Controller
 
 
 
-    public function __construct(RequestAttendanceInterface $requestAttendance,AttendanceTimeConfigInterface $attendanceTimeConfig , AttendanceTypeInterface $attendanceType, EmployeeInterface $employee)
+    public function __construct(RequestAttendanceInterface $requestAttendance, AttendanceTimeConfigInterface $attendanceTimeConfig, AttendanceTypeInterface $attendanceType, EmployeeInterface $employee)
     {
         $this->requestAttendance    = $requestAttendance;
         $this->attendanceTimeConfig = $attendanceTimeConfig;
@@ -30,7 +30,7 @@ class RequestAttendanceController extends Controller
         $this->employee             = $employee;
     }
 
-      //function index
+    //function index
     public function index(Request $request)
     {
         if ($request->ajax()) {
@@ -72,7 +72,7 @@ class RequestAttendanceController extends Controller
         return view('admin.request_attendance.index');
     }
 
-      //function create
+    //function create
     public function create()
     {
         return view('admin.request_attendance.create', [
@@ -82,7 +82,7 @@ class RequestAttendanceController extends Controller
         ]);
     }
 
-      //function store
+    //function store
     public function store(Request $request)
     {
         $request->validate([
@@ -103,7 +103,7 @@ class RequestAttendanceController extends Controller
     }
 
 
-      //function edit
+    //function edit
     public function edit($id, Request $request)
     {
         return view('admin.request_attendance.edit', [
@@ -135,7 +135,6 @@ class RequestAttendanceController extends Controller
         }
     }
 
-      //function destroy
     public function destroy($id)
     {
         $this->requestAttendance->destroy($id);
