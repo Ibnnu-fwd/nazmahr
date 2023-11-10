@@ -28,7 +28,7 @@
                     <img src="{{ asset('assets/profile/calendar.svg') }}"
                         class="w-5 h-5 text-gray-500 transition duration-75 mr-2" alt="">
                     <p class="text-base text-gray-500">
-                        {{ Carbon\Carbon::parse($user->birth_date)->translatedFormat('d F Y') }}
+                        {{ Carbon\Carbon::parse($user->birth)->translatedFormat('d F Y') }}
                     </p>
                 </div>
                 <div class="flex items-center">
@@ -39,14 +39,14 @@
                     </p>
                 </div>
                 <div class="flex items-center">
-                    <img src="{{ asset('assets/profile/map.svg') }}"
+                    <img src="{{ asset('assets/profile/phone.svg') }}"
                         class="w-5 h-5 text-gray-500 transition duration-75 mr-2" alt="">
                     <p class="text-base text-gray-500">
                         {{ $user->phone }}
                     </p>
                 </div>
                 <div class="flex items-center">
-                    <img src="{{ asset('assets/profile/phone.svg') }}"
+                    <img src="{{ asset('assets/profile/map.svg') }}"
                         class="w-5 h-5 text-gray-500 transition duration-75 mr-2" alt="">
                     <p class="text-base text-gray-500">
                         {{ $user->address }}
