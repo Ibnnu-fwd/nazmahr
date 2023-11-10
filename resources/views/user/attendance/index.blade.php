@@ -11,18 +11,6 @@
                     <input type="date" id="date" name="date" value="{{ date('Y-m-d') }}"
                         class="border-gray-300 focus:border-yellow-500 text-sm text-gray-500 focus:ring-yellow-500 rounded-md shadow-sm block w-fit">
                 </div>
-                <div class="flex items-center">
-                    <label for="employee" class="block mr-2 text-sm font-medium text-gray-900">
-                        Karyawan:
-                    </label>
-                    <select id="employee" name="user_id"
-                        class="text-sm block mt-1 w-full border-gray-300 focus:border-yellow-500 focus:ring-yellow-500 rounded-md shadow-sm">
-                        <option value="all">Semua</option>
-                        @foreach ($employees as $employee)
-                            <option value="{{ $employee->name }}">{{ $employee->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
             </div>
         </div>
 

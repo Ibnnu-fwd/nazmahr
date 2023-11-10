@@ -48,10 +48,10 @@ class AttendanceController extends Controller
                     return date('H:i', strtotime($data->attendanceTimeConfig->end_time));
                 })
                 ->addColumn('check_in', function ($data) {
-                    return date('H:i', strtotime($data->entry_at));
+                    return $data->entry_at ? date('H:i', strtotime($data->entry_at)) : '-';
                 })
                 ->addColumn('check_out', function ($data) {
-                    return date('H:i', strtotime($data->exit_at));
+                    return $data->exit_at ? date('H:i', strtotime($data->exit_at)) : '-';
                 })
                 ->addColumn('late_time', function ($data) {
                     return $this->calculateTimeDifference($data->attendanceTimeConfig->start_time, $data->entry_at);
