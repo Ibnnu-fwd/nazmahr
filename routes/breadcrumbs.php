@@ -425,3 +425,9 @@ Breadcrumbs::for('user.task.edit', function (BreadcrumbTrail $trail, $task) {
     $trail->parent('user.task');
     $trail->push('Ubah', route('user.task.edit', $task));
 });
+
+// Payroll
+Breadcrumbs::for('admin.payroll', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Payroll', route('admin.payroll.index'));
+});

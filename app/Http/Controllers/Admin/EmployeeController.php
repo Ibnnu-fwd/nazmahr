@@ -26,6 +26,9 @@ class EmployeeController extends Controller
                 ->addColumn('name', function ($data) {
                     return $data->name;
                 })
+                ->addColumn('employee_status', function ($data) {
+                    return $data->employee_status == 'permanent' ? 'Tetap' : ($data->employee_status == 'contract' ? 'Kontrak' : 'Probation');
+                })
                 ->addColumn('email', function ($data) {
                     return $data->email;
                 })
@@ -37,6 +40,9 @@ class EmployeeController extends Controller
                 })
                 ->addColumn('phone', function ($data) {
                     return $data->phone;
+                })
+                ->addColumn('salary', function ($data) {
+                    return 'Rp. ' . number_format($data->salary, 0, ',', '.');
                 })
                 ->addColumn('join_date', function ($data) {
                     return date('d-m-Y', strtotime($data->join_date));
@@ -61,15 +67,17 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'        => ['required'],
-            'email'       => ['required'],
-            'birth'       => ['required'],
-            'gender'      => ['required'],
-            'phone'       => ['required'],
-            'address'     => ['required'],
-            'ktp'         => ['nullable'],
-            'photo'       => ['nullable'],
-            'position_id' => ['required'],
+            'name'            => ['required'],
+            'email'           => ['required'],
+            'birth'           => ['required'],
+            'gender'          => ['required'],
+            'phone'           => ['required'],
+            'address'         => ['required'],
+            'ktp'             => ['nullable'],
+            'photo'           => ['nullable'],
+            'position_id'     => ['required'],
+            'employee_status' => ['nullable'],
+            'salary'          => ['nullable'],
         ]);
 
         try {
@@ -92,15 +100,17 @@ class EmployeeController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'        => ['required'],
-            'email'       => ['required'],
-            'birth'       => ['required'],
-            'gender'      => ['required'],
-            'phone'       => ['required'],
-            'address'     => ['required'],
-            'ktp'         => ['nullable'],
-            'photo'       => ['nullable'],
-            'position_id' => ['required'],
+            'name'            => ['required'],
+            'email'           => ['required'],
+            'birth'           => ['required'],
+            'gender'          => ['required'],
+            'phone'           => ['required'],
+            'address'         => ['required'],
+            'ktp'             => ['nullable'],
+            'photo'           => ['nullable'],
+            'position_id'     => ['required'],
+            'employee_status' => ['nullable'],
+            'salary'          => ['nullable'],
         ]);
 
         try {

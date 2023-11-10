@@ -19,7 +19,7 @@ DELETE FROM `announcements`;
 INSERT INTO `announcements` (`id`, `code`, `subject`, `content`, `attachment`, `is_send_email`, `is_active`, `created_at`, `updated_at`) VALUES
 	(2, 'ANN-65480054ea276', 'contoh', '<p>update isi konten</p><p>&nbsp;</p><p><strong>Ibnu ganteng sekali</strong></p>', '65480054e7407.pdf', 1, 1, '2023-11-05 13:51:32', '2023-11-05 13:56:00');
 
--- Dumping data for table nazmahr.attendances: ~4 rows (approximately)
+-- Dumping data for table nazmahr.attendances: ~5 rows (approximately)
 DELETE FROM `attendances`;
 INSERT INTO `attendances` (`id`, `attendance_type_id`, `user_id`, `entry_at`, `exit_at`, `description`, `status`, `location`, `latitude`, `longitude`, `created_by`, `updated_by`, `created_at`, `updated_at`, `attendance_time_config_id`) VALUES
 	(1, 1, 3, '2023-01-07 08:00:00', '2023-01-07 17:00:00', 'Wifi kosan tidak ada internet', 1, NULL, NULL, NULL, 1, NULL, '2023-11-07 19:29:41', '2023-11-07 19:29:41', 2),
@@ -93,7 +93,7 @@ DELETE FROM `permit_leaves_categories`;
 -- Dumping data for table nazmahr.personal_access_tokens: ~0 rows (approximately)
 DELETE FROM `personal_access_tokens`;
 
--- Dumping data for table nazmahr.positions: ~3 rows (approximately)
+-- Dumping data for table nazmahr.positions: ~0 rows (approximately)
 DELETE FROM `positions`;
 INSERT INTO `positions` (`id`, `name`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
 	(1, 'Admin', 1, 1, 1, NULL, NULL),
@@ -116,7 +116,7 @@ DELETE FROM `request_reimbursement`;
 -- Dumping data for table nazmahr.tasks: ~0 rows (approximately)
 DELETE FROM `tasks`;
 
--- Dumping data for table nazmahr.task_types: ~11 rows (approximately)
+-- Dumping data for table nazmahr.task_types: ~0 rows (approximately)
 DELETE FROM `task_types`;
 INSERT INTO `task_types` (`id`, `name`, `status`, `priority`, `created_by`, `updated_by`, `created_at`, `updated_at`, `price`) VALUES
 	(1, 'Umum', 0, 'medium', 1, NULL, '2023-11-04 05:35:23', '2023-11-04 05:35:23', NULL),
@@ -138,10 +138,10 @@ INSERT INTO `time_trackers` (`id`, `user_id`, `start_time`, `end_time`, `total_t
 
 -- Dumping data for table nazmahr.users: ~3 rows (approximately)
 DELETE FROM `users`;
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `birth`, `gender`, `phone`, `address`, `ktp`, `photo`, `join_date`, `is_active`, `created_by`, `updated_by`, `remember_token`, `created_at`, `updated_at`, `position_id`) VALUES
-	(1, 'Admin', 'admin@mail.com', NULL, '$2y$10$S8HefQf.dhPUqLIYyqtuxO1h25oI3Bhv1r3zxfRgQwo45f9jPcHbW', '2023-11-04', 'L', '6281515144981', 'Jakarta', NULL, NULL, '2023-11-04', 1, NULL, NULL, NULL, '2023-11-04 00:14:37', '2023-11-04 00:14:37', 1),
-	(3, 'Moh Ibnu', 'ibnuabdurrohmansutio@gmail.com', NULL, '$2y$10$Jp.7yef4eeCdn8jRC5hPT.wJY07kkj2Xi3Si5vwMPqzEEYu1.KyrS', '2023-11-04', 'L', '+6281515144981', 'Yogyakarta', '6545fc858d765.png', '6545fc8591c78.jpg', '2023-11-04', 1, 1, NULL, NULL, '2023-11-04 01:10:45', '2023-11-04 01:10:45', 3),
-	(4, 'Icen Ectefania', 'icen@gmail.com', NULL, '$2y$10$lwnxaOTusRzWIjOioSYnLuxz0q5KnhkJahT7KwMR0dnraCWSJQuQu', '2001-09-23', 'P', '6281515144982', 'Singkawang', '6545fcdd46dda.jpg', '6545fcdd4a800.jpg', '2023-11-04', 1, 1, NULL, NULL, '2023-11-04 01:12:13', '2023-11-04 01:12:13', 2);
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `birth`, `gender`, `phone`, `address`, `ktp`, `photo`, `join_date`, `is_active`, `created_by`, `updated_by`, `remember_token`, `created_at`, `updated_at`, `position_id`, `employee_status`, `salary`) VALUES
+	(1, 'Admin', 'admin@mail.com', NULL, '$2y$10$S8HefQf.dhPUqLIYyqtuxO1h25oI3Bhv1r3zxfRgQwo45f9jPcHbW', '2023-11-04', 'L', '6281515144981', 'Jakarta', NULL, '654d89ad9f3d4.jpg', '2023-11-04', 1, NULL, 1, NULL, '2023-11-04 00:14:37', '2023-11-09 18:38:54', 1, NULL, NULL),
+	(3, 'Moh Ibnu', 'ibnuabdurrohmansutio@gmail.com', NULL, '$2y$10$Jp.7yef4eeCdn8jRC5hPT.wJY07kkj2Xi3Si5vwMPqzEEYu1.KyrS', '2023-11-04', 'L', '+6281515144981', 'Yogyakarta', '6545fc858d765.png', '6545fc8591c78.jpg', '2023-11-04', 1, 1, 1, NULL, '2023-11-04 01:10:45', '2023-11-09 21:31:42', 3, 'permanent', 2000000),
+	(4, 'Icen Ectefania', 'icen@gmail.com', NULL, '$2y$10$lwnxaOTusRzWIjOioSYnLuxz0q5KnhkJahT7KwMR0dnraCWSJQuQu', '2001-09-23', 'P', '6281515144982', 'Singkawang', '6545fcdd46dda.jpg', '6545fcdd4a800.jpg', '2023-11-04', 1, 1, 1, NULL, '2023-11-04 01:12:13', '2023-11-09 21:31:52', 2, 'permanent', 2000000);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

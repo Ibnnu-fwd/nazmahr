@@ -22,6 +22,12 @@
                     <option value="{{ $position->id }}">{{ $position->name }}</option>
                 @endforeach
             </x-select>
+            <x-select id="employee_status" name="employee_status" label="Status Karyawan" required>
+                <option value="probation">Probation</option>
+                <option value="permanent">Permanent</option>
+                <option value="internship">Internship</option>
+            </x-select>
+            <x-input id="salary" name="salary" label="{{ __('Gaji') }}" type="number" required />
 
             <x-button id="store" label="{{ __('Tambah') }}" type="submit" />
         </form>

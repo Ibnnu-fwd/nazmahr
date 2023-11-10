@@ -26,7 +26,9 @@ class User extends Authenticatable
         'is_active',
         'position_id',
         'created_by',
-        'updated_by'
+        'updated_by',
+        'employee_status',
+        'salary',
     ];
 
     protected $hidden = [
@@ -82,5 +84,15 @@ class User extends Authenticatable
     public function timeTrackers()
     {
         return $this->hasMany(TimeTracker::class);
+    }
+
+    public function payrolls()
+    {
+        return $this->hasMany(Payroll::class);
+    }
+
+    public function request_reimbursements()
+    {
+        return $this->hasMany(RequestReimbursement::class);
     }
 }

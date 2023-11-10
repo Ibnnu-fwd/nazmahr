@@ -1,24 +1,23 @@
 <x-app-layout>
-    @section('title', 'Karyawan')
+    @section('title', 'Payroll')
 
-    <x-breadcrumb name="admin.employee" />
+    <x-breadcrumb name="admin.payroll" />
 
     <x-card-container>
-        <div class="flex justify-end">
-            <x-add route="{{ route('admin.employee.create') }}" />
+        <div class="flex items-center mb-4">
+            <label for="date" class="mr-2 block text-sm font-medium text-gray-700 ">Bulan:</label>
+            <input type="month" id="date" name="date" value="{{ date('Y-m') }}"
+                class="border-gray-300 focus:border-yellow-500 text-sm text-gray-500 focus:ring-yellow-500 rounded-md shadow-sm block w-fit">
         </div>
         <table class="rowTable">
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Nama</th>
-                    <th>Tipe</th>
-                    <th>Email</th>
-                    <th>Jabatan</th>
-                    <th>Gender</th>
-                    <th>No.Telepon</th>
-                    <th>Gaji</th>
-                    <th>Tgl. Bergabung</th>
+                    <th>Karyawan</th>
+                    <th>Gaji Pokok</th>
+                    <th>Reimburse</th>
+                    <th>Penugasan</th>
+                    <th>Total Pembayaran</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -40,7 +39,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $.ajax({
-                            url: "{{ route('admin.employee.destroy', ':id') }}".replace(':id', id),
+                            url: "{{ route('admin.payroll.destroy', ':id') }}".replace(':id', id),
                             type: 'DELETE',
                             data: {
                                 "_token": "{{ csrf_token() }}",
@@ -60,48 +59,35 @@
             }
 
             $(function() {
-
-                $('.rowTable').DataTable({
+                table = $('.rowTable').DataTable({
                     processing: true,
                     serverSide: true,
                     autoWidth: false,
                     responsive: true,
-                    ajax: "{{ route('admin.employee.index') }}",
+                    ajax: "{{ route('admin.payroll.index') }}",
                     columns: [{
                             data: 'DT_RowIndex',
                             name: 'DT_RowIndex'
                         },
                         {
-                            data: 'name',
-                            name: 'name'
+                            data: 'employee',
+                            name: 'employee'
                         },
                         {
-                            data: 'employee_status',
-                            name: 'employee_status'
+                            data: 'total_salary',
+                            name: 'total_salary'
                         },
                         {
-                            data: 'email',
-                            name: 'email'
+                            data: 'total_reimbursement',
+                            name: 'total_reimbursement'
                         },
                         {
-                            data: 'position',
-                            name: 'position'
+                            data: 'total_task',
+                            name: 'total_task'
                         },
                         {
-                            data: 'gender',
-                            name: 'gender'
-                        },
-                        {
-                            data: 'phone',
-                            name: 'phone'
-                        },
-                        {
-                            data: 'salary',
-                            name: 'salary'
-                        },
-                        {
-                            data: 'join_date',
-                            name: 'join_date'
+                            data: 'total_payroll',
+                            name: 'total_payroll'
                         },
                         {
                             data: 'action',
@@ -110,6 +96,15 @@
                             searchable: false
                         },
                     ]
+                });
+
+                $('#date').change(function() {
+                    let date = $(this).val();
+                    console.log(date);
+                    let url = "{{ route('admin.payroll.index') }}";
+                    let newUrl = url + '?date=' + date;
+                    table.clear().draw();
+                    $('.rowTable').DataTable().ajax.url(newUrl).load();
                 });
             });
 

@@ -40,6 +40,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Interfaces\TimeTrackerInterface::class, \App\Repositories\TimeTrackerRepository::class);
         $this->app->bind(\App\Interfaces\RequestAttendanceInterface::class, \App\Repositories\RequestAttendanceRepository::class);
         $this->app->bind(\App\Interfaces\RequestReimbursementInterface::class, \App\Repositories\RequestReimbursementRepository::class);
+        $this->app->bind(\App\Interfaces\PayrollInterface::class, \App\Repositories\PayrollRepository::class);
     }
 
     /**
