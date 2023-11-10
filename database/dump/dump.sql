@@ -19,13 +19,14 @@ DELETE FROM `announcements`;
 INSERT INTO `announcements` (`id`, `code`, `subject`, `content`, `attachment`, `is_send_email`, `is_active`, `created_at`, `updated_at`) VALUES
 	(2, 'ANN-65480054ea276', 'contoh', '<p>update isi konten</p><p>&nbsp;</p><p><strong>Ibnu ganteng sekali</strong></p>', '65480054e7407.pdf', 1, 1, '2023-11-05 13:51:32', '2023-11-05 13:56:00');
 
--- Dumping data for table nazmahr.attendances: ~3 rows (approximately)
+-- Dumping data for table nazmahr.attendances: ~4 rows (approximately)
 DELETE FROM `attendances`;
-INSERT INTO `attendances` (`id`, `attendance_type_id`, `user_id`, `entry_at`, `exit_at`, `description`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`, `attendance_time_config_id`) VALUES
-	(1, 1, 3, '2023-01-07 08:00:00', '2023-01-07 17:00:00', 'Wifi kosan tidak ada internet', 1, 1, NULL, '2023-11-07 19:29:41', '2023-11-07 19:29:41', 2),
-	(2, 1, 4, '2023-11-07 08:15:00', '2023-11-07 17:20:00', 'Browser error', 1, 1, 1, '2023-11-07 19:47:26', '2023-11-07 20:52:57', 2),
-	(10, 1, 1, '2023-11-08 14:40:48', '2023-11-08 14:57:37', 'saya telah mengerjakan fitur absensi ini', 1, 1, 1, '2023-11-08 00:40:48', '2023-11-08 00:57:37', 3),
-	(11, 1, 1, '2023-11-09 12:59:35', NULL, NULL, 1, 1, NULL, '2023-11-08 22:59:35', '2023-11-08 22:59:35', 4);
+INSERT INTO `attendances` (`id`, `attendance_type_id`, `user_id`, `entry_at`, `exit_at`, `description`, `status`, `location`, `latitude`, `longitude`, `created_by`, `updated_by`, `created_at`, `updated_at`, `attendance_time_config_id`) VALUES
+	(1, 1, 3, '2023-01-07 08:00:00', '2023-01-07 17:00:00', 'Wifi kosan tidak ada internet', 1, NULL, NULL, NULL, 1, NULL, '2023-11-07 19:29:41', '2023-11-07 19:29:41', 2),
+	(2, 1, 4, '2023-11-07 08:15:00', '2023-11-07 17:20:00', 'Browser error', 1, NULL, NULL, NULL, 1, 1, '2023-11-07 19:47:26', '2023-11-07 20:52:57', 2),
+	(10, 1, 1, '2023-11-08 14:40:48', '2023-11-08 14:57:37', 'saya telah mengerjakan fitur absensi ini', 1, NULL, NULL, NULL, 1, 1, '2023-11-08 00:40:48', '2023-11-08 00:57:37', 3),
+	(12, 1, 1, '2023-11-09 13:24:00', '2023-11-09 13:24:17', 'saya telah mengerjakan fitur login', 1, 'Apartemen Taman Melati Sinduadi, Selokan Mataram, Pogung Kidul, Sinduadi 55284, Special Region of Yogyakarta, Indonesia', '-7.761569', '110.372852', 1, 1, '2023-11-08 23:24:00', '2023-11-08 23:24:17', 4),
+	(13, 1, 1, '2023-11-10 08:32:34', NULL, NULL, 1, 'Apartemen Taman Melati Sinduadi, Selokan Mataram, Pogung Kidul, Sinduadi 55284, Special Region of Yogyakarta, Indonesia', '-7.761569', '110.372852', 1, NULL, '2023-11-09 18:32:34', '2023-11-09 18:32:34', 5);
 
 -- Dumping data for table nazmahr.attendance_time_configs: ~7 rows (approximately)
 DELETE FROM `attendance_time_configs`;
@@ -106,8 +107,8 @@ INSERT INTO `reprimands` (`id`, `user_id`, `reprimand_type`, `start_date`, `end_
 
 -- Dumping data for table nazmahr.request_attendances: ~0 rows (approximately)
 DELETE FROM `request_attendances`;
-INSERT INTO `request_attendances` (`id`, `attendance_type_id`, `user_id`, `entry_at`, `exit_at`, `description`, `status_verification`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
-	(1, 1, 3, '2023-11-06 16:38:00', '2023-11-06 16:38:00', 'Jaringan internet dirumah mati', 'Pending', 1, 1, NULL, '2023-11-06 02:38:53', '2023-11-06 02:38:53');
+INSERT INTO `request_attendances` (`id`, `attendance_type_id`, `attendance_time_config_id`, `user_id`, `entry_at`, `exit_at`, `description`, `status_verification`, `status`, `created_by`, `updated_by`, `created_at`, `updated_at`) VALUES
+	(1, 1, NULL, 3, '2023-11-06 16:38:00', '2023-11-06 16:38:00', 'Jaringan internet dirumah mati', 'Pending', 1, 1, NULL, '2023-11-06 02:38:53', '2023-11-06 02:38:53');
 
 -- Dumping data for table nazmahr.request_reimbursement: ~0 rows (approximately)
 DELETE FROM `request_reimbursement`;
