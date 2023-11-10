@@ -24,6 +24,7 @@ use App\Http\Controllers\User\RequestReimbursementController as UserRequestReimb
 use App\Http\Controllers\User\TaskController as UserTaskController;
 use App\Http\Controllers\User\AttendanceController as UserAttendanceController;
 use App\Http\Controllers\User\RequestAttendanceController as UserRequestAttendanceController;
+use App\Http\Controllers\User\ProfileController as UserProfileController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -278,5 +279,11 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
             Route::delete('{id}/destroy', [UserTaskController::class, 'destroy'])->name('user.task.destroy');
         });
 
+         // Profile
+         Route::group(['prefix'=> 'profile'], function () {
+            Route::get('/', [UserProfileController::class, 'index'])->name('user.profile.index');
+            Route::get('{id}/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
+            Route::put('{id}/update', [UserProfileController::class, 'update'])->name('user.profile.update');
+        });
     });
 require __DIR__ . '/auth.php';
