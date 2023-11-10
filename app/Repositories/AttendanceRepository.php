@@ -27,12 +27,14 @@ class AttendanceRepository implements AttendanceInterface
     {
         $result = $this->attendance
             ->with(['attendanceType', 'user', 'attendanceTimeConfig'])
+            ->orderBy('entry_at', 'desc')
             ->get();
 
         if (isset(request()->date)) {
             $result = $this->attendance
                 ->with(['attendanceType', 'user', 'attendanceTimeConfig'])
                 ->whereDate('entry_at', request()->date)
+                ->orderBy('entry_at', 'desc')
                 ->get();
         }
 
@@ -40,6 +42,7 @@ class AttendanceRepository implements AttendanceInterface
             $result = $this->attendance
                 ->with(['attendanceType', 'user', 'attendanceTimeConfig'])
                 ->where('user_id', request()->employee_id == 'all' ? '!=' : '=', request()->employee_id)
+                ->orderBy('entry_at', 'desc')
                 ->get();
         }
 
