@@ -143,4 +143,3 @@ class AttendanceController extends Controller
         return $hours . ' jam ' . $minutes . ' menit';
     }
 }
-

@@ -287,6 +287,12 @@ Breadcrumbs::for('admin.attendance.live', function (BreadcrumbTrail $trail) {
     $trail->push('Absensi Langsung', route('admin.attendance.live'));
 });
 
+// Attendance > Recap
+Breadcrumbs::for('admin.attendance.recap', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.attendance');
+    $trail->push('Rekap', route('admin.attendance.recap'));
+});
+
 // Time Tracker
 Breadcrumbs::for('admin.time-tracker', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
@@ -305,7 +311,6 @@ Breadcrumbs::for('admin.time-tracker.edit', function (BreadcrumbTrail $trail, $t
     $trail->push($timeTracker->user->name);
     $trail->push('Ubah', route('admin.time-tracker.edit', $timeTracker));
 });
-
 
 // User Dashboard 
 Breadcrumbs::for('user.dashboard', function (BreadcrumbTrail $trail) {

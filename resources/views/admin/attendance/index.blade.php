@@ -5,7 +5,7 @@
 
     <x-card-container>
         <div class="flex justify-between mb-4">
-            <div class="flex gap-4">
+            <div class="flex gap-4 items-center">
                 <div class="flex items-center">
                     <label for="date" class="mr-2 block text-sm font-medium text-gray-700 ">Tanggal:</label>
                     <input type="date" id="date" name="date" value="{{ date('Y-m-d') }}"
@@ -25,8 +25,9 @@
                     </select>
                 </div>
             </div>
-            <div>
-                <x-add label="Tambah Manual" route="{{ route('admin.attendance.create') }}" />
+            <div class="flex items-center gap-4">
+                <x-add label="Tambah Manual" route="{{ route('admin.attendance.create') }}" mb="mb-0" />
+                <x-add label="Rekap" route="{{ route('admin.attendance.recap') }}" mb="mb-0" />
             </div>
         </div>
 

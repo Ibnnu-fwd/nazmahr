@@ -188,8 +188,21 @@ class AttendanceController extends Controller
         ]);
     }
 
-    // CUSTOM FUNCTION
+    public function recap(Request $request)
+    {
+        if ($request->ajax()) {
+            return view('admin.attendance.recap_table', [
+                'results' => $this->attendance->getRecap(),
+                'month'   => $request->month,
+            ])->render();
+        }
 
+        return view('admin.attendance.recap', [
+            'employees' => $this->employee->getAll()->where('position_id', '!=', 1)
+        ]);
+    }
+
+    // CUSTOM FUNCTION
     function calculateTimeDifference($startTime, $endTime)
     {
         $startTime = date('H:i:s', strtotime($startTime));
@@ -204,6 +217,10 @@ class AttendanceController extends Controller
         $hours   = floor($timeDifference / 3600);
         $minutes = floor(($timeDifference / 60) % 60);
 
-        return $hours . ' J ' . $minutes . ' M';
+        if ($hours == 0) {
+            return $minutes . ' m';
+        } else {
+            return $hours . ' j ' . $minutes . ' m';
+        }
     }
 }

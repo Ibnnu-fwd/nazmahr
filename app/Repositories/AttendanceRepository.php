@@ -49,6 +49,66 @@ class AttendanceRepository implements AttendanceInterface
         return $result;
     }
 
+    public function getRecap()
+    {
+        $month = Carbon::parse(request()->date)->format('m/Y');
+        $user_id = request()->user_id;
+
+        $result = $this->attendance
+            ->with(['attendanceType', 'user', 'attendanceTimeConfig'])
+            ->whereMonth('entry_at', $month)
+            ->where('user_id', $user_id)
+            ->orderBy('entry_at', 'desc')
+            ->get();
+
+        // set late time and overtime
+        foreach ($result as $attendance) {
+            $attendance->late_time = $this->calculateTimeDifference($attendance->attendanceTimeConfig->start_time, $attendance->entry_at);
+            $attendance->overtime  = $this->calculateTimeDifference($attendance->attendanceTimeConfig->end_time, $attendance->exit_at);
+        }
+
+        $dates = [];
+        for ($i = 1; $i <= Carbon::parse(request()->date)->daysInMonth; $i++) {
+            $dates[] = date('d-m-Y', strtotime(request()->date . '-' . $i));
+        }
+
+        $attendances = [];
+        foreach ($dates as $index => $date) {
+            foreach ($result as $attendance) {
+                if (date('d-m-Y', strtotime($attendance->entry_at)) == $date) {
+                    $attendances[$index + 1] = $attendance;
+                    break;
+                } else {
+                    $attendances[$index + 1] = null;
+                }
+            }
+        }
+
+        $attendances = array_combine($dates, $attendances);
+        return $attendances;
+    }
+
+    function calculateTimeDifference($startTime, $endTime)
+    {
+        $startTime = date('H:i:s', strtotime($startTime));
+        $endTime   = date('H:i:s', strtotime($endTime));
+
+        if (strtotime($endTime) > strtotime($startTime)) {
+            $timeDifference = Carbon::parse($endTime)->diffInSeconds(Carbon::parse($startTime));
+        } else {
+            return '-';
+        }
+
+        $hours   = floor($timeDifference / 3600);
+        $minutes = floor(($timeDifference / 60) % 60);
+
+        if ($hours == 0) {
+            return $minutes . ' m';
+        } else {
+            return $hours . ' j ' . $minutes . ' m';
+        }
+    }
+
     public function getById($id)
     {
         return $this->attendance->with(['attendanceType', 'user', 'attendanceTimeConfig'])->find($id);

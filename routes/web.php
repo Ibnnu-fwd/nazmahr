@@ -175,10 +175,12 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::post('store', [AttendanceController::class, 'store'])->name('admin.attendance.store');
         Route::get('{id}/edit', [AttendanceController::class, 'edit'])->name('admin.attendance.edit');
         Route::put('{id}/update', [AttendanceController::class, 'update'])->name('admin.attendance.update');
+        Route::get('{id}/show', [AttendanceController::class, 'show'])->name('admin.attendance.show');
         Route::delete('{id}/destroy', [AttendanceController::class, 'destroy'])->name('admin.attendance.destroy');
         Route::get('live-attendance', [AttendanceController::class, 'liveAttendance'])->name('admin.attendance.live');
         Route::post('live-attendance/clock-in', [AttendanceController::class, 'clockIn'])->name('admin.attendance.clock-in');
         Route::post('live-attendance/clock-out', [AttendanceController::class, 'clockOut'])->name('admin.attendance.clock-out');
+        Route::get('recap', [AttendanceController::class, 'recap'])->name('admin.attendance.recap');
     });
 
     // Time Tracker
