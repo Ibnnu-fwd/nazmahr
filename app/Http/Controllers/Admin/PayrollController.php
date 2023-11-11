@@ -26,7 +26,6 @@ class PayrollController extends Controller
 
     public function index(Request $request)
     {
-        // dd($this->payroll->getAll());
         if ($request->ajax()) {
             return datatables()
                 ->of($this->payroll->getAll())
@@ -46,7 +45,10 @@ class PayrollController extends Controller
                     return 'Rp. ' . number_format($data->total_payroll, 0, ',', '.');
                 })
                 ->addColumn('action', function ($data) {
-                    return view('admin.payroll.column.action', compact('data'));
+                    return view('admin.payroll.column.action', [
+                        'data'  => $data,
+                        'month' => request()->date ?? date('Y-m')
+                    ]);
                 })
                 ->addIndexColumn()
                 ->make(true);
@@ -54,6 +56,14 @@ class PayrollController extends Controller
 
         return view('admin.payroll.index', [
             'employees' => $this->employee->getAll()
+        ]);
+    }
+
+    public function monthlyRecap($id, $month)
+    {
+        return view('admin.payroll.monthly_recap', [
+            'monthlyRecap' => $this->payroll->getMonthlyRecap($id, $month),
+            'month'        => $month
         ]);
     }
 }

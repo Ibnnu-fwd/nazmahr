@@ -13,7 +13,7 @@ export default {
     theme: {
         extend: {
             fontFamily: {
-                sans: ['Plus Jakarta Sans', 'inter', 'rubik', ...defaultTheme.fontFamily.sans],
+                sans: ['Rosa Sans', 'Plus Jakarta Sans', 'inter', 'rubik', ...defaultTheme.fontFamily.sans],
             },
 
             colors: {

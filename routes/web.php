@@ -222,6 +222,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::put('{id}/update', [PayrollController::class, 'update'])->name('admin.payroll.update');
         Route::delete('{id}/destroy', [PayrollController::class, 'destroy'])->name('admin.payroll.destroy');
         Route::get('change-status/{id}/{status}', [PayrollController::class, 'changeStatus'])->name('admin.payroll.change-status');
+        Route::get('monthly-recap/{id}/{month}', [PayrollController::class, 'monthlyRecap'])->name('admin.payroll.monthly-recap');
     });
 });
 

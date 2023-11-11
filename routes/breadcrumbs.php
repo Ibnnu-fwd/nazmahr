@@ -436,3 +436,10 @@ Breadcrumbs::for('admin.payroll', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
     $trail->push('Payroll', route('admin.payroll.index'));
 });
+
+// Payroll > Monthly Recap
+Breadcrumbs::for('admin.payroll.monthly-recap', function (BreadcrumbTrail $trail, $data) {
+    $trail->parent('admin.payroll');
+    $trail->push($data[1]['name'] . ' - ' . $data[0]);
+    $trail->push('Rekap Bulanan', route('admin.payroll.monthly-recap', [$data[1]['id'], $data[0]]));
+});
