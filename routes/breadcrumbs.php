@@ -443,3 +443,21 @@ Breadcrumbs::for('admin.payroll.monthly-recap', function (BreadcrumbTrail $trail
     $trail->push($data[1]['name'] . ' - ' . $data[0]);
     $trail->push('Rekap Bulanan', route('admin.payroll.monthly-recap', [$data[1]['id'], $data[0]]));
 });
+
+// Company Configuration Setting
+Breadcrumbs::for('admin.company-configuration-setting', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Pengaturan Perusahaan', route('admin.company-configuration-setting.index'));
+});
+
+// Profile
+Breadcrumbs::for('admin.profile', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push('Profil', route('admin.profile.index'));
+});
+
+// Profile > Edit
+Breadcrumbs::for('admin.profile.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.profile');
+    $trail->push('Ubah');
+});

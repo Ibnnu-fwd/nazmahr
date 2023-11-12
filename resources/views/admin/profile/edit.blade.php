@@ -1,7 +1,7 @@
 <x-app-layout>
     @section('title', 'Ubah Karyawan')
 
-    {{-- <x-breadcrumb name="admin.user.edit" :data="$user" /> --}}
+    <x-breadcrumb name="admin.profile.edit" />
 
     <x-card-container>
         <form action="{{ route('admin.profile.update', $user->id) }}" method="POST" enctype="multipart/form-data">

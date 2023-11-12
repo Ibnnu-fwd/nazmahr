@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\ReprimandController;
 use App\Http\Controllers\Admin\TaskController;
 use App\Http\Controllers\Admin\TaskTypeController;
 use App\Http\Controllers\Admin\AttendanceTypeController;
+use App\Http\Controllers\Admin\CompanyConfigurationSettingController;
 use App\Http\Controllers\Admin\PayrollController;
 use App\Http\Controllers\Admin\RequestAttendanceController;
 use App\Http\Controllers\Admin\RequestReimbursementController;
@@ -223,6 +224,12 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::delete('{id}/destroy', [PayrollController::class, 'destroy'])->name('admin.payroll.destroy');
         Route::get('change-status/{id}/{status}', [PayrollController::class, 'changeStatus'])->name('admin.payroll.change-status');
         Route::get('monthly-recap/{id}/{month}', [PayrollController::class, 'monthlyRecap'])->name('admin.payroll.monthly-recap');
+    });
+
+    // Company Configuration Setting
+    Route::group(['prefix' => 'company-configuration-setting'], function () {
+        Route::get('/', [CompanyConfigurationSettingController::class, 'index'])->name('admin.company-configuration-setting.index');
+        Route::put('update', [CompanyConfigurationSettingController::class, 'update'])->name('admin.company-configuration-setting.update');
     });
 });
 
