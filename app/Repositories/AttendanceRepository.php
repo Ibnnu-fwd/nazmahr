@@ -6,6 +6,7 @@ use App\Interfaces\AttendanceInterface;
 use App\Models\Attendance;
 use App\Models\AttendanceTimeConfig;
 use App\Models\AttendanceType;
+use App\Models\CompanyConfigurationSetting;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -15,12 +16,14 @@ class AttendanceRepository implements AttendanceInterface
     private $attendance;
     private $attendanceType;
     private $attendanceTimeConfig;
+    private $companyConfigurationSetting;
 
-    public function __construct(Attendance $attendance, AttendanceType $attendanceType, AttendanceTimeConfig $attendanceTimeConfig)
+    public function __construct(Attendance $attendance, AttendanceType $attendanceType, AttendanceTimeConfig $attendanceTimeConfig, CompanyConfigurationSetting $companyConfigurationSetting)
     {
-        $this->attendance           = $attendance;
-        $this->attendanceType       = $attendanceType;
-        $this->attendanceTimeConfig = $attendanceTimeConfig;
+        $this->attendance                  = $attendance;
+        $this->attendanceType              = $attendanceType;
+        $this->attendanceTimeConfig        = $attendanceTimeConfig;
+        $this->companyConfigurationSetting = $companyConfigurationSetting;
     }
 
     public function getAll()
@@ -51,6 +54,8 @@ class AttendanceRepository implements AttendanceInterface
 
     public function getRecap()
     {
+        $companyConfigurationSetting = $this->companyConfigurationSetting->first();
+        $toranceLateTimeInMinutes    = $companyConfigurationSetting->tolerance_late_time_in_minutes;
         $month = Carbon::parse(request()->date)->format('m/Y');
         $user_id = request()->user_id;
 
@@ -63,7 +68,7 @@ class AttendanceRepository implements AttendanceInterface
 
         // set late time and overtime
         foreach ($result as $attendance) {
-            $attendance->late_time = $this->calculateTimeDifference($attendance->attendanceTimeConfig->start_time, $attendance->entry_at);
+            $attendance->late_time = $this->calculateLateTime($attendance->attendanceTimeConfig->start_time, $attendance->entry_at, $toranceLateTimeInMinutes);
             $attendance->overtime  = $this->calculateTimeDifference($attendance->attendanceTimeConfig->end_time, $attendance->exit_at);
         }
 
@@ -86,6 +91,26 @@ class AttendanceRepository implements AttendanceInterface
 
         $attendances = array_combine($dates, $attendances);
         return $attendances;
+    }
+
+    function calculateLateTime($startTime, $entryAt, $toranceLateTimeInMinutes)
+    {
+        $startTime = date('H:i:s', strtotime($startTime));
+        $entryAt   = date('H:i:s', strtotime($entryAt));
+
+        if (strtotime($entryAt) > strtotime($startTime)) {
+            $lateTime = Carbon::parse($entryAt)->diffInSeconds(Carbon::parse($startTime));
+        } else {
+            return '-';
+        }
+
+        $minutes = floor(($lateTime / 60) % 60);
+
+        if ($minutes > $toranceLateTimeInMinutes) {
+            return ($minutes - $toranceLateTimeInMinutes) . ' m';
+        } else {
+            return '-';
+        }
     }
 
     function calculateTimeDifference($startTime, $endTime)
