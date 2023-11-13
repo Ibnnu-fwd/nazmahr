@@ -299,5 +299,12 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
         Route::put('{id}/update', [UserTaskController::class, 'update'])->name('user.task.update');
         Route::delete('{id}/destroy', [UserTaskController::class, 'destroy'])->name('user.task.destroy');
     });
+
+    // Profile
+    Route::group(['prefix' => 'profile'], function () {
+        Route::get('/', [UserProfileController::class, 'index'])->name('user.profile.index');
+        Route::get('{id}/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
+        Route::put('{id}/update', [UserProfileController::class, 'update'])->name('user.profile.update');
+    });
 });
 require __DIR__ . '/auth.php';
