@@ -195,6 +195,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::post('start/{id}', [TimeTrackerController::class, 'start'])->name('admin.time-tracker.start');
         Route::post('stop/{id}', [TimeTrackerController::class, 'stop'])->name('admin.time-tracker.stop');
         Route::post('continue/{id}', [TimeTrackerController::class, 'continue'])->name('admin.time-tracker.continue');
+        Route::post('{id}/finish', [TimeTrackerController::class, 'finish'])->name('admin.time-tracker.finish');
     });
 
     // Request Reimbursement
