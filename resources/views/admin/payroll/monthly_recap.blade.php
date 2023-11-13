@@ -76,16 +76,16 @@
                     {{ $monthlyRecap->total_attendance }} hari
                 </p>
             </div>
-            {{-- <div class="flex justify-between items-start px-3 py-1">
+            <div class="flex justify-between items-start px-3 py-1">
                 <div>
                     <p class="text-sm">
-                        Tidak Hadir
+                        Jumlah Telat
                     </p>
                 </div>
-                <p class="text-sm text-gray-500 font-semibold">
-                    {{ $monthlyRecap->total_absent }} hari
+                <p class="text-sm text-red-500 font-semibold">
+                    {{ $monthlyRecap->total_late }} hari
                 </p>
-            </div> --}}
+            </div>
             <div class="flex justify-between items-start px-3 py-1">
                 <div>
                     <p class="text-sm">

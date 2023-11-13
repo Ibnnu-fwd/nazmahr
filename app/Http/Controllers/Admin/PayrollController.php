@@ -26,6 +26,7 @@ class PayrollController extends Controller
 
     public function index(Request $request)
     {
+        // return $this->payroll->getAll();
         if ($request->ajax()) {
             return datatables()
                 ->of($this->payroll->getAll())
