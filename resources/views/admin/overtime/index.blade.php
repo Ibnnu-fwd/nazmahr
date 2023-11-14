@@ -1,7 +1,7 @@
 <x-app-layout>
     @section('title', 'Lembur')
 
-    <x-breadcrumb name="admin.employee" />
+    <x-breadcrumb name="admin.overtime" />
 
     <x-card-container>
         <div class="flex justify-end">

@@ -40,7 +40,7 @@ class OvertimeController extends Controller
                     return view('admin.overtime.column.attachment', compact('data'));
                 })
                 ->addColumn('status', function ($data) {
-                    return strtoupper($data->getStatus($data->status));
+                    return $data->getStatus($data->status);
                 })
                 ->addColumn('action', function ($data) {
                     return view('admin.overtime.column.action', compact('data'));
