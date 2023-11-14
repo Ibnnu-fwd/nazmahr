@@ -237,6 +237,13 @@ Breadcrumbs::for('admin.request-reimbursement.edit', function (BreadcrumbTrail $
     $trail->push('Ubah', route('admin.request-reimbursement.edit', $requestreimbursement));
 });
 
+// Request Reimbursement > Show
+Breadcrumbs::for('admin.request-reimbursement.show', function (BreadcrumbTrail $trail, $requestreimbursement) {
+    $trail->parent('admin.request-reimbursement');
+    $trail->push($requestreimbursement->title);
+    $trail->push('Detail', route('admin.request-reimbursement.show', $requestreimbursement));
+});
+
 // Reprimand
 Breadcrumbs::for('admin.reprimand', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');

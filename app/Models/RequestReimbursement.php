@@ -7,13 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class RequestReimbursement extends Model
 {
-    const STATUS_PENDING   = '0';
+    const STATUS_PENDING  = '0';
     const STATUS_APPROVED = '1';
-    const STATUS_REJECTED  = '2';
+    const STATUS_REJECTED = '2';
 
-    const LABEL_PENDING   = 'Menunggu';
+    const LABEL_PENDING  = 'Menunggu';
     const LABEL_APPROVED = 'Disetujui';
-    const LABEL_REJECTED  = 'Ditolak';
+    const LABEL_REJECTED = 'Ditolak';
 
     use HasFactory;
 

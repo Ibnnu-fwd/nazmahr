@@ -9,4 +9,6 @@ interface RequestReimbursementInterface
     public function store($data);
     public function update($id, $data);
     public function destroy($id);
+    public function updateAdmin($id, $data);
+    public function changeStatus($id, $status);
 }

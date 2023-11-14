@@ -9,5 +9,6 @@ interface RequestAttendanceInterface
     public function store($data);
     public function update($id, $data);
     public function destroy($id);
-    public function getAttendanceTypes();   
+    public function getAttendanceTypes();
+    public function updateAdmin($id, $data);
 }

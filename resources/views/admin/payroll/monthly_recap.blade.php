@@ -115,6 +115,9 @@
                     <p class="text-sm font-medium">
                         Nominal
                     </p>
+                    <p class="text-sm font-medium">
+                        Status
+                    </p>
                 </div>
                 @foreach ($monthlyRecap->request_reimbursements as $reimbursement)
                     <div class="flex justify-between items-start px-3 py-1">
@@ -125,6 +128,9 @@
                         </div>
                         <p class="text-sm text-gray-500 font-semibold">
                             Rp {{ number_format($reimbursement->nominal, 0, ',', '.') }}
+                        </p>
+                        <p>
+                            {{ $reimbursement->status == 0 ? 'Menunggu' : ($reimbursement->status == 1 ? 'Diterima' : 'Ditolak') }}
                         </p>
                     </div>
                 @endforeach
@@ -152,6 +158,9 @@
                     <p class="text-sm font-medium">
                         Nominal
                     </p>
+                    <p class="text-sm font-medium">
+                        Status
+                    </p>
                 </div>
                 @foreach ($monthlyRecap->tasks as $task)
                     <div class="flex justify-between items-start px-3 py-1">
@@ -162,6 +171,9 @@
                         </div>
                         <p class="text-sm text-gray-500 font-semibold">
                             Rp {{ number_format($task->total_price, 0, ',', '.') }}
+                        </p>
+                        <p>
+                            {{ $task->status == 0 ? 'Menunggu' : ($task->status == 1 ? 'Diterima' : 'Ditolak') }}
                         </p>
                     </div>
                 @endforeach

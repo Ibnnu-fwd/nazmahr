@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories;
 
 use App\Interfaces\RequestReimbursementInterface;
@@ -78,4 +79,10 @@ class RequestReimbursementRepository implements RequestReimbursementInterface
         return $this->requestReimbursement->find($id)->delete();
     }
 
+    public function changeStatus($id, $status)
+    {
+        return $this->requestReimbursement->find($id)->update([
+            'status' => $status
+        ]);
+    }
 }

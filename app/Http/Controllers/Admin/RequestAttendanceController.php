@@ -114,7 +114,7 @@ class RequestAttendanceController extends Controller
         ]);
     }
 
-       //function update
+    //function update
     public function updateAdmin($id, Request $request)
     {
         $request->validate([

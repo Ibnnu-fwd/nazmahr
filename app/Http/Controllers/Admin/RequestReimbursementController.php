@@ -86,6 +86,13 @@ class RequestReimbursementController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        $requestReimbursement = $this->requestReimbursement->getById($id);
+        return view('admin.request_reimbursement.show', [
+            'requestReimbursement' => $requestReimbursement,
+        ]);
+    }
 
     //function edit
     public function edit($id)
@@ -122,6 +129,12 @@ class RequestReimbursementController extends Controller
     public function destroy($id)
     {
         $this->requestReimbursement->destroy($id);
+        return response()->json(true);
+    }
+
+    public function changeStatus($id, Request $request)
+    {
+        $this->requestReimbursement->changeStatus($id, $request->status);
         return response()->json(true);
     }
 }

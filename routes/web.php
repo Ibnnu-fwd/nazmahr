@@ -30,17 +30,6 @@ use App\Http\Controllers\User\ProfileController as UserProfileController;
 
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 Route::get('/', function () {
     return view('auth.login');
 });
@@ -206,6 +195,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('{id}/edit', [RequestReimbursementController::class, 'edit'])->name('admin.request-reimbursement.edit');
         Route::put('{id}/update', [RequestReimbursementController::class, 'updateAdmin'])->name('admin.request-reimbursement.update');
         Route::delete('{id}/destroy', [RequestReimbursementController::class, 'destroy'])->name('admin.request-reimbursement.destroy');
+        Route::get('{id}/show', [RequestReimbursementController::class, 'show'])->name('admin.request-reimbursement.show');
+        Route::post('{id}/change-status', [RequestReimbursementController::class, 'changeStatus'])->name('admin.request-reimbursement.change-status');
     });
 
     // Profile
