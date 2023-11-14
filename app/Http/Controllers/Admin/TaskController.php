@@ -60,10 +60,10 @@ class TaskController extends Controller
                     return view('admin.task.column.action', compact('data'));
                 })
                 ->addColumn('price', function ($data) {
-                    return $data->price;
+                    return 'Rp ' . number_format($data->price, 0, ',', '.');
                 })
                 ->addColumn('total_price', function ($data) {
-                    return $data->total_price;
+                    return 'Rp ' . number_format($data->total_price, 0, ',', '.');
                 })
                 ->addIndexColumn()
                 ->make(true);
@@ -76,7 +76,7 @@ class TaskController extends Controller
     {
         return view('admin.task.create', [
             'taskTypes' => $this->taskType->getAll(),
-            'employees' => $this->employee->getAll(),
+            'employees' => $this->employee->getAll()->where('position_id', '!=', 1)
         ]);
     }
 

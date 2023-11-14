@@ -39,8 +39,8 @@ class TaskController extends Controller
                     return date('d-m-Y', strtotime($data->due_date)) .
                         ' • ' .
                         Carbon::parse($data->due_date)
-                            ->locale('id')
-                            ->diffForHumans();
+                        ->locale('id')
+                        ->diffForHumans();
                 })
                 ->addColumn('status', function ($data) {
                     switch ($data->status) {
@@ -79,7 +79,7 @@ class TaskController extends Controller
     {
         return view('user.task.create', [
             'taskTypes' => $this->taskType->getAll(),
-            'employees' => $this->employee->getAll(),
+            'employees' => $this->employee->getAll()->where('position_id', '!=', 1),
         ]);
     }
 
@@ -91,7 +91,7 @@ class TaskController extends Controller
             'employees' => $this->employee->getAll(),
         ]);
     }
-    
+
     public function update(Request $request, $id)
     {
         $request->validate([

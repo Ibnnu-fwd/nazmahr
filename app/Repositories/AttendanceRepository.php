@@ -104,7 +104,7 @@ class AttendanceRepository implements AttendanceInterface
             return '-';
         }
 
-        $minutes = floor(($lateTime / 60) % 60);
+        $minutes = floor($lateTime / 60); // Corrected this line
 
         if ($minutes > $toranceLateTimeInMinutes) {
             return ($minutes - $toranceLateTimeInMinutes) . ' m';

@@ -8,7 +8,8 @@
             @csrf
             <x-select id="task_type_id" label="Jenis Tugas" class="w-full" name="task_type_id" required>
                 @foreach ($taskTypes as $taskType)
-                    <option value="{{ $taskType->id }}">{{ $taskType->name }}</option>
+                    <option value="{{ $taskType->id }}" data-price="{{ $taskType->price }}">
+                        {{ $taskType->name . ' - Rp ' . number_format($taskType->price, 0, ',', '.') }}</option>
                 @endforeach
             </x-select>
             <x-input id="title" label="Judul" type="text" name="title" required />
@@ -31,5 +32,16 @@
             <x-button id="store" label="{{ __('Tambah') }}" type="submit" />
         </form>
     </x-card-container>
-
+    @push('js-internal')
+        <script>
+            $(function() {
+                $('#task_type_id').on('change', function(e) {
+                    e.preventDefault();
+                    let price = $(this).find(':selected').data('price') ?? 0;
+                    $('#price').val(price);
+                    $('#total_price').val(price);
+                })
+            });
+        </script>
+    @endpush
 </x-app-layout>

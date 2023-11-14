@@ -214,7 +214,7 @@
         @endif
 
 
-        @if (auth()->user()->position->name == 'Employee')
+        @if (auth()->user()->position_id != 1)
             <ul class="space-y-2 font-medium text-sm">
                 <li>
                     <a href="{{ route('user.dashboard.index') }}"
