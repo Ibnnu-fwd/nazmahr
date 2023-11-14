@@ -38,4 +38,11 @@ class TaskRepository implements TaskInterface
     {
         return $this->task->destroy($id);
     }
+
+    public function changeStatus($id, $status)
+    {
+        return $this->task->find($id)->update([
+            'status' => $status
+        ]);
+    }
 }

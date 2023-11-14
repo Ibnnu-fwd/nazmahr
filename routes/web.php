@@ -119,6 +119,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::put('{id}/update', [TaskController::class, 'update'])->name('admin.task.update');
         Route::delete('{id}/destroy', [TaskController::class, 'destroy'])->name('admin.task.destroy');
         Route::get('{id}/show', [TaskController::class, 'show'])->name('admin.task.show');
+        Route::post('{id}/change-status', [TaskController::class, 'changeStatus'])->name('admin.task.change-status');
     });
 
     // Announcement

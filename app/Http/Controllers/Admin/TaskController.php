@@ -138,4 +138,17 @@ class TaskController extends Controller
         $this->task->destroy($id);
         return response()->json(true);
     }
+
+    public function show($id)
+    {
+        return view('admin.task.show', [
+            'task' => $this->task->getById($id)
+        ]);
+    }
+
+    public function changeStatus($id, Request $request)
+    {
+        $this->task->changeStatus($id, $request->status);
+        return response()->json(true);
+    }
 }

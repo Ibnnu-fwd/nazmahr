@@ -168,6 +168,13 @@ Breadcrumbs::for('admin.task.edit', function (BreadcrumbTrail $trail, $task) {
     $trail->push('Ubah', route('admin.task.edit', $task));
 });
 
+// Task > Show
+Breadcrumbs::for('admin.task.show', function (BreadcrumbTrail $trail, $task) {
+    $trail->parent('admin.task');
+    $trail->push(Str::limit($task->id, 10));
+    $trail->push('Ubah', route('admin.task.show', $task));
+});
+
 // Announcement
 Breadcrumbs::for('admin.announcement', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
