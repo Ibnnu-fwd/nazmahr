@@ -6,6 +6,7 @@ use App\Interfaces\OvertimeInterface;
 use App\Models\Overtime;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class OvertimeRepository implements OvertimeInterface
 {
@@ -34,6 +35,8 @@ class OvertimeRepository implements OvertimeInterface
             $data['attachment'] = $filenameAttachment;
         }
 
+        $data['duration'] = Carbon::parse($data['start_at'])->diffInMinutes(Carbon::parse($data['end_at']));
+
         DB::beginTransaction();
 
         try {
@@ -59,6 +62,8 @@ class OvertimeRepository implements OvertimeInterface
                 Storage::delete('public/overtime/' . $overtime->attachment);
             }
         }
+        
+        $data['duration'] = Carbon::parse($data['start_at'])->diffInMinutes(Carbon::parse($data['end_at']));
 
         DB::beginTransaction();
 

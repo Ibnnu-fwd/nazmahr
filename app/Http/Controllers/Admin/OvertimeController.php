@@ -28,7 +28,7 @@ class OvertimeController extends Controller
                     return $data->user->name ?? '-';
                 })
                 ->addColumn('duration', function ($data) {
-                    return Carbon::parse($data->start_at)->diffInHours($data->end_at) . ' Jam';
+                    return $this->calculateTimeDifference($data->duration);
                 })
                 ->addColumn('start_at', function ($data) {
                     return $data->start_at ?? '-';
@@ -112,5 +112,17 @@ class OvertimeController extends Controller
     {
         $this->overtime->destroy($id);
         return response()->json(true);
+    }
+
+    function calculateTimeDifference($durationInMinutes)
+    {
+        $hours   = floor($durationInMinutes / 60);
+        $minutes = $durationInMinutes % 60;
+
+        if ($hours == 0) {
+            return $minutes . ' m';
+        } else {
+            return $hours . ' j ' . $minutes . ' m';
+        }
     }
 }
