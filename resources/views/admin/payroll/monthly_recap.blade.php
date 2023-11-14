@@ -106,32 +106,29 @@
                 </div>
             </div>
             @if ($monthlyRecap->request_reimbursements != null && $monthlyRecap->request_reimbursements->count() > 0)
-                <div class="flex justify-between items-start px-3 py-1 mt-3">
-                    <div>
-                        <p class="text-sm font-medium">
-                            Keterangan
-                        </p>
-                    </div>
-                    <p class="text-sm font-medium">
-                        Nominal
-                    </p>
-                    <p class="text-sm font-medium">
-                        Status
-                    </p>
+                <div class="grid grid-cols-3 text-left px-3 py-2 text-sm font-medium">
+                    <div>Keterangan</div>
+                    <div>Nominal</div>
+                    <div>Status</div>
                 </div>
                 @foreach ($monthlyRecap->request_reimbursements as $reimbursement)
-                    <div class="flex justify-between items-start px-3 py-1">
-                        <div>
-                            <p class="text-sm">
-                                {{ $reimbursement->title }}
-                            </p>
+                    @php
+                        $statusIcons = [
+                            0 => 'timer-svgrepo-com.svg',
+                            1 => 'green-check-circle-svgrepo-com.svg',
+                            2 => 'red-x-circle-svgrepo-com.svg',
+                        ];
+                        $icon = $statusIcons[$reimbursement->status] ?? 'default-icon.svg';
+                    @endphp
+                    <div class="grid grid-cols-3 text-left px-3 py-2 text-sm">
+                        <a class="hover:text-yellow-500"
+                            href="{{ route('admin.request-reimbursement.show', $reimbursement->id) }}">
+                            ↗
+                            {{ $reimbursement->title }}</a>
+                        <div class="text-gray-500 font-semibold">Rp
+                            {{ number_format($reimbursement->nominal, 0, ',', '.') }}</div>
+                        <div><img src="{{ asset('assets/icon-button/' . $icon) }}" class="w-5 h-5" alt="">
                         </div>
-                        <p class="text-sm text-gray-500 font-semibold">
-                            Rp {{ number_format($reimbursement->nominal, 0, ',', '.') }}
-                        </p>
-                        <p>
-                            {{ $reimbursement->status == 0 ? '<img src="' . asset('assets/icon-button/timer-svgrepo-com.svg') . '" class="w-5 h-5" alt="">' : ($reimbursement->status == 1 ? '<img src="' . asset('assets/icon-button/green-check-circle-svgrepo-com.svg') . '" class="w-5 h-5" alt="">' : '<img src="' . asset('assets/icon-button/red-x-circle-svgrepo-com.svg') . '" class="w-5 h-5" alt="">') }}
-                        </p>
                     </div>
                 @endforeach
             @else
@@ -149,32 +146,26 @@
                 </div>
             </div>
             @if ($monthlyRecap->tasks != null && $monthlyRecap->tasks->count() > 0)
-                <div class="flex justify-between items-start px-3 py-1 mt-3">
-                    <div>
-                        <p class="text-sm font-medium">
-                            Keterangan
-                        </p>
-                    </div>
-                    <p class="text-sm font-medium">
-                        Nominal
-                    </p>
-                    <p class="text-sm font-medium">
-                        Status
-                    </p>
+                <div class="grid grid-cols-3 text-left px-3 py-2 text-sm font-medium">
+                    <div>Keterangan</div>
+                    <div>Nominal</div>
+                    <div>Status</div>
                 </div>
                 @foreach ($monthlyRecap->tasks as $task)
-                    <div class="flex justify-between items-start px-3 py-1">
-                        <div>
-                            <p class="text-sm">
-                                {{ $task->title }}
-                            </p>
+                    @php
+                        $statusIcons = [
+                            0 => 'timer-svgrepo-com.svg',
+                            1 => 'green-check-circle-svgrepo-com.svg',
+                            2 => 'red-x-circle-svgrepo-com.svg',
+                        ];
+                        $icon = $statusIcons[$task->status] ?? 'default-icon.svg';
+                    @endphp
+                    <div class="grid grid-cols-3 text-left px-3 py-2 text-sm">
+                        <div>{{ $task->title }}</div>
+                        <div class="text-gray-500 font-semibold">Rp
+                            {{ number_format($task->total_price, 0, ',', '.') }}</div>
+                        <div><img src="{{ asset('assets/icon-button/' . $icon) }}" class="w-5 h-5" alt="">
                         </div>
-                        <p class="text-sm text-gray-500 font-semibold">
-                            Rp {{ number_format($task->total_price, 0, ',', '.') }}
-                        </p>
-                        <p>
-                            {{ $task->status == 0 ? 'Menunggu' : ($task->status == 1 ? 'Diterima' : 'Ditolak') }}
-                        </p>
                     </div>
                 @endforeach
             @else
