@@ -17,6 +17,7 @@
                     <th>Gaji Pokok</th>
                     <th>Reimburse</th>
                     <th>Penugasan</th>
+                    <th>Lembur</th>
                     <th>Total Pembayaran</th>
                     <th>Aksi</th>
                 </tr>
@@ -84,6 +85,10 @@
                         {
                             data: 'total_task',
                             name: 'total_task'
+                        },
+                        {
+                            data: 'total_overtime',
+                            name: 'total_overtime'
                         },
                         {
                             data: 'total_payroll',

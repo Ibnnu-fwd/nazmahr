@@ -42,6 +42,9 @@ class PayrollController extends Controller
                 ->addColumn('total_task', function ($data) {
                     return 'Rp. ' . number_format($data->total_task, 0, ',', '.');
                 })
+                ->addColumn('total_overtime', function ($data) {
+                    return 'Rp. ' . number_format($data->total_overtime, 0, ',', '.');
+                })
                 ->addColumn('total_payroll', function ($data) {
                     return 'Rp. ' . number_format($data->total_payroll, 0, ',', '.');
                 })

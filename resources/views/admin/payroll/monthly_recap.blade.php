@@ -40,6 +40,16 @@
                     Rp {{ number_format($monthlyRecap->total_task, 0, ',', '.') }}
                 </p>
             </div>
+            <div class="flex justify-between items-start px-3 py-1">
+                <div>
+                    <p class="text-sm">
+                        Lembur
+                    </p>
+                </div>
+                <p class="text-sm text-gray-500 font-semibold">
+                    Rp {{ number_format($monthlyRecap->total_overtime, 0, ',', '.') }}
+                </p>
+            </div>
             <div class="rounded-md bg-gray-100 py-3 px-3 mt-4">
                 <div class="flex justify-between items-start">
                     <div>
@@ -171,6 +181,47 @@
             @else
                 <p class="text-sm text-gray-500 px-3 py-1">
                     Tidak ada penugasan
+                </p>
+            @endif
+            <br>
+            <br>
+            <div class="px-3 py-1">
+                <div>
+                    <p class="text-sm font-semibold">
+                        Lembur
+                    </p>
+                </div>
+            </div>
+            @if ($monthlyRecap->overtimes != null && $monthlyRecap->overtimes->count() > 0)
+                <div class="grid grid-cols-4 text-left px-3 py-2 text-sm font-medium">
+                    <div>Mulai</div>
+                    <div>Selesai</div>
+                    <div>Durasi</div>
+                    <div>Status</div>
+                </div>
+                @foreach ($monthlyRecap->overtimes as $overtime)
+                    @php
+                        $statusIcons = [
+                            'pending' => 'timer-svgrepo-com.svg',
+                            'approved' => 'green-check-circle-svgrepo-com.svg',
+                            'rejected' => 'red-x-circle-svgrepo-com.svg',
+                        ];
+                        $icon = $statusIcons[$overtime->status] ?? 'default-icon.svg';
+                    @endphp
+                    <div class="grid grid-cols-4 text-left px-3 py-2 text-sm">
+                        <div>{{ Carbon\Carbon::parse($overtime->start_at)->format('d M y H:i') }}
+                        </div>
+                        <div>{{ Carbon\Carbon::parse($overtime->end_at)->format('d M y H:i') }}
+                        </div>
+                        <div class="text-gray-500 font-semibold">
+                            {{ floor($overtime->duration / 60) }} j {{ $overtime->duration % 60 }} m </div>
+                        <div><img src="{{ asset('assets/icon-button/' . $icon) }}" class="w-5 h-5" alt="">
+                        </div>
+                    </div>
+                @endforeach
+            @else
+                <p class="text-sm text-gray-500 px-3 py-1">
+                    Tidak ada lembur
                 </p>
             @endif
         </x-card-container>

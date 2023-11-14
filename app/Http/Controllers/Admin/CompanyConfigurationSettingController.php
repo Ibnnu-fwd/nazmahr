@@ -24,7 +24,6 @@ class CompanyConfigurationSettingController extends Controller
 
     public function update(Request $request)
     {
-        dd($request->all());
         $this->setting->update($request->all());
         return redirect()->back()->with('success', 'Pengaturan berhasil diperbarui');
     }
