@@ -87,4 +87,9 @@ class PermitLeaveRepository implements PermitLeaveInterface
 
         $permitLeave->delete();
     }
+
+    public function changeStatus($id, $status)
+    {
+        return $this->permitLeave->find($id)->update(['status' => $status]);
+    }
 }

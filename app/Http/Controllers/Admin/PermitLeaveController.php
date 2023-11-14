@@ -113,4 +113,17 @@ class PermitLeaveController extends Controller
         $this->permitLeave->destroy($id);
         return response()->json(true);
     }
+
+    public function show($id)
+    {
+        return view('admin.permit_leave.show', [
+            'permitLeave' => $this->permitLeave->getById($id)
+        ]);
+    }
+
+    public function changeStatus($id, Request $request)
+    {
+        $this->permitLeave->changeStatus($id, $request->status);
+        return response()->json(true);
+    }
 }

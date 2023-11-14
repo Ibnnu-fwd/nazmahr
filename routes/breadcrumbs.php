@@ -123,6 +123,13 @@ Breadcrumbs::for('admin.permit-leave.edit', function (BreadcrumbTrail $trail, $p
     $trail->push('Ubah', route('admin.permit-leave.edit', $permitLeave));
 });
 
+// Permit Leave > Show
+Breadcrumbs::for('admin.permit-leave.show', function (BreadcrumbTrail $trail, $permitLeave) {
+    $trail->parent('admin.permit-leave');
+    $trail->push(Str::limit($permitLeave->id, 10));
+    $trail->push('Detail', route('admin.permit-leave.show', $permitLeave));
+});
+
 // Task Type
 Breadcrumbs::for('admin.task-type', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');

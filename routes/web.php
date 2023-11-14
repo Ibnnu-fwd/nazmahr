@@ -96,6 +96,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth']], function () {
         Route::get('{id}/edit', [PermitLeaveController::class, 'edit'])->name('admin.permit-leave.edit');
         Route::put('{id}/update', [PermitLeaveController::class, 'update'])->name('admin.permit-leave.update');
         Route::delete('{id}/destroy', [PermitLeaveController::class, 'destroy'])->name('admin.permit-leave.destroy');
+        Route::get('{id}/show', [PermitLeaveController::class, 'show'])->name('admin.permit-leave.show');
+        Route::post('{id}/change-status', [PermitLeaveController::class, 'changeStatus'])->name('admin.permit-leave.change-status');
     });
 
     // Task Type
