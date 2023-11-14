@@ -130,7 +130,7 @@
                             Rp {{ number_format($reimbursement->nominal, 0, ',', '.') }}
                         </p>
                         <p>
-                            {{ $reimbursement->status == 0 ? 'Menunggu' : ($reimbursement->status == 1 ? 'Diterima' : 'Ditolak') }}
+                            {{ $reimbursement->status == 0 ? '<img src="' . asset('assets/icon-button/timer-svgrepo-com.svg') . '" class="w-5 h-5" alt="">' : ($reimbursement->status == 1 ? '<img src="' . asset('assets/icon-button/green-check-circle-svgrepo-com.svg') . '" class="w-5 h-5" alt="">' : '<img src="' . asset('assets/icon-button/red-x-circle-svgrepo-com.svg') . '" class="w-5 h-5" alt="">') }}
                         </p>
                     </div>
                 @endforeach
