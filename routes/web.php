@@ -27,6 +27,7 @@ use App\Http\Controllers\User\TaskController as UserTaskController;
 use App\Http\Controllers\User\AttendanceController as UserAttendanceController;
 use App\Http\Controllers\User\RequestAttendanceController as UserRequestAttendanceController;
 use App\Http\Controllers\User\ProfileController as UserProfileController;
+use App\Http\Controllers\User\PayrollController as UserPayrollController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -301,6 +302,12 @@ Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
         Route::get('/', [UserProfileController::class, 'index'])->name('user.profile.index');
         Route::get('{id}/edit', [UserProfileController::class, 'edit'])->name('user.profile.edit');
         Route::put('{id}/update', [UserProfileController::class, 'update'])->name('user.profile.update');
+    });
+
+    // Payroll
+    Route::group(['prefix' => 'payroll'], function () {
+        Route::get('/', [UserPayrollController::class, 'index'])->name('user.payroll.index');
+        Route::get('monthly-recap/{month}', [UserPayrollController::class, 'monthlyRecap'])->name('user.payroll.monthly-recap');
     });
 });
 require __DIR__ . '/auth.php';

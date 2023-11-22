@@ -20,13 +20,12 @@ class PayrollRepository implements PayrollInterface
 
     public function __construct(Payroll $payroll, User $employee, Attendance $attendance, CompanyConfigurationSetting $company_configuration_setting, Overtime $overtimes)
     {
-        $this->payroll                       = $payroll;
-        $this->employee                      = $employee;
-        $this->attendance                    = $attendance;
+        $this->payroll = $payroll;
+        $this->employee = $employee;
+        $this->attendance = $attendance;
         $this->company_configuration_setting = $company_configuration_setting;
         $this->overtimes = $overtimes;
     }
-
 
     /**
      * Retrieve all employees with their payroll information.
@@ -36,13 +35,14 @@ class PayrollRepository implements PayrollInterface
     public function getAll()
     {
         $company_configuration_setting = $this->company_configuration_setting->first();
-        $toleranceLate                 = $company_configuration_setting->tolerance_late_time_in_minutes;
-        $lateCount                     = 0;
-        $amountLate                    = $company_configuration_setting->amount_per_late;
+        $toleranceLate = $company_configuration_setting->tolerance_late_time_in_minutes;
+        $lateCount = 0;
+        $amountLate = $company_configuration_setting->amount_per_late;
 
         $employees = $this->employee
             ->where('position_id', '!=', 1)
-            ->with(['tasks', 'request_reimbursements', 'position', 'overtimes'])->get();
+            ->with(['tasks', 'request_reimbursements', 'position', 'overtimes'])
+            ->get();
 
         $month = Carbon::now()->month;
         if (isset(request()->date)) {
@@ -52,35 +52,43 @@ class PayrollRepository implements PayrollInterface
         foreach ($employees as $employee) {
             $lateCount = 0; // Move this line here
 
-            $attendances = $this->attendance->where('user_id', $employee->id)->whereMonth('entry_at', $month)->get();
-            $overtimes = $this->overtimes->where('user_id', $employee->id)->whereMonth('start_at', $month)->get();
+            $attendances = $this->attendance
+                ->where('user_id', $employee->id)
+                ->whereMonth('entry_at', $month)
+                ->get();
+            $overtimes = $this->overtimes
+                ->where('user_id', $employee->id)
+                ->whereMonth('start_at', $month)
+                ->get();
 
             // Filter attendance that is up to 30 minutes late from the start time.
             $attendances->each(function ($attendance) use ($toleranceLate, &$lateCount) {
                 $entryTime = date('H:i:s', strtotime($attendance->entry_at));
                 $startTime = date('H:i:s', strtotime($attendance->attendanceTimeConfig->start_time));
-                $lateTime  = date('H:i:s', strtotime($attendance->attendanceTimeConfig->start_time . '+' . $toleranceLate . 'minutes'));
+                $lateTime = date('H:i:s', strtotime($attendance->attendanceTimeConfig->start_time . '+' . $toleranceLate . 'minutes'));
 
                 $lateCount += $entryTime > $lateTime ? 1 : 0;
             });
 
-            $employee->total_late          = $lateCount;
-            $employee->total_amount_late   = $lateCount * $amountLate;
-            $employee->total_permit_leave  = $employee->permit_leaves->filter(function ($permitLeave) use ($month) {
-                $date = Carbon::parse($permitLeave->start_date);
-                return $date->month == $month && $permitLeave->status == 'approved';
-            })->sum('total_day');
-            $employee->total_absent        = date('t', strtotime(request()->date)) - $attendances->count();
-            $employee->attendance          = $attendances;
-            $total_attendance              = $attendances->count();
+            $employee->total_late = $lateCount;
+            $employee->total_amount_late = $lateCount * $amountLate;
+            $employee->total_permit_leave = $employee->permit_leaves
+                ->filter(function ($permitLeave) use ($month) {
+                    $date = Carbon::parse($permitLeave->start_date);
+                    return $date->month == $month && $permitLeave->status == 'approved';
+                })
+                ->sum('total_day');
+            $employee->total_absent = date('t', strtotime(request()->date)) - $attendances->count();
+            $employee->attendance = $attendances;
+            $total_attendance = $attendances->count();
             $employee->overtimes = $overtimes;
-            $employee->salary              = $employee->salary;
-            $employee->total_salary        = ($company_configuration_setting->amount_per_day * $total_attendance) - ($lateCount * $amountLate);
-            $employee->total_attendance    = $total_attendance;
+            $employee->salary = $employee->salary;
+            $employee->total_salary = $company_configuration_setting->amount_per_day * $total_attendance - $lateCount * $amountLate;
+            $employee->total_attendance = $total_attendance;
             $employee->total_reimbursement = $this->calculateTotalReimbursement($employee, $month);
-            $employee->total_task          = $this->calculateTotalTask($employee, $month);
-        $employee->total_overtime   = round($this->calculateTotalOvertime($employee, $month)/60)*$company_configuration_setting->amount_per_overtime;
-            $employee->total_payroll       = $employee->total_salary + $employee->total_reimbursement + $employee->total_task + $employee->total_overtime;
+            $employee->total_task = $this->calculateTotalTask($employee, $month);
+            $employee->total_overtime = round($this->calculateTotalOvertime($employee, $month) / 60) * $company_configuration_setting->amount_per_overtime;
+            $employee->total_payroll = $employee->total_salary + $employee->total_reimbursement + $employee->total_task + $employee->total_overtime;
         }
 
         // dd($employees);
@@ -102,10 +110,16 @@ class PayrollRepository implements PayrollInterface
         $amountLate = $company_configuration_setting->amount_per_late;
 
         $employee = $this->employee->with(['tasks', 'request_reimbursements', 'position', 'permit_leaves', 'overtimes'])->find($id);
-        $month    = Carbon::parse($date)->month;
+        $month = Carbon::parse($date)->month;
 
-        $attendances = $this->attendance->where('user_id', $employee->id)->whereMonth('entry_at', $month)->get();
-        $overtimes = $this->overtimes->where('user_id', $employee->id)->whereMonth('start_at', $month)->get();
+        $attendances = $this->attendance
+            ->where('user_id', $employee->id)
+            ->whereMonth('entry_at', $month)
+            ->get();
+        $overtimes = $this->overtimes
+            ->where('user_id', $employee->id)
+            ->whereMonth('start_at', $month)
+            ->get();
 
         $totalDayPermitLeave = 0;
         // Filter permit leaves that are approved in the selected month.
@@ -120,25 +134,25 @@ class PayrollRepository implements PayrollInterface
         $attendances->each(function ($attendance) use ($toleranceLate, &$lateCount) {
             $entryTime = date('H:i:s', strtotime($attendance->entry_at));
             $startTime = date('H:i:s', strtotime($attendance->attendanceTimeConfig->start_time));
-            $lateTime  = date('H:i:s', strtotime($attendance->attendanceTimeConfig->start_time . '+' . $toleranceLate . 'minutes'));
+            $lateTime = date('H:i:s', strtotime($attendance->attendanceTimeConfig->start_time . '+' . $toleranceLate . 'minutes'));
 
             $lateCount += $entryTime > $lateTime ? 1 : 0;
         });
 
-        $employee->total_late          = $lateCount;
-        $employee->total_amount_late   = $lateCount * $amountLate;
-        $employee->total_permit_leave  = $totalDayPermitLeave;
-        $employee->total_absent        = date('t', strtotime($date)) - $attendances->count();
-        $employee->attendance          = $attendances;
-        $total_attendance              = $attendances->count();
+        $employee->total_late = $lateCount;
+        $employee->total_amount_late = $lateCount * $amountLate;
+        $employee->total_permit_leave = $totalDayPermitLeave;
+        $employee->total_absent = date('t', strtotime($date)) - $attendances->count();
+        $employee->attendance = $attendances;
+        $total_attendance = $attendances->count();
         $employee->overtimes = $overtimes;
-        $employee->salary              = $employee->salary;
-        $employee->total_salary        = ($company_configuration_setting->amount_per_day * $total_attendance) - ($lateCount * $amountLate);
-        $employee->total_attendance    = $total_attendance;
+        $employee->salary = $employee->salary;
+        $employee->total_salary = $company_configuration_setting->amount_per_day * $total_attendance - $lateCount * $amountLate;
+        $employee->total_attendance = $total_attendance;
         $employee->total_reimbursement = $this->calculateTotalReimbursement($employee, $month);
-        $employee->total_task          = $this->calculateTotalTask($employee, $month);
-        $employee->total_overtime   = round($this->calculateTotalOvertime($employee, $month)/60)*$company_configuration_setting->amount_per_overtime;
-        $employee->total_payroll       = $employee->total_salary + $employee->total_reimbursement + $employee->total_task +$employee->total_overtime;
+        $employee->total_task = $this->calculateTotalTask($employee, $month);
+        $employee->total_overtime = round($this->calculateTotalOvertime($employee, $month) / 60) * $company_configuration_setting->amount_per_overtime;
+        $employee->total_payroll = $employee->total_salary + $employee->total_reimbursement + $employee->total_task + $employee->total_overtime;
 
         return $employee;
     }
@@ -152,10 +166,12 @@ class PayrollRepository implements PayrollInterface
      */
     private function calculateTotalReimbursement($employee, $month)
     {
-        return $employee->request_reimbursements->filter(function ($reimbursement) use ($month) {
-            $date = Carbon::parse($reimbursement->date);
-            return $date->month == $month && $reimbursement->status == 1;
-        })->sum('nominal');
+        return $employee->request_reimbursements
+            ->filter(function ($reimbursement) use ($month) {
+                $date = Carbon::parse($reimbursement->date);
+                return $date->month == $month && $reimbursement->status == 1;
+            })
+            ->sum('nominal');
     }
 
     /**
@@ -167,23 +183,84 @@ class PayrollRepository implements PayrollInterface
      */
     private function calculateTotalTask($employee, $month)
     {
-        return $employee->tasks->filter(function ($task) use ($month) {
-            $created_at = Carbon::parse($task->created_at);
-            return $created_at->month == $month && $task->status == 1;
-        })->sum('total_price');
+        return $employee->tasks
+            ->filter(function ($task) use ($month) {
+                $created_at = Carbon::parse($task->created_at);
+                return $created_at->month == $month && $task->status == 1;
+            })
+            ->sum('total_price');
     }
 
     private function calculateTotalOvertime($employee, $month)
     {
-        return $employee->overtimes->filter(function ($overtime) use ($month) {
-            $start_at = Carbon::parse($overtime->start_at);
-            return $start_at->month == $month && $overtime->status == 'approved';
-        })->sum('duration');
+        return $employee->overtimes
+            ->filter(function ($overtime) use ($month) {
+                $start_at = Carbon::parse($overtime->start_at);
+                return $start_at->month == $month && $overtime->status == 'approved';
+            })
+            ->sum('duration');
     }
 
     public function getById($id)
     {
-        return $this->payroll->with('user')->find($id);
+        $company_configuration_setting = $this->company_configuration_setting->first();
+        $toleranceLate = $company_configuration_setting->tolerance_late_time_in_minutes;
+        $lateCount = 0;
+        $amountLate = $company_configuration_setting->amount_per_late;
+
+        $employee = $this->employee
+            ->where('id', $id)
+            ->with(['tasks', 'request_reimbursements', 'position', 'overtimes'])
+            ->first();
+
+        if (!$employee) {
+            return null; // or throw an exception
+        }
+
+        $month = Carbon::now()->month;
+        if (isset(request()->date)) {
+            $month = Carbon::parse(request()->date)->month;
+        }
+
+        $attendances = $this->attendance
+            ->where('user_id', $employee->id)
+            ->whereMonth('entry_at', $month)
+            ->get();
+        $overtimes = $this->overtimes
+            ->where('user_id', $employee->id)
+            ->whereMonth('start_at', $month)
+            ->get();
+
+        // Filter attendance that is up to 30 minutes late from the start time.
+        $attendances->each(function ($attendance) use ($toleranceLate, &$lateCount) {
+            $entryTime = date('H:i:s', strtotime($attendance->entry_at));
+            $startTime = date('H:i:s', strtotime($attendance->attendanceTimeConfig->start_time));
+            $lateTime = date('H:i:s', strtotime($attendance->attendanceTimeConfig->start_time . '+' . $toleranceLate . 'minutes'));
+
+            $lateCount += $entryTime > $lateTime ? 1 : 0;
+        });
+
+        $employee->total_late = $lateCount;
+        $employee->total_amount_late = $lateCount * $amountLate;
+        $employee->total_permit_leave = $employee->permit_leaves
+            ->filter(function ($permitLeave) use ($month) {
+                $date = Carbon::parse($permitLeave->start_date);
+                return $date->month == $month && $permitLeave->status == 'approved';
+            })
+            ->sum('total_day');
+        $employee->total_absent = date('t', strtotime(request()->date)) - $attendances->count();
+        $employee->attendance = $attendances;
+        $total_attendance = $attendances->count();
+        $employee->overtimes = $overtimes;
+        $employee->salary = $employee->salary;
+        $employee->total_salary = $company_configuration_setting->amount_per_day * $total_attendance - $lateCount * $amountLate;
+        $employee->total_attendance = $total_attendance;
+        $employee->total_reimbursement = $this->calculateTotalReimbursement($employee, $month);
+        $employee->total_task = $this->calculateTotalTask($employee, $month);
+        $employee->total_overtime = round($this->calculateTotalOvertime($employee, $month) / 60) * $company_configuration_setting->amount_per_overtime;
+        $employee->total_payroll = $employee->total_salary + $employee->total_reimbursement + $employee->total_task + $employee->total_overtime;
+
+        return $employee;
     }
 
     public function store($data)

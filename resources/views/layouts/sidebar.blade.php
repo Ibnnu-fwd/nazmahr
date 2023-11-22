@@ -218,7 +218,7 @@
             <ul class="space-y-2 font-medium text-sm">
                 <li>
                     <a href="{{ route('user.dashboard.index') }}"
-                        class="flex items-center p-2 text-gray-900 rounded-lg  group">
+                        class="flex items-center p-2 text-gray-900 rounded-lg group {{ request()->routeIs('user.dashboard.*') ? 'bg-gray-100' : '' }}">
                         <img src="{{ asset('assets/sidebar/dashboard.svg') }}"
                             class="w-5 h-5 text-gray-500 transition duration-75" alt="">
                         <span class="ml-3">Dashboard</span>
@@ -238,14 +238,15 @@
                                 stroke-width="1" d="m1 1 4 4 4-4" />
                         </svg>
                     </button>
-                    <ul id="master-absensi" class="hidden py-2 space-y-2">
+                    <ul id="master-absensi"
+                        class="py-2 space-y-2 {{ request()->routeIs('user.attendance.*') || request()->routeIs('user.overtime.*') ? '' : 'hidden' }}">
                         <li>
                             <a href="{{ route('user.attendance.index') }}"
-                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-10 group hover:bg-gray-100">Presensi</a>
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-10 group {{ request()->routeIs('user.attendance.*') ? 'bg-gray-100' : '' }} hover:bg-gray-100">Presensi</a>
                         </li>
                         <li>
                             <a href="{{ route('user.overtime.index') }}"
-                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-10 group hover:bg-gray-100">Lembur</a>
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-10 group {{ request()->routeIs('user.overtime.*') ? 'bg-gray-100' : '' }} hover:bg-gray-100">Lembur</a>
                         </li>
                     </ul>
                 </li>
@@ -262,10 +263,11 @@
                                 stroke-width="1" d="m1 1 4 4 4-4" />
                         </svg>
                     </button>
-                    <ul id="master-task" class="hidden py-2 space-y-2">
+                    <ul id="master-task"
+                        class="py-2 space-y-2 {{ request()->routeIs('user.task.*') ? '' : 'hidden' }}">
                         <li>
                             <a href="{{ route('user.task.index') }}"
-                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-10 group hover:bg-gray-100">Daftar</a>
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-10 group {{ request()->routeIs('user.task.*') ? 'bg-gray-100' : '' }} hover:bg-gray-100">Daftar</a>
                         </li>
                     </ul>
                 </li>
@@ -282,31 +284,50 @@
                                 stroke-width="1" d="m1 1 4 4 4-4" />
                         </svg>
                     </button>
-                    <ul id="master-request" class="hidden py-2 space-y-2">
+                    <ul id="master-request"
+                        class="py-2 space-y-2 {{ request()->routeIs('user.request-attendance.*') || request()->routeIs('user.request-reimbursement.*') || request()->routeIs('user.permit-leave.*') ? '' : 'hidden' }}">
                         <li>
                             <a href="{{ route('user.request-attendance.index') }}"
-                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-10 group hover:bg-gray-100">Absensi</a>
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-10 group {{ request()->routeIs('user.request-attendance.*') ? 'bg-gray-100' : '' }} hover:bg-gray-100">Absensi</a>
                         </li>
                         <li>
                             <a href="{{ route('user.request-reimbursement.index') }}"
-                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-10 group hover:bg-gray-100">Reimbursement</a>
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-10 group {{ request()->routeIs('user.request-reimbursement.*') ? 'bg-gray-100' : '' }} hover:bg-gray-100">Reimbursement</a>
                         </li>
                         <li>
                             <a href="{{ route('user.permit-leave.index') }}"
-                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-10 group hover:bg-gray-100">Izin/Cuti</a>
+                                class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-10 group {{ request()->routeIs('user.permit-leave.*') ? 'bg-gray-100' : '' }} hover:bg-gray-100">Izin/Cuti</a>
                         </li>
                     </ul>
                 </li>
                 <li>
-                    <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg  group">
-                        <span class="">Payroll</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('user.profile.index') }}"
-                        class="flex items-center p-2 text-gray-900 rounded-lg  group {{ request()->routeIs('admin.profile.*') ? 'bg-gray-100' : '' }}">
-                        <span class="">Profil</span>
-                    </a>
+                    <button type="button"
+                        class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100"
+                        aria-controls="master-setting" data-collapse-toggle="master-setting">
+                        <img src="{{ asset('assets/sidebar/master.svg') }}"
+                            class="w-5 h-5 text-gray-500 transition duration-75" alt="">
+                        <span class="flex-1 ml-3 text-left whitespace-nowrap">Master Pengaturan</span>
+                        <svg class="w-2 h-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 10 6">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="1" d="m1 1 4 4 4-4" />
+                        </svg>
+                    </button>
+                    <ul id="master-setting"
+                        class="py-2 space-y-2 {{ request()->routeIs('user.payroll.*') || request()->routeIs('user.profile.*') ? '' : 'hidden' }}">
+                        <li>
+                            <a href="{{ route('user.payroll.index') }}"
+                                class="flex items-center p-2 text-gray-900 rounded-lg pl-10 group {{ request()->routeIs('user.payroll.*') ? 'bg-gray-100' : '' }} hover:bg-gray-100">
+                                <span class="">Payroll</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('user.profile.index') }}"
+                                class="flex items-center p-2 text-gray-900 rounded-lg pl-10 group {{ request()->routeIs('user.profile.*') ? 'bg-gray-100' : '' }} hover:bg-gray-100">
+                                <span class="">Profil</span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}">

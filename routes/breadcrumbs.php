@@ -465,6 +465,19 @@ Breadcrumbs::for('admin.payroll.monthly-recap', function (BreadcrumbTrail $trail
     $trail->push('Rekap Bulanan', route('admin.payroll.monthly-recap', [$data[1]['id'], $data[0]]));
 });
 
+// User Payroll
+Breadcrumbs::for('user.payroll', function (BreadcrumbTrail $trail) {
+    $trail->parent('user.dashboard');
+    $trail->push('Payroll', route('user.payroll.index'));
+});
+
+// User Payroll > Monthly Recap
+Breadcrumbs::for('user.payroll.monthly-recap', function (BreadcrumbTrail $trail, $data) {
+    $trail->parent('user.payroll');
+    $trail->push($data[1]['name'] . ' - ' . $data[0]);
+    $trail->push('Rekap Bulanan', route('user.payroll.monthly-recap', [$data[1]['id'], $data[0]]));
+});
+
 // Company Configuration Setting
 Breadcrumbs::for('admin.company-configuration-setting', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
